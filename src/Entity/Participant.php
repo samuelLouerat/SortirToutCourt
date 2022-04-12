@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ParticipantRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -47,6 +49,22 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 50)]
     #[Assert\Regex(pattern: "^\w+$")]
     private $pseudo;
+
+    #[ORM\OneToMany(mappedBy: 'organisateur', targetEntity: Sortie::class)]
+    private $SortieOrganise;
+
+    #[ORM\ManyToMany(targetEntity: Sortie::class, inversedBy: 'participants')]
+    private $estInscrit;
+
+    #[ORM\ManyToOne(targetEntity: Campus::class, inversedBy: 'participants')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $campus;
+
+    public function __construct()
+    {
+        $this->SortieOrganise = new ArrayCollection();
+        $this->estInscrit = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -189,4 +207,71 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Sortie>
+     */
+    public function getSortieOrganise(): Collection
+    {
+        return $this->SortieOrganise;
+    }
+
+    public function addSortieOrganise(Sortie $sortieOrganise): self
+    {
+        if (!$this->SortieOrganise->contains($sortieOrganise)) {
+            $this->SortieOrganise[] = $sortieOrganise;
+            $sortieOrganise->setOrganisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSortieOrganise(Sortie $sortieOrganise): self
+    {
+        if ($this->SortieOrganise->removeElement($sortieOrganise)) {
+            // set the owning side to null (unless already changed)
+            if ($sortieOrganise->getOrganisateur() === $this) {
+                $sortieOrganise->setOrganisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Sortie>
+     */
+    public function getEstInscrit(): Collection
+    {
+        return $this->estInscrit;
+    }
+
+    public function addEstInscrit(Sortie $estInscrit): self
+    {
+        if (!$this->estInscrit->contains($estInscrit)) {
+            $this->estInscrit[] = $estInscrit;
+        }
+
+        return $this;
+    }
+
+    public function removeEstInscrit(Sortie $estInscrit): self
+    {
+        $this->estInscrit->removeElement($estInscrit);
+
+        return $this;
+    }
+
+    public function getCampus(): ?Campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?Campus $campus): self
+    {
+        $this->campus = $campus;
+
+        return $this;
+    }
+
 }
