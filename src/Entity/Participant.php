@@ -48,7 +48,9 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $actif;
 
-    #[ORM\Column(type: 'string', length: 50)]
+
+    #[ORM\Column(type: 'string', length: 50, unique: true)]
+
     #[Assert\Regex(pattern: "#^\w+$#")]
     private $pseudo;
 
