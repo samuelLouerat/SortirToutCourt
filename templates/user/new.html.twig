@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Create new Participant</h1>
 
-    {{ include('participant/_form.html.twig') }}
+    {{ include('user/_form.html.twig') }}
 
-    <a href="{{ path('app_participant_index') }}">back to list</a>
+    <a href="{{ path('user_list') }}">back to list</a>
 {% endblock %}

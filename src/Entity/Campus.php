@@ -16,18 +16,18 @@ class Campus
     private $id;
 
     #[ORM\Column(type: 'string', length: 30)]
-    private $nom;
+    private $name;
 
-    #[ORM\OneToMany(mappedBy: 'siteOrganisateur', targetEntity: Sortie::class)]
-    private $sorties;
+    #[ORM\OneToMany(mappedBy: 'campusSite', targetEntity: Event::class)]
+    private $events;
 
-    #[ORM\OneToMany(mappedBy: 'campus', targetEntity: Participant::class)]
-    private $participants;
+    #[ORM\OneToMany(mappedBy: 'campus', targetEntity: User::class)]
+    private $users;
 
     public function __construct()
     {
-        $this->sorties = new ArrayCollection();
-        $this->participants = new ArrayCollection();
+        $this->events = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -35,42 +35,42 @@ class Campus
         return $this->id;
     }
 
-    public function getNom(): ?string
+    public function getName(): ?string
     {
-        return $this->nom;
+        return $this->name;
     }
 
-    public function setNom(string $nom): self
+    public function setName(string $name): self
     {
-        $this->nom = $nom;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, Sortie>
+     * @return Collection<int, Event>
      */
-    public function getSorties(): Collection
+    public function getEvents(): Collection
     {
-        return $this->sorties;
+        return $this->events;
     }
 
-    public function addSorty(Sortie $sorty): self
+    public function addEvents(Event $events): self
     {
-        if (!$this->sorties->contains($sorty)) {
-            $this->sorties[] = $sorty;
-            $sorty->setSiteOrganisateur($this);
+        if (!$this->events->contains($events)) {
+            $this->events[] = $events;
+            $events->setCampusSite($this);
         }
 
         return $this;
     }
 
-    public function removeSorty(Sortie $sorty): self
+    public function removeEvents(Event $events): self
     {
-        if ($this->sorties->removeElement($sorty)) {
+        if ($this->events->removeElement($events)) {
             // set the owning side to null (unless already changed)
-            if ($sorty->getSiteOrganisateur() === $this) {
-                $sorty->setSiteOrganisateur(null);
+            if ($events->getCampusSite() === $this) {
+                $events->setCampusSite(null);
             }
         }
 
@@ -78,29 +78,29 @@ class Campus
     }
 
     /**
-     * @return Collection<int, Participant>
+     * @return Collection<int, User>
      */
-    public function getParticipants(): Collection
+    public function getUsers(): Collection
     {
-        return $this->participants;
+        return $this->users;
     }
 
-    public function addParticipant(Participant $participant): self
+    public function addUser(User $user): self
     {
-        if (!$this->participants->contains($participant)) {
-            $this->participants[] = $participant;
-            $participant->setCampus($this);
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->setCampus($this);
         }
 
         return $this;
     }
 
-    public function removeParticipant(Participant $participant): self
+    public function removeUser(User $user): self
     {
-        if ($this->participants->removeElement($participant)) {
+        if ($this->users->removeElement($user)) {
             // set the owning side to null (unless already changed)
-            if ($participant->getCampus() === $this) {
-                $participant->setCampus(null);
+            if ($user->getCampus() === $this) {
+                $user->setCampus(null);
             }
         }
 

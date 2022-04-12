@@ -23,18 +23,18 @@
             </tr>
         </thead>
         <tbody>
-        {% for sortie in sorties %}
+        {% for event in events %}
             <tr>
-                <td>{{ sortie.id }}</td>
-                <td>{{ sortie.nom }}</td>
-                <td>{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ sortie.duree ? sortie.duree.format('%y year(s), %m month(s), %d day(s)') : '' }}</td>
-                <td>{{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ sortie.nbInscriptionMax }}</td>
-                <td>{{ sortie.infosSortie }}</td>
+                <td>{{ event.id }}</td>
+                <td>{{ event.name }}</td>
+                <td>{{ event.startTime ? event.startTime|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ event.duration ? event.duration.format('%y year(s), %m month(s), %d day(s)') : '' }}</td>
+                <td>{{ event.registrationTimeLimit ? event.registrationTimeLimit|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ event.registrationMax }}</td>
+                <td>{{ event.eventInfo }}</td>
                 <td>
-                    <a href="{{ path('app_sortie_show', {'id': sortie.id}) }}">show</a>
-                    <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}">edit</a>
+                    <a href="{{ path('event_show', {'id': event.id}) }}">show</a>
+                    <a href="{{ path('event_update', {'id': event.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -45,5 +45,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_sortie_new') }}">Create new</a>
+    <a href="{{ path('event_new') }}">Create new</a>
 {% endblock %}

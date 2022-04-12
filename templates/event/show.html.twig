@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sortie{% endblock %}
+
+{% block body %}
+    <h1>Sortie</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ event.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ event.name }}</td>
+            </tr>
+            <tr>
+                <th>DateHeureDebut</th>
+                <td>{{ event.startTime ? event.startTime|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Duree</th>
+                <td>{{ event.duration ? event.duration.format('%y year(s), %m month(s), %d day(s)') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateLimiteInscription</th>
+                <td>{{ event.registrationTimeLimit ? event.registrationTimeLimit|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>NbInscriptionMax</th>
+                <td>{{ event.registrationMax }}</td>
+            </tr>
+            <tr>
+                <th>InfosSortie</th>
+                <td>{{ event.eventInfo }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('event_list') }}">Retour à la liste</a>
+
+    <a href="{{ path('event_update', {'id': event.id}) }}">Mettre à jour</a>
+
+    {{ include('event/_delete_form.html.twig') }}
+{% endblock %}
