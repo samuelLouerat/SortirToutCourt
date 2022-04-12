@@ -16,7 +16,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     #[Route('/liste', name: 'sortie_liste', methods: ['GET'])]
+
     public function index(Request $request, SortieRepository $sortieRepository, EntityManagerInterface $em): Response
+
+
     {
         $sorties = $sortieRepository->findAll();
 

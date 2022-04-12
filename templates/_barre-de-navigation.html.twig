@@ -1,0 +1,11 @@
+    <a href="{{ path('') }}">Mon profil</a>
+    {%  if not app.user %}
+    <a href="{{ path('login') }}">Se connecter</a>
+    {%  endif %}
+    {%  if app.user %}
+    <a href= "{{ path('sortie_liste') }}">Accueil</a>
+    <a href= "{{ path('logout') }}">Se deconnecter</a>
+    {%  endif %}
+
+
+

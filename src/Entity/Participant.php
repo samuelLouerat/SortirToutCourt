@@ -6,11 +6,13 @@ use App\Repository\ParticipantRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ParticipantRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -29,15 +31,15 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     #[ORM\Column(type: 'string', length: 30)]
-    #[Assert\Regex(pattern: "^[A-z]+$")]
+    #[Assert\Regex(pattern: "#^[A-z]+$#")]
     private $nom;
 
     #[ORM\Column(type: 'string', length: 30)]
-    #[Assert\Regex(pattern: "^[A-z]+$")]
+    #[Assert\Regex(pattern: "#^[A-z]+$#")]
     private $prenom;
 
     #[ORM\Column(type: 'string', length: 15)]
-    #[Assert\Regex(pattern: "^0[0-9]{9}+$")]
+    #[Assert\Regex(pattern: "#^0[0-9]{9}+$#")]
     private $telephone;
 
     #[ORM\Column(type: 'boolean')]
@@ -46,8 +48,10 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $actif;
 
-    #[ORM\Column(type: 'string', length: 50)]
-    #[Assert\Regex(pattern: "^\w+$")]
+
+    #[ORM\Column(type: 'string', length: 50, unique: true)]
+
+    #[Assert\Regex(pattern: "#^\w+$#")]
     private $pseudo;
 
     #[ORM\OneToMany(mappedBy: 'organisateur', targetEntity: Sortie::class)]
