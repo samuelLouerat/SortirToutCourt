@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Participant;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -14,23 +14,23 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @method Participant|null find($id, $lockMode = null, $lockVersion = null)
- * @method Participant|null findOneBy(array $criteria, array $orderBy = null)
- * @method Participant[]    findAll()
- * @method Participant[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method User|null find($id, $lockMode = null, $lockVersion = null)
+ * @method User|null findOneBy(array $criteria, array $orderBy = null)
+ * @method User[]    findAll()
+ * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ParticipantRepository extends ServiceEntityRepository implements UserLoaderInterface,PasswordUpgraderInterface
+class UserRepository extends ServiceEntityRepository implements UserLoaderInterface,PasswordUpgraderInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Participant::class);
+        parent::__construct($registry, User::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Participant $entity, bool $flush = true): void
+    public function add(User $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -42,7 +42,7 @@ class ParticipantRepository extends ServiceEntityRepository implements UserLoade
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Participant $entity, bool $flush = true): void
+    public function remove(User $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -55,7 +55,7 @@ class ParticipantRepository extends ServiceEntityRepository implements UserLoade
      */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
-        if (!$user instanceof Participant) {
+        if (!$user instanceof User) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
         }
 

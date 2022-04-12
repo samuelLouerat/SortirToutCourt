@@ -2,30 +2,30 @@
 
 namespace App\Repository;
 
-use App\Entity\Sortie;
+use App\Entity\Event;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Sortie|null find($id, $lockMode = null, $lockVersion = null)
- * @method Sortie|null findOneBy(array $criteria, array $orderBy = null)
- * @method Sortie[]    findAll()
- * @method Sortie[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Event|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Event|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Event[]    findAll()
+ * @method Event[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class SortieRepository extends ServiceEntityRepository
+class EventRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Sortie::class);
+        parent::__construct($registry, Event::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Sortie $entity, bool $flush = true): void
+    public function add(Event $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -37,7 +37,7 @@ class SortieRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Sortie $entity, bool $flush = true): void
+    public function remove(Event $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -46,7 +46,7 @@ class SortieRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Sortie[] Returns an array of Sortie objects
+    //  * @return Event[] Returns an array of Event objects
     //  */
     /*
     public function findByExampleField($value)
@@ -63,7 +63,7 @@ class SortieRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Sortie
+    public function findOneBySomeField($value): ?Event
     {
         return $this->createQueryBuilder('s')
             ->andWhere('s.exampleField = :val')

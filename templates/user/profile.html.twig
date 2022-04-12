@@ -9,50 +9,50 @@
         <tbody>
             <tr>
                 <th>Id</th>
-                <td>{{ participant.id }}</td>
+                <td>{{ user.id }}</td>
             </tr>
             <tr>
                 <th>Email</th>
-                <td>{{ participant.email }}</td>
+                <td>{{ user.email }}</td>
             </tr>
             <tr>
                 <th>Roles</th>
-                <td>{{ participant.roles ? participant.roles|json_encode : '' }}</td>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
             </tr>
             <tr>
                 <th>Password</th>
-                <td>{{ participant.password }}</td>
+                <td>{{ user.password }}</td>
             </tr>
             <tr>
                 <th>Nom</th>
-                <td>{{ participant.nom }}</td>
+                <td>{{ user.lastName }}</td>
             </tr>
             <tr>
                 <th>Prenom</th>
-                <td>{{ participant.prenom }}</td>
+                <td>{{ user.firstName }}</td>
             </tr>
             <tr>
                 <th>Telephone</th>
-                <td>{{ participant.telephone }}</td>
+                <td>{{ user.phone }}</td>
             </tr>
             <tr>
                 <th>Administrateur</th>
-                <td>{{ participant.administrateur ? 'Yes' : 'No' }}</td>
+                <td>{{ user.admin ? 'Yes' : 'No' }}</td>
             </tr>
             <tr>
                 <th>Actif</th>
-                <td>{{ participant.actif ? 'Yes' : 'No' }}</td>
+                <td>{{ user.active ? 'Yes' : 'No' }}</td>
             </tr>
             <tr>
                 <th>Pseudo</th>
-                <td>{{ participant.pseudo }}</td>
+                <td>{{ user.pseudo }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_participant_index') }}">back to list</a>
+    <a href="{{ path('user_list') }}">back to list</a>
 
-    <a href="{{ path('app_participant_edit', {'id': participant.id}) }}">edit</a>
+    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
 
-    {{ include('participant/_delete_form.html.twig') }}
+    {{ include('user/_delete_form.html.twig') }}
 {% endblock %}
