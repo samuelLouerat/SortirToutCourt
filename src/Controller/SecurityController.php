@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -12,8 +14,9 @@ class SecurityController extends AbstractController
     #[Route(path: '/', name: 'login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
+        $user = new User();
          if ($this->getUser()) {
-             return $this->redirectToRoute('event_list');
+             return $this->redirectToRoute('event_list', ["id"=>$user->getId()]);
          }
 
         // get the login error if there is one

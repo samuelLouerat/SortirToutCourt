@@ -23,7 +23,7 @@ class EventType extends AbstractType
             ->add('eventInfo')
             ->add('organizer', EntityType::class, ['class'=>User::class, 'choice_label'=>'pseudo'])
             ->add('users',EntityType::class, ['class'=>User::class, 'choice_label'=>'pseudo'])
-            ->add('campusSite',EntityType::class, ['class'=>Campus::class, 'choice_label'=>'nom'])
+            ->add('campusSite',EntityType::class, ['class'=>Campus::class, 'choice_label'=>'name'])
         ;
     }
 
