@@ -12,10 +12,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/sortie')]
+#[Route('/event')]
 class SortieController extends AbstractController
 {
-    #[Route('/liste', name: 'sortie_liste', methods: ['GET'])]
+    #[Route('/list', name: 'event_list', methods: ['GET'])]
 
     public function index(Request $request, SortieRepository $sortieRepository, EntityManagerInterface $em): Response
 
@@ -30,7 +30,7 @@ class SortieController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($sortie);
             $em->flush();
-            return $this->redirectToRoute('sortie_liste', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('event_list', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('sortie/index.html.twig',
@@ -43,7 +43,7 @@ class SortieController extends AbstractController
 
 
 
-    #[Route('/new', name: 'app_sortie_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'event_new', methods: ['GET', 'POST'])]
     public function new(Request $request, SortieRepository $sortieRepository): Response
     {
         $sortie = new Sortie();
@@ -61,7 +61,7 @@ class SortieController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_sortie_show', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'event_show', methods: ['GET'])]
     public function show(Sortie $sortie): Response
     {
         return $this->render('sortie/show.html.twig', [
@@ -69,7 +69,7 @@ class SortieController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_sortie_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/update', name: 'event_update', methods: ['GET', 'POST'])]
     public function edit(Request $request, Sortie $sortie, SortieRepository $sortieRepository): Response
     {
         $form = $this->createForm(SortieType::class, $sortie);
@@ -86,7 +86,7 @@ class SortieController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_sortie_delete', methods: ['POST'])]
+    #[Route('/{id}/cancel', name: 'event_cancel', methods: ['POST'])]
     public function delete(Request $request, Sortie $sortie, SortieRepository $sortieRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$sortie->getId(), $request->request->get('_token'))) {
