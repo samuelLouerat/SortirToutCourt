@@ -15,7 +15,9 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/participant')]
 class ParticipantController extends AbstractController
 {
-    #[Route('/', name: 'app_participant_index', methods: ['GET'])]
+
+
+    #[Route('/', name: 'participant_index', methods: ['GET'])]
     public function index(ParticipantRepository $participantRepository): Response
     {
         return $this->render('participant/index.html.twig', [
@@ -23,7 +25,9 @@ class ParticipantController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_participant_new', methods: ['GET', 'POST'])]
+
+    #[Route('/new', name: 'participant_new', methods: ['GET', 'POST'])]
+
     public function new(Request $request, ParticipantRepository $participantRepository): Response
     {
         $participant = new Participant();
@@ -32,7 +36,9 @@ class ParticipantController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $participantRepository->add($participant);
-            return $this->redirectToRoute('app_participant_index', [], Response::HTTP_SEE_OTHER);
+
+            return $this->redirectToRoute('participant_index', [], Response::HTTP_SEE_OTHER);
+
         }
 
         return $this->renderForm('participant/new.html.twig', [
@@ -49,7 +55,9 @@ class ParticipantController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_participant_edit', methods: ['GET', 'POST'])]
+
+    #[Route('/{id}/edit', name: 'app_participant_edit', methods: ['GET', 'POST'])]
+
     public function edit(Request $request, Participant $participant, ParticipantRepository $participantRepository): Response
     {
         $form = $this->createForm(ParticipantType::class, $participant);
@@ -66,7 +74,9 @@ class ParticipantController extends AbstractController
         ]);
     }
 
+
     #[Route('/delete/{id}', name: 'app_participant_delete', methods: ['POST'])]
+
     public function delete(Request $request, Participant $participant, ParticipantRepository $participantRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$participant->getId(), $request->request->get('_token'))) {
@@ -75,6 +85,7 @@ class ParticipantController extends AbstractController
 
         return $this->redirectToRoute('app_participant_index', [], Response::HTTP_SEE_OTHER);
     }
+
 
     #[Route('/myprofil/{id}', name: 'participant_myprofil')]
     public function myProfil(
@@ -108,6 +119,7 @@ class ParticipantController extends AbstractController
             ['participantForm' => $participantForm->createView()]
         );
     }
+
 
 
 
