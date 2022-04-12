@@ -2,32 +2,32 @@
 
 namespace App\Form;
 
-use App\Entity\Sortie;
+use App\Entity\Event;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FiltrerSortieType extends AbstractType
+class FiltrerEventType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom')
-            ->add('dateHeureDebut')
-            ->add('duree')
-            ->add('dateLimiteInscription')
-            ->add('nbInscriptionMax')
-            ->add('infosSortie')
-//            ->add('organisateur')
-//            ->add('participants')
-//            ->add('siteOrganisateur')
+            ->add('name')
+            ->add('startTime')
+            ->add('duration')
+            ->add('registrationTimeLimit')
+            ->add('registrationMax')
+            ->add('eventInfo')
+//            ->add('organizer')
+//            ->add('users')
+//            ->add('campusSite')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Sortie::class,
+            'data_class' => Event::class,
         ]);
     }
 }

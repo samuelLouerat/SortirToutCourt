@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\ParticipantRepository;
+use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -11,9 +11,9 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: ParticipantRepository::class)]
+#[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-class Participant implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -32,21 +32,21 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string', length: 30)]
     #[Assert\Regex(pattern: "#^[A-z]+$#")]
-    private $nom;
+    private $lastName;
 
     #[ORM\Column(type: 'string', length: 30)]
     #[Assert\Regex(pattern: "#^[A-z]+$#")]
-    private $prenom;
+    private $firstName;
 
     #[ORM\Column(type: 'string', length: 15)]
     #[Assert\Regex(pattern: "#^0[0-9]{9}+$#")]
-    private $telephone;
+    private $phone;
 
     #[ORM\Column(type: 'boolean')]
-    private $administrateur;
+    private $admin;
 
     #[ORM\Column(type: 'boolean')]
-    private $actif;
+    private $active;
 
 
     #[ORM\Column(type: 'string', length: 50, unique: true)]
@@ -54,20 +54,20 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Regex(pattern: "#^\w+$#")]
     private $pseudo;
 
-    #[ORM\OneToMany(mappedBy: 'organisateur', targetEntity: Sortie::class)]
-    private $SortieOrganise;
+    #[ORM\OneToMany(mappedBy: 'organizer', targetEntity: Event::class)]
+    private $OrganizedEvent;
 
-    #[ORM\ManyToMany(targetEntity: Sortie::class, inversedBy: 'participants')]
-    private $estInscrit;
+    #[ORM\ManyToMany(targetEntity: Event::class, inversedBy: 'users')]
+    private $isRegistered;
 
-    #[ORM\ManyToOne(targetEntity: Campus::class, inversedBy: 'participants')]
+    #[ORM\ManyToOne(targetEntity: Campus::class, inversedBy: 'users')]
     #[ORM\JoinColumn(nullable: false)]
     private $campus;
 
     public function __construct()
     {
-        $this->SortieOrganise = new ArrayCollection();
-        $this->estInscrit = new ArrayCollection();
+        $this->OrganizedEvent = new ArrayCollection();
+        $this->isRegistered = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -140,62 +140,62 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getNom(): ?string
+    public function getLastName(): ?string
     {
-        return $this->nom;
+        return $this->lastName;
     }
 
-    public function setNom(string $nom): self
+    public function setLastName(string $lastName): self
     {
-        $this->nom = $nom;
+        $this->lastName = $lastName;
 
         return $this;
     }
 
-    public function getPrenom(): ?string
+    public function getFirstName(): ?string
     {
-        return $this->prenom;
+        return $this->firstName;
     }
 
-    public function setPrenom(string $prenom): self
+    public function setFirstName(string $firstName): self
     {
-        $this->prenom = $prenom;
+        $this->firstName = $firstName;
 
         return $this;
     }
 
-    public function getTelephone(): ?string
+    public function getPhone(): ?string
     {
-        return $this->telephone;
+        return $this->phone;
     }
 
-    public function setTelephone(string $telephone): self
+    public function setPhone(string $phone): self
     {
-        $this->telephone = $telephone;
+        $this->phone = $phone;
 
         return $this;
     }
 
-    public function getAdministrateur(): ?bool
+    public function getAdmin(): ?bool
     {
-        return $this->administrateur;
+        return $this->admin;
     }
 
-    public function setAdministrateur($administrateur): self
+    public function setAdmin($admin): self
     {
-        $this->administrateur = $administrateur;
+        $this->admin = $admin;
 
         return $this;
     }
 
-    public function getActif(): ?bool
+    public function getActive(): ?bool
     {
-        return $this->actif;
+        return $this->active;
     }
 
-    public function setActif(bool $actif): self
+    public function setActive(bool $active): self
     {
-        $this->actif = $actif;
+        $this->active = $active;
 
         return $this;
     }
@@ -213,29 +213,29 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Sortie>
+     * @return Collection<int, Event>
      */
-    public function getSortieOrganise(): Collection
+    public function getOrganizedEvent(): Collection
     {
-        return $this->SortieOrganise;
+        return $this->OrganizedEvent;
     }
 
-    public function addSortieOrganise(Sortie $sortieOrganise): self
+    public function addOrganizedEvent(Event $organizedEvent): self
     {
-        if (!$this->SortieOrganise->contains($sortieOrganise)) {
-            $this->SortieOrganise[] = $sortieOrganise;
-            $sortieOrganise->setOrganisateur($this);
+        if (!$this->OrganizedEvent->contains($organizedEvent)) {
+            $this->OrganizedEvent[] = $organizedEvent;
+            $organizedEvent->setOrganizer($this);
         }
 
         return $this;
     }
 
-    public function removeSortieOrganise(Sortie $sortieOrganise): self
+    public function removeOrganizedEvent(Event $organizedEvent): self
     {
-        if ($this->SortieOrganise->removeElement($sortieOrganise)) {
+        if ($this->OrganizedEvent->removeElement($organizedEvent)) {
             // set the owning side to null (unless already changed)
-            if ($sortieOrganise->getOrganisateur() === $this) {
-                $sortieOrganise->setOrganisateur(null);
+            if ($organizedEvent->getOrganizer() === $this) {
+                $organizedEvent->setOrganizer(null);
             }
         }
 
@@ -243,25 +243,25 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Sortie>
+     * @return Collection<int, Event>
      */
-    public function getEstInscrit(): Collection
+    public function getIsRegistered(): Collection
     {
-        return $this->estInscrit;
+        return $this->isRegistered;
     }
 
-    public function addEstInscrit(Sortie $estInscrit): self
+    public function addIsRegistered(Event $isRegistered): self
     {
-        if (!$this->estInscrit->contains($estInscrit)) {
-            $this->estInscrit[] = $estInscrit;
+        if (!$this->isRegistered->contains($isRegistered)) {
+            $this->isRegistered[] = $isRegistered;
         }
 
         return $this;
     }
 
-    public function removeEstInscrit(Sortie $estInscrit): self
+    public function removeIsRegistered(Event $isRegistered): self
     {
-        $this->estInscrit->removeElement($estInscrit);
+        $this->isRegistered->removeElement($isRegistered);
 
         return $this;
     }
