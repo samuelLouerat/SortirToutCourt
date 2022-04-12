@@ -27,15 +27,15 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     #[ORM\Column(type: 'string', length: 30)]
-    #[Assert\Regex(pattern: "^[A-z]+$")]
+    #[Assert\Regex(pattern: "#^[A-z]+$#")]
     private $nom;
 
     #[ORM\Column(type: 'string', length: 30)]
-    #[Assert\Regex(pattern: "^[A-z]+$")]
+    #[Assert\Regex(pattern: "#^[A-z]+$#")]
     private $prenom;
 
     #[ORM\Column(type: 'string', length: 15)]
-    #[Assert\Regex(pattern: "^0[0-9]{9}+$")]
+    #[Assert\Regex(pattern: "#^0[0-9]{9}+$#")]
     private $telephone;
 
     #[ORM\Column(type: 'boolean')]
@@ -44,8 +44,8 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $actif;
 
-    #[ORM\Column(type: 'string', length: 50)]
-    #[Assert\Regex(pattern: "^\w+$")]
+    #[ORM\Column(type: 'string', length: 50, unique: true)]
+    #[Assert\Regex(pattern: "#^\w+$#")]
     private $pseudo;
 
     public function getId(): ?int
