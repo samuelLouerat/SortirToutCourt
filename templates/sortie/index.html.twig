@@ -1,9 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Sortie index{% endblock %}
+{% block title %}Liste des sorties{% endblock %}
 
 {% block body %}
-    <h1>Sortie index</h1>
+    <h1>Filtrer les sorties</h1>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
 
     <table class="table">
         <thead>
