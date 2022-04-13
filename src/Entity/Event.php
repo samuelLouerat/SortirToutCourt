@@ -44,6 +44,14 @@ class Event
     #[ORM\JoinColumn(nullable: false)]
     private $campusSite;
 
+    #[ORM\ManyToOne(targetEntity: Place::class, inversedBy: 'events')]
+    private $place;
+
+
+
+    #[ORM\ManyToOne(targetEntity: State::class, inversedBy: 'events')]
+    private $state;
+
     public function __construct()
     {
         $this->Users = new ArrayCollection();
@@ -174,6 +182,32 @@ class Event
     public function setCampusSite(?Campus $campusSite): self
     {
         $this->campusSite = $campusSite;
+
+        return $this;
+    }
+
+    public function getPlace(): ?Place
+    {
+        return $this->place;
+    }
+
+    public function setPlace(?Place $place): self
+    {
+        $this->place = $place;
+
+        return $this;
+    }
+
+
+
+    public function getState(): ?State
+    {
+        return $this->state;
+    }
+
+    public function setState(?State $state): self
+    {
+        $this->state = $state;
 
         return $this;
     }

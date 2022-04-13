@@ -17,13 +17,13 @@ class EventType extends AbstractType
         $builder
             ->add('name')
             ->add('startTime')
-            ->add('duration')
             ->add('registrationTimeLimit')
             ->add('registrationMax')
+            ->add('duration')
             ->add('eventInfo')
-            ->add('organizer', EntityType::class, ['class'=>User::class, 'choice_label'=>'pseudo'])
-            ->add('users',EntityType::class, ['class'=>User::class, 'choice_label'=>'pseudo'])
             ->add('campusSite',EntityType::class, ['class'=>Campus::class, 'choice_label'=>'name'])
+
+
         ;
     }
 
