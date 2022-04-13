@@ -1,7 +1,9 @@
-{% if not app.user %}
-    <a href="{{ path('login') }}">Se connecter</a>
-{% endif %}{% if app.user %}
-    <a href="{{ path('user_myprofile') }}">Mon profil</a>
-    <a href="{{ path('event_list') }}">Accueil</a>
-    <a href="{{ path('logout') }}">Se deconnecter</a>
-{% endif %}
+<nav>
+    {% if not app.user %}
+        <a href="{{ path('login') }}">Se connecter</a>
+    {% endif %}{% if app.user %}
+        <a href="{{ path('user_myprofile') }}">Mon profil</a>
+        <a href="{{ path('event_list') }}">Accueil</a>
+        <a href="{{ path('logout') }}">Se deconnecter</a>
+    {% endif %}
+</nav>

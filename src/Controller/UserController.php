@@ -6,7 +6,6 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\Id;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,7 +26,6 @@ class UserController extends AbstractController
 
 
     #[Route('/new', name: 'user_new', methods: ['GET', 'POST'])]
-
     public function new(Request $request, UserRepository $userRepository): Response
     {
         $user = new User();
@@ -47,7 +45,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'user_profile', methods: ['GET'])]
+    #[Route('/{id}', name: 'user_profile', requirements: ["id" => "\d+"], methods: ['GET'])]
     public function profile(User $user): Response
     {
         return $this->render('user/profile.html.twig', [
@@ -56,8 +54,7 @@ class UserController extends AbstractController
     }
 
 
-    #[Route('/{id}/edit', name: 'user_edit', methods: ['GET', 'POST'])]
-
+    #[Route('/{id}/edit', name: 'user_edit', requirements: ["id" => "\d+"], methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, UserRepository $userRepository): Response
     {
         $form = $this->createForm(UserType::class, $user);
@@ -75,11 +72,10 @@ class UserController extends AbstractController
     }
 
 
-    #[Route('/delete/{id}', name: 'user_delete', methods: ['POST'])]
-
+    #[Route('/delete/{id}', name: 'user_delete', requirements: ["id" => "\d+"], methods: ['POST'])]
     public function delete(Request $request, User $user, UserRepository $userRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $userRepository->remove($user);
         }
 
@@ -87,31 +83,34 @@ class UserController extends AbstractController
     }
 
 
-    #[Route('/myprofile/{id}', name: 'user_myprofile')]
+    #[Route('/myprofile', name: 'user_myprofile')]
     public function myProfile(
         EntityManagerInterface $em,
         Request                $request,
         UserRepository         $pr,
-        int                    $id
     ): Response
     {
-        $user = $pr->find($id);
+
+        $us= $this->getUser()->getUserIdentifier();
+        $user = $pr->findOneBy(['email' => $us]);
 
         $userForm = $this->createForm(UserType::class, $user);
 
         $userForm->handleRequest($request);
 
-        if(
+        if (
             $userForm->isSubmitted()
             && $userForm->isValid()
-        ){
+        ) {
             $em->persist($user);
             $em->flush();
             $this->addFlash(
                 'Modif ok',
                 'La mise à jour de votre profil est prise en compte.'
             );
-            return $this->redirectToRoute('/user/myprofile/{id}');
+            return $this->redirectToRoute(
+                '/user/myprofile'
+            );
         }
 
         return $this->render(
@@ -119,8 +118,4 @@ class UserController extends AbstractController
             ['userForm' => $userForm->createView()]
         );
     }
-
-
-
-
 }
