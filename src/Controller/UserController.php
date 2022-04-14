@@ -9,7 +9,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 #[Route('/user')]
 class UserController extends AbstractController
@@ -85,13 +87,14 @@ class UserController extends AbstractController
 
     #[Route('/myprofile', name: 'user_myprofile')]
     public function myProfile(
-        EntityManagerInterface $em,
-        Request                $request,
-        UserRepository         $pr,
+        EntityManagerInterface      $em,
+        Request                     $request,
+        UserRepository              $pr,
+        UserPasswordHasherInterface $userPasswordHasher
     ): Response
     {
 
-        $us= $this->getUser()->getUserIdentifier();
+        $us = $this->getUser()->getUserIdentifier();
         $user = $pr->findOneBy(['email' => $us]);
 
         $userForm = $this->createForm(UserType::class, $user);
@@ -102,6 +105,12 @@ class UserController extends AbstractController
             $userForm->isSubmitted()
             && $userForm->isValid()
         ) {
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $userForm->get('password')->getData()
+                ));
+
             $em->persist($user);
             $em->flush();
             $this->addFlash(
@@ -109,13 +118,13 @@ class UserController extends AbstractController
                 'La mise à jour de votre profil est prise en compte.'
             );
             return $this->redirectToRoute(
-                '/user/myprofile'
+                'user_myprofile'
             );
         }
 
         return $this->render(
-            'user/myProfile.html.twig',
-            ['userForm' => $userForm->createView()]
+            'user/myProfile.html.twig', ['userForm' => $userForm->createView()]
         );
+
     }
 }

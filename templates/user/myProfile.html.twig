@@ -3,10 +3,7 @@
 {% block title %}Mon profil{% endblock %}
 
 {% block body %}
-
-
     <h1>Mon profil</h1>
-
 
     <div class="form">
         {{ form_start(userForm) }}
@@ -15,9 +12,10 @@
             {{ form_widget(userForm) }}
         </div>
 
-        <button>Enregistrer</button>
+        <button type="submit">Enregistrer</button>
         <button>Annuler</button>
         {{ form_end(userForm) }}
     </div>
 
 {% endblock %}
+
