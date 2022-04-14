@@ -3,10 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Event;
-use App\Form\FiltrerEventType;
 use App\Form\EventType;
 use App\Repository\CampusRepository;
 use App\Repository\EventRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -86,6 +86,7 @@ class EventController extends AbstractController
     #[Route('/search', name: 'event_search', methods: ['POST'])]
     public function searchlist(
         EventRepository $eventRepository,
+        UserRepository $userRepository,
         CampusRepository $campusRepository,
         Request $request
     ): Response {
@@ -102,7 +103,10 @@ class EventController extends AbstractController
 
         }
 
-        $events = $eventRepository->search($campusSite, $keywords, $beginningDate, $endingDate, $organizer, $registered, $notRegistered, $pastEvents);
+        $userMail = $this->getUser()->getUserIdentifier();
+        $user = $userRepository->findOneBy(['email' => $userMail]);
+
+        $events = $eventRepository->search($campusSite, $keywords, $beginningDate, $endingDate, $organizer,$user, $registered, $notRegistered, $pastEvents);
         $campusList = $campusRepository->findAll();
         return $this->render('event/list.html.twig', compact("events", "campusList"));
     }
