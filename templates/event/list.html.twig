@@ -4,10 +4,37 @@
 
 {% block body %}
     <h1>Filtrer les sorties</h1>
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-    {{ form_end(form) }}
+
+    <form action="{{ '/event/search' }}" method="POST">
+        <div>
+            <label for="campus">Campus : </label>
+            <select name="campus" id="campus">
+                <option value="">Tous</option>
+                {% for campus in campusList %}
+                    <option value="{{ campus.id }}">{{ campus.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="keywords">Le nom de la sortie contient : </label>
+            <input name="keywords" id="keywords" type="search">
+        </div>
+        <div>
+            <label for="beginningDate">Entre le : </label>
+            <input name="beginningDate" id="beginningDate" type="datetime-local" onclick="activate()">
+
+            <label for="endingDate">et le</label>
+            <input name="endingDate" id="endingDate" type="datetime-local">
+        </div>
+        <div>
+            <input name="organizer" id="organizer" type="checkbox"><label for="organizer">Sortie dont je suis l'organisateur/trice</label>
+            <input name="registered" id="registered" type="checkbox"><label for="registered">Sortie auxquelles je suis inscrit/e</label>
+            <input name="notRegistered" id="notRegistered" type="checkbox"><label for="notRegistered">Sortie auxquelles je ne suis pas inscrit/e</label>
+            <input name="pastEvents" id="pastEvents" type="checkbox"><label for="pastEvents">Sortie passées</label>
+        </div>
+        <button value="submit">Rechercher</button>
+    </form>
+
 
     <table class="table">
         <thead>
@@ -46,4 +73,16 @@
     </table>
 
     <a href="{{ path('event_new') }}">Create new</a>
+
+    <script type="text/javascript">
+        function activate() {
+            document.getElementById('endingDate').disabled = false;
+        }
+        window.onload = function ()
+        {
+            document.getElementById('endingDate').disabled = true;
+        }
+    </script>
+
 {% endblock %}
+

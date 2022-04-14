@@ -7,6 +7,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
+use phpDocumentor\Reflection\PseudoTypes\LiteralString;
 
 /**
  * @method Event|null find($id, $lockMode = null, $lockVersion = null)
@@ -45,6 +47,38 @@ class EventRepository extends ServiceEntityRepository
         }
     }
 
+
+    public function search($campusSite, $keywords, $beginningDate, $endingDate, $organizer, $registered, $notRegistered, $pastEvents) {
+        $qb = $this->createQueryBuilder('search');
+        if ($campusSite != null) {
+            $qb->andWhere('search.campusSite = :val');
+            $qb->setParameter('val', $campusSite);
+        }
+
+        if ($keywords != null) {
+            $tabKW = explode(" ", $keywords);
+            foreach ($tabKW as $keyword) {
+                $qb->andWhere('LOWER(search.name) LIKE :word');
+                $qb->setParameter('word', '%'.strtolower($keyword).'%');
+            }
+        }
+
+        if ($beginningDate != null) {
+            $qb->andWhere('search.startTime BETWEEN :beginningDate AND :endingDate' )
+                ->setParameter('beginningDate', $beginningDate)
+                ->setParameter('endingDate', $endingDate);
+        }
+
+        if ($organizer != null) {
+//            $qb->andWhere('search.id = :idUser')
+//                ->setParameter('idUser', )
+        }
+
+
+        $req = $qb->getQuery();
+        $result = $req->getResult();
+        return $result;
+    }
     // /**
     //  * @return Event[] Returns an array of Event objects
     //  */
