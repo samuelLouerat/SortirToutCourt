@@ -2,32 +2,28 @@
 
 namespace App\Form;
 
-use App\Entity\Event;
+use App\Entity\Place;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FiltrerEventType extends AbstractType
+class PlaceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name')
-            ->add('startTime')
-            ->add('duration')
-            ->add('registrationTimeLimit')
-            ->add('registrationMax')
-            ->add('eventInfo')
-//            ->add('organizer')
-//            ->add('users')
-//            ->add('campusSite')
+            ->add('street')
+            ->add('latitude')
+            ->add('longitude')
+            ->add('town',TownType::class)
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Event::class,
+            'data_class' => Place::class,
         ]);
     }
 }

@@ -3,11 +3,48 @@
 {% block title %}Liste des sorties{% endblock %}
 
 {% block body %}
-    <h1>Filtrer les sorties</h1>
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-    {{ form_end(form) }}
+    <div class="column is-offset-9">
+        <p>Date du jour</p>
+        <p>Utilisateur connecté</p>
+    </div>
+    <h1 class="title is-3">Filtrer les sorties</h1>
+    <form class="box container" action="{{ '/event/search' }}" method="POST">
+        <div class="columns">
+            <div class="column is-half">
+                <div>
+                    <label for="campus">Campus : </label>
+                    <select name="campus" id="campus">
+                        <option value="">Tous</option>
+                        {% for campus in campusList %}
+                            <option value="{{ campus.id }}">{{ campus.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <label for="keywords">Le nom de la sortie contient : </label>
+                    <input name="keywords" id="keywords" type="search">
+                </div>
+                <div>
+                    <label for="beginningDate">Entre le : </label>
+                    <input name="beginningDate" id="beginningDate" type="datetime-local" onclick="activate()">
+
+                    <label for="endingDate">et le</label>
+                    <input name="endingDate" id="endingDate" type="datetime-local">
+                </div>
+            </div>
+            <div class="column is-narrow">
+                <input name="organizer" id="organizer" type="checkbox"><label for="organizer">Sortie dont je suis l'organisateur/trice</label><br>
+                <input name="registered" id="registered" type="checkbox"><label for="registered">Sortie auxquelles je suis inscrit/e</label><br>
+                <input name="notRegistered" id="notRegistered" type="checkbox"><label for="notRegistered">Sortie auxquelles je ne suis pas inscrit/e</label><br>
+                <input name="pastEvents" id="pastEvents" type="checkbox"><label for="pastEvents">Sortie passées</label>
+            </div>
+            <div class="column">
+                <button class="button is-primary" value="submit">Rechercher</button>
+            </div>
+
+        </div>
+    </form>
+
 
     <table class="table">
         <thead>
@@ -46,4 +83,16 @@
     </table>
 
     <a href="{{ path('event_new') }}">Create new</a>
+
+    <script type="text/javascript">
+        function activate() {
+            document.getElementById('endingDate').disabled = false;
+        }
+        window.onload = function ()
+        {
+            document.getElementById('endingDate').disabled = true;
+        }
+    </script>
+
 {% endblock %}
+
