@@ -45,8 +45,8 @@ class Event
     private $campusSite;
 
 
-    #[ORM\ManyToOne(targetEntity: Place::class, cascade: ['persist','remove'], inversedBy: 'events')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(targetEntity: Place::class, inversedBy: 'events')]
+
     private $place;
 
     #[ORM\ManyToOne(targetEntity: State::class, inversedBy: 'events')]
@@ -56,7 +56,6 @@ class Event
     {
         $this->Users = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {

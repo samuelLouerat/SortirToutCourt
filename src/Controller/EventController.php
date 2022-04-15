@@ -3,37 +3,44 @@
 namespace App\Controller;
 
 use App\Entity\Event;
-
+use App\Entity\User;
+use App\Form\FiltrerEventType;
 use App\Entity\Place;
 use App\Entity\Town;
 use App\Form\EventType;
 use App\Repository\CampusRepository;
 use App\Repository\EventRepository;
-use App\Repository\PlaceRepository;
-use App\Repository\TownRepository;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\PlaceRepository;
+use App\Repository\TownRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[Route('/event')]
 class EventController extends AbstractController
 {
+
     #[Route('/list', name: 'event_list', methods: ['GET', 'POST'])]
 
     public function list(Request $request, EventRepository $eventRepository, EntityManagerInterface $em, CampusRepository $campusRepository): Response
+
     {
         $events = $eventRepository->findAll();
         $campusList = $campusRepository->findAll();
 
         return $this->render('event/list.html.twig',
-        ['events'=>$events, 'campusList'=>$campusList]);
-    }
 
+        ['events'=>$events, 'campusList'=>$campusList]);
+
+    }
 
 
     #[Route('/new', name: 'event_new', methods: ['GET', 'POST'])]
@@ -66,15 +73,17 @@ class EventController extends AbstractController
             compact("formEvent","campusConnected"));
     }
 
-    #[Route('/{id}', name: 'event_show',requirements: ["id"=>"\d+"], methods: ['GET'])]
+
+    #[Route('/{id}', name: 'event_show', requirements: ["id" => "\d+"], methods: ['GET'])]
+
     public function show(Event $event): Response
     {
-        return $this->render('event/profile.html.twig', [
+        return $this->render('event/show.html.twig', [
             'event' => $event,
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'event_update', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'event_update', requirements: ["id" => "\d+"], methods: ['GET', 'POST'])]
     public function update(Request $request, Event $event, EventRepository $eventRepository): Response
     {
         $form = $this->createForm(EventType::class, $event);
@@ -91,15 +100,42 @@ class EventController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'event_cancel',requirements: ["id"=>"\d+"], methods: ['POST'])]
+
+    #[Route('/{id}', name: 'event_cancel', requirements: ["id" => "\d+"], methods: ['POST'])]
+
     public function delete(Request $request, Event $event, EventRepository $eventRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$event->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $event->getId(), $request->request->get('_token'))) {
             $eventRepository->remove($event);
         }
 
         return $this->redirectToRoute('event_list', [], Response::HTTP_SEE_OTHER);
     }
+
+
+    #[Route('/{id}/subscribe', name: 'event_subscribe', requirements: ["id" => "\d+"])]
+    public function registered(
+        ManagerRegistry $doctrine,
+        UserRepository  $pr,
+        EntityManagerInterface $em,
+        int             $id
+    ): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $event = $entityManager->getRepository(Event::class)->find($id);
+        // $us = $this->getUser()->getUserIdentifier();
+        $user = $pr->findOneBy(['email' => $this->getUser()->getUserIdentifier()]);
+                                                                                                                                                                                                 ;
+
+        if ($event->getUsers()->contains($user->getId())) {
+            $event->removeUserParticipation($user);
+        } else {
+            $event->addUserParticipation($user);
+        }
+        $em->persist($event);
+        $em->flush();
+
+        return $this->redirectToRoute('event_list', [], Response::HTTP_SEE_OTHER);
 
     #[Route('/search', name: 'event_search', methods: ['POST'])]
     public function searchlist(
@@ -127,6 +163,7 @@ class EventController extends AbstractController
         $events = $eventRepository->search($campusSite, $keywords, $beginningDate, $endingDate, $organizer,$user, $registered, $notRegistered, $pastEvents);
         $campusList = $campusRepository->findAll();
         return $this->render('event/list.html.twig', compact("events", "campusList"));
+
     }
 }
 
