@@ -6,7 +6,6 @@ use App\Entity\Event;
 
 use App\Entity\Place;
 use App\Entity\Town;
-use App\Form\FiltrerEventType;
 use App\Form\EventType;
 use App\Repository\CampusRepository;
 use App\Repository\EventRepository;
