@@ -22,7 +22,7 @@ function callShowAddress(){
 }
 
 function callApi(){
-    addressApi(document.getElementById('town_name').value)
+    addressApi(document.getElementById('Search').value)
 
 }
 function activer() {
@@ -40,7 +40,7 @@ function addressApi(city) {
     $.ajax(
         {
 
-            url: 'https://api-adresse.data.gouv.fr/search/?q&type=municipality&autocomplete=1',
+            url: 'https://api-adresse.data.gouv.fr/search/',
             method: 'GET',
             data: {q: city}
 
@@ -48,12 +48,14 @@ function addressApi(city) {
     ).done(
 
         (donnees) => {
+            console.log(donnees);
             SelectedAddress=donnees.features;
-            let selectBox= $('#datalistOptions');
-            //document.getElementById('town_name').options.length=0;
-
+            let selectBox= $('#Town');
+            document.getElementById('Town').options.length=0;
+            cpt=0;
+            
             for (const adresse of donnees.features) {
-                 let nouvelElement = $(`<option value=${adresse.properties.city}></option>`);
+                 let nouvelElement = $(`<option value=${cpt}>${adresse.properties.name}--${adresse.properties.city}--${adresse.properties.postcode}</option>`);
                 selectBox.append(nouvelElement)
                 cpt++;
               }

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Entity\Place;
 use App\Form\EventType;
+use App\Form\PlaceType;
 use App\Repository\CampusRepository;
 use App\Repository\EventRepository;
 use App\Repository\PlaceRepository;
@@ -15,10 +16,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+#[Route('/place')]
 class PlaceController extends AbstractController
 {
-    #[Route('/place', name: 'app_place')]
+
     public function index(): Response
     {
         return $this->render('place/index.html.twig', [
@@ -31,7 +32,7 @@ class PlaceController extends AbstractController
     {
         $place = new Place();
 
-        $formPlace = $this->createForm(EventType::class, $place);
+        $formPlace = $this->createForm(PlaceType::class, $place);
         $formPlace->handleRequest($request);
 
 

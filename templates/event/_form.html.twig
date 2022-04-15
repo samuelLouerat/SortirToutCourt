@@ -1,7 +1,7 @@
 {{ form_start(formEvent) }}
     <input>
         {{ form_widget(formEvent) }}
-<a type="button" value="ajouter lieu " href="/place/new"></a>
+        <a class="button"  href="/place/new">Ajout</a>
         <button class="btn">{{ button_label|default('Save') }}</button>
     </div>
 {{ form_end(formEvent, {render_rest: false}) }}

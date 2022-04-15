@@ -1,0 +1,13 @@
+{{ form_start(formTown) }}
+        {{ form_row(formTown.name) }}
+<datalist id="datalistOptions">
+        <option value="San Francisco">
+</datalist>
+        {{ form_row(formTown.postCode) }}
+
+
+{#       {{ form_widget(formTown) }}#}
+        <a class="button"  type="button"  href="/place/new">Ajout</a>
+        <button class="btn">{{ button_label|default('Save') }}</button>
+
+{{ form_end(formTown, {render_rest: false}) }}
