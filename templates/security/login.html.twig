@@ -14,29 +14,47 @@
         </div>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputLogin">Login</label>
-    <input type="text" value="{{ last_username }}" name="email" id="inputLogin" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+    <div class="column is-half is-offset-one-quarter">
+        <div class="box">
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label class="label" for="inputLogin">Identifiant</label>
+{#                        <div class="control has-icons-left>#}
+                            <input class="form-control input" type="text" value="{{ last_username }}" name="email" id="inputLogin"  autocomplete="email" required autofocus>
+{#                            <span class="icon is-small is-left">#}
+{#                              <i class="fas fa-user"></i>#}
+{#                            </span>#}
+{#                        </div>#}
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                    <label class="label" for="inputPassword">Mot de passe</label>
+                    <input class="form-control input" type="password" name="password" id="inputPassword" autocomplete="current-password" required>
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+                    <input type="hidden" name="_csrf_token"
+                           value="{{ csrf_token('authenticate') }}"
+                    >
+                    </div>
+                </div>
+            </div>
+            {#
+                Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                See https://symfony.com/doc/current/security/remember_me.html
+            #}
+            <div class="field">
+                <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" name="_remember_me"> Remember me
+                    </label>
+                </div>
+            </div>
 
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
-    #}
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
+            <button class="button is-primary" type="submit">
+                Sign in
+            </button>
         </div>
-
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
+    </div>
 </form>
 {% endblock %}

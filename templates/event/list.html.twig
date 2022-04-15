@@ -8,40 +8,45 @@
         <p>Utilisateur connecté</p>
     </div>
     <h1 class="title is-3">Filtrer les sorties</h1>
-    <form class="box container" action="{{ '/event/search' }}" method="POST">
+    <form class="container" action="{{ '/event/search' }}" method="POST">
         <div class="columns">
-            <div class="column is-half">
-                <div>
-                    <label for="campus">Campus : </label>
-                    <select name="campus" id="campus">
-                        <option value="">Tous</option>
+            <div class="column is-one-third">
+                <div class="field">
+                    <label class="label" for="campusList">Campus : </label>
+                    <select class="select" name="campusList" id="campusList">
+                        <option value="campus">Tous</option>
                         {% for campus in campusList %}
                             <option value="{{ campus.id }}">{{ campus.name }}</option>
                         {% endfor %}
                     </select>
+                  </div>
+                <div>
+                    <label class="label" for="keywords">Le nom de la sortie contient : </label>
+                    <input class="input" name="keywords" id="keywords" type="search">
                 </div>
                 <div>
-                    <label for="keywords">Le nom de la sortie contient : </label>
-                    <input name="keywords" id="keywords" type="search">
-                </div>
-                <div>
-                    <label for="beginningDate">Entre le : </label>
-                    <input name="beginningDate" id="beginningDate" type="datetime-local" onclick="activate()">
+                    <label class="label" for="beginningDate">Entre le : </label>
+                    <input class="input" name="beginningDate" id="beginningDate" type="datetime-local" onclick="activate()">
 
-                    <label for="endingDate">et le</label>
-                    <input name="endingDate" id="endingDate" type="datetime-local">
+                    <label class="label" for="endingDate">et le</label>
+                    <input class="input" name="endingDate" id="endingDate" type="datetime-local">
                 </div>
             </div>
-            <div class="column is-narrow">
-                <input name="organizer" id="organizer" type="checkbox"><label for="organizer">Sortie dont je suis l'organisateur/trice</label><br>
-                <input name="registered" id="registered" type="checkbox"><label for="registered">Sortie auxquelles je suis inscrit/e</label><br>
-                <input name="notRegistered" id="notRegistered" type="checkbox"><label for="notRegistered">Sortie auxquelles je ne suis pas inscrit/e</label><br>
-                <input name="pastEvents" id="pastEvents" type="checkbox"><label for="pastEvents">Sortie passées</label>
+            <div class="column is-one-third">
+                <div class="field">
+                    <div>
+                        <input class="checkbox" name="organizer" id="organizer" type="checkbox">
+                        <label class="label" for="organizer">Sortie dont je suis l'organisateur/trice</label><br>
+                    </div>
+
+                <input name="registered" id="registered" type="checkbox"><label class="label" for="registered">Sortie auxquelles je suis inscrit/e</label><br>
+                <input name="notRegistered" id="notRegistered" type="checkbox"><label class="label" for="notRegistered">Sortie auxquelles je ne suis pas inscrit/e</label><br>
+                <input name="pastEvents" id="pastEvents" type="checkbox"><label class="label" for="pastEvents">Sortie passées</label>
+            </div>
             </div>
             <div class="column">
                 <button class="button is-primary" value="submit">Rechercher</button>
             </div>
-
         </div>
     </form>
 
@@ -49,26 +54,30 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>DateHeureDebut</th>
-                <th>Duree</th>
-                <th>DateLimiteInscription</th>
-                <th>NbInscriptionMax</th>
-                <th>InfosSortie</th>
-                <th>actions</th>
+                <th>Nom de la sortie</th>
+                <th>Date de la sortie</th>
+                <th>Clôture des inscriptions</th>
+                <th>Inscrits/places</th>
+                <th>Etat</th>
+                <th>Inscrit</th>
+                <th>Organisateur</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for event in events %}
             <tr>
-                <td>{{ event.id }}</td>
                 <td>{{ event.name }}</td>
-                <td>{{ event.startTime ? event.startTime|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ event.duration ? event.duration.format('%y year(s), %m month(s), %d day(s)') : '' }}</td>
-                <td>{{ event.registrationTimeLimit ? event.registrationTimeLimit|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ event.registrationMax }}</td>
-                <td>{{ event.eventInfo }}</td>
+                <td>{{ event.startTime ? event.startTime|date('Y/m/d H:i') : '' }}</td>
+                <td>{{ event.registrationTimeLimit ? event.registrationTimeLimit|date('Y/m/d') : '' }}</td>
+                <td>{{ event.Users|length }}/{{ event.registrationMax }}</td>
+                <td>{{ event.state.libeller }}</td>
+                <td>{% for user in event.Users %}
+                    {% if user == app.user %}
+                        X
+                    {% endif %}
+                {% endfor %}</td>
+                <td>{{ event.organizer.pseudo }}</td>
                 <td>
                     <a href="{{ path('event_show', {'id': event.id}) }}">show</a>
                     <a href="{{ path('event_update', {'id': event.id}) }}">edit</a>
