@@ -44,19 +44,20 @@
 
     </div>
 
-
     <a href="{{ path('event_list') }}">Retour à la liste</a>
 
+    {% if event.state.libeller == 'open'
+        and event.registrationTimeLimit >= date('now')
+        and event.Users|length < event.registrationMax %}
+        <a href="{{ path('event_subscribe', {'id' : event.id}) }}">
+            <button>M'inscrire</button>
+        </a>
+    {% endif %}
 
 
-
-            <a href="{{ path('event_subscribe', {'id' : event.id}) }}">
-                <button>M'inscrire</button>
-            </a>
-
-             <a href="{{ path('event_subscribe', {'id' : event.id}) }}">
-                 <button>Me désinscrire</button>
-             </a>
+    <a href="{{ path('event_subscribe', {'id' : event.id}) }}">
+        <button>Me désinscrire</button>
+    </a>
 
 
 
