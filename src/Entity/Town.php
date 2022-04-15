@@ -21,10 +21,10 @@ class Town
     #[ORM\Column(type: 'string', length: 6)]
     private $postCode;
 
-    #[ORM\OneToMany(mappedBy: 'town', targetEntity: Event::class)]
+    #[ORM\OneToMany(mappedBy: 'town', targetEntity: Event::class, cascade: ['persist','remove'])]
     private $events;
 
-    #[ORM\OneToMany(mappedBy: 'town', targetEntity: Place::class)]
+    #[ORM\OneToMany(mappedBy: 'town', targetEntity: Place::class, cascade: ['persist','remove'])]
     private $places;
 
     public function __construct()

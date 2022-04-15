@@ -3,9 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+
+use App\Entity\Place;
+use App\Entity\Town;
+use App\Form\FiltrerEventType;
 use App\Form\EventType;
 use App\Repository\CampusRepository;
 use App\Repository\EventRepository;
+use App\Repository\PlaceRepository;
+use App\Repository\TownRepository;
+
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
@@ -31,21 +38,33 @@ class EventController extends AbstractController
 
 
     #[Route('/new', name: 'event_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EventRepository $eventRepository): Response
+    public function new(EntityManagerInterface $em, Request $request, EventRepository $eventRepository,CampusRepository $campusRepository, PlaceRepository $placeRepository,TownRepository $townRepository, UserRepository $userRepository): Response
     {
         $event = new Event();
-        $form = $this->createForm(EventType::class, $event);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $eventRepository->add($event);
+        //Reading campus of connected user
+        $us= $this->getUser()->getUserIdentifier();
+        $user = $userRepository->findOneBy(['email' => $us]);
+        $event->setOrganizer($user);
+        $campusConnected = $user->getCampus()->getName();
+
+        //All of the campus registered
+        $campusRegister =$campusRepository->findAll();
+        //All of the place registered
+        //$placeRegister =$placeRepository->findAll();
+
+        $formEvent = $this->createForm(EventType::class, $event);
+        $formEvent->handleRequest($request);
+
+        if ($formEvent->isSubmitted()) {
+            $event->setCampusSite($user->getCampus());
+            $em->persist($event);
+            $em->flush();
             return $this->redirectToRoute('event_list', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('event/new.html.twig', [
-            'event' => $event,
-            'form' => $form,
-        ]);
+        return $this->renderForm('event/new.html.twig',
+            compact("formEvent","campusConnected"));
     }
 
     #[Route('/{id}', name: 'event_show',requirements: ["id"=>"\d+"], methods: ['GET'])]
