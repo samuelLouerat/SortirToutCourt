@@ -124,8 +124,7 @@ class EventController extends AbstractController
         $entityManager = $doctrine->getManager();
         $event = $entityManager->getRepository(Event::class)->find($id);
         // $us = $this->getUser()->getUserIdentifier();
-        $user = $pr->findOneBy(['email' => $this->getUser()->getUserIdentifier()]);
-                                                                                                                                                                                                 ;
+        $user = $pr->findOneBy(['email' => $this->getUser()->getUserIdentifier()]);;
 
         if ($event->getUsers()->contains($user->getId())) {
             $event->removeUserParticipation($user);
@@ -136,6 +135,7 @@ class EventController extends AbstractController
         $em->flush();
 
         return $this->redirectToRoute('event_list', [], Response::HTTP_SEE_OTHER);
+    }
 
     #[Route('/search', name: 'event_search', methods: ['POST'])]
     public function searchlist(
