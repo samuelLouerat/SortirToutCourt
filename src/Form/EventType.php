@@ -25,9 +25,10 @@ class EventType extends AbstractType
             ->add('registrationMax')
             ->add('duration')
             ->add('eventInfo')
-            ->add('campusSite',EntityType::class, ['class'=>Campus::class, 'choice_label'=>'name'])
+            ->add('campusSite',EntityType::class,
+                ['class'=>Campus::class,  'choice_label'=>'name'])
             ->add('place',EntityType::class, ['class'=>Place::class, 'choice_label'=>'name'])
-
+     ;
             //->add('place',EntityType::class, ['class'=>Place::class, 'choice_label'=>'name','by_reference' => false,'multiple'=>false])
 
 
@@ -35,7 +36,7 @@ class EventType extends AbstractType
 
 
 
-        ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

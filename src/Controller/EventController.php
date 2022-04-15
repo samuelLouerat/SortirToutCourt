@@ -52,7 +52,7 @@ class EventController extends AbstractController
         $us= $this->getUser()->getUserIdentifier();
         $user = $userRepository->findOneBy(['email' => $us]);
         $event->setOrganizer($user);
-        $campusConnected = $user->getCampus()->getName();
+        $campusConnected = $user->getCampus();
 
         //All of the campus registered
         $campusRegister =$campusRepository->findAll();
@@ -89,6 +89,7 @@ class EventController extends AbstractController
         $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
             $eventRepository->add($event);
             return $this->redirectToRoute('event_list', [], Response::HTTP_SEE_OTHER);
@@ -103,11 +104,12 @@ class EventController extends AbstractController
 
     #[Route('/{id}', name: 'event_cancel', requirements: ["id" => "\d+"], methods: ['POST'])]
 
-    public function delete(Request $request, Event $event, EventRepository $eventRepository): Response
+    public function delete(EntityManagerInterface $em,Request $request, Event $event, EventRepository $eventRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $event->getId(), $request->request->get('_token'))) {
-            $eventRepository->remove($event);
-        }
+        $event->setState('cancell');
+        $em->persist($event);
+        $em->flush();
+
 
         return $this->redirectToRoute('event_list', [], Response::HTTP_SEE_OTHER);
     }

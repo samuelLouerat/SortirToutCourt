@@ -26,11 +26,14 @@ function callApi(){
 
 }
 function activer() {
-    $searchValue = document.getElementById('campus').disabled = false
+    $searchValue = document.getElementById('campusActive').hidden = true
+    $searchValue = document.getElementById('event_campusSite').hidden = false
 }
 window.onload = function ()
 {
-    document.getElementById('campus').disabled = true
+    document.getElementById('campusActive').disabled = true
+    document.getElementById('event_campusSite').hidden = true
+
 }
 
 
@@ -57,7 +60,7 @@ function addressApi(city) {
                 selectBox.append(nouvelElement)
                 cpt++;
               }
-
+            //travailler avec event listener pour rester dans la fonction
         }
     )
         .fail()
