@@ -27,10 +27,10 @@ class Place
     #[ORM\Column(type: 'float', nullable: true)]
     private $longitude;
 
-    #[ORM\OneToMany(mappedBy: 'place', targetEntity: Event::class)]
+    #[ORM\OneToMany(mappedBy: 'place', targetEntity: Event::class, cascade: ['persist','remove'])]
     private $events;
 
-    #[ORM\ManyToOne(targetEntity: Town::class, inversedBy: 'places')]
+    #[ORM\ManyToOne(targetEntity: Town::class, cascade: ['persist','remove'], inversedBy: 'places')]
     private $town;
 
     public function __construct()

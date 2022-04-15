@@ -40,14 +40,14 @@ class Event
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'isRegistered')]
     private $Users;
 
-    #[ORM\ManyToOne(targetEntity: Campus::class, inversedBy: 'sorties')]
+    #[ORM\ManyToOne(targetEntity: Campus::class, cascade: ['persist','remove'], inversedBy: 'events')]
     #[ORM\JoinColumn(nullable: false)]
     private $campusSite;
 
-    #[ORM\ManyToOne(targetEntity: Place::class, inversedBy: 'events')]
+
+    #[ORM\ManyToOne(targetEntity: Place::class, cascade: ['persist','remove'], inversedBy: 'events')]
+    #[ORM\JoinColumn(nullable: false)]
     private $place;
-
-
 
     #[ORM\ManyToOne(targetEntity: State::class, inversedBy: 'events')]
     private $state;
