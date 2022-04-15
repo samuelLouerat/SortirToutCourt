@@ -96,6 +96,10 @@ class EventRepository extends ServiceEntityRepository
                 ->setParameter('userMe', $user->getId());
         }
 
+        if ($pastEvents != null){
+            $qb->andWhere('search.startTime < :now')
+                ->setParameter('now', new \DateTime('now'));
+        }
 
         $req = $qb->getQuery();
         $result = $req->getResult();

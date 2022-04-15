@@ -1,9 +1,15 @@
-<nav>
+<nav class="navbar is-primary">
+        <div>
+                <img class="navbar-item" src="" alt="">
+        </div>
+        <div class="navbar-end">
     {% if not app.user %}
-        <a href="{{ path('login') }}">Se connecter</a>
+                <a class="navbar-item" href="{{ path('login') }}">Se connecter</a>
     {% endif %}{% if app.user %}
-        <a href="{{ path('user_myprofile') }}">Mon profil</a>
-        <a href="{{ path('event_list') }}">Accueil</a>
-        <a href="{{ path('logout') }}">Se deconnecter</a>
+                <a class="navbar-item" href="{{ path('user_myprofile') }}">Mon profil</a>
+                <a class="navbar-item" href="{{ path('event_list') }}">Accueil</a>
+                <a class="navbar-item" href="{{ path('logout') }}">Se deconnecter</a>
     {% endif %}
+        </div>
+        </div>
 </nav>
