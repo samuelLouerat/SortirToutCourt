@@ -91,7 +91,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     }
 
-
     /**
      * @return mixed
      */
@@ -107,7 +106,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->imageFile = $imageFile;
 
-        if($imageFile) {
+        if ($imageFile) {
             $this->updatedAt = new \DateTime('now');
         }
     }
@@ -142,7 +141,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**

@@ -17,7 +17,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
 
-
     #[Route('/list', name: 'user_list', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {

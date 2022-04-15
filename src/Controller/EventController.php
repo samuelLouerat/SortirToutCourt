@@ -3,20 +3,24 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Entity\User;
 use App\Form\FiltrerEventType;
 use App\Form\EventType;
 use App\Repository\EventRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[Route('/event')]
 class EventController extends AbstractController
 {
     #[Route('/list', name: 'event_list', methods: ['GET'])]
-
     public function list(Request $request, EventRepository $eventRepository, EntityManagerInterface $em): Response
     {
         $events = $eventRepository->findAll();
@@ -32,13 +36,12 @@ class EventController extends AbstractController
         }
 
         return $this->render('event/list.html.twig',
-        ['form'=>$form->createView(), 'events'=>$events]);
+            ['form' => $form->createView(), 'events' => $events]);
 
 //        return $this->renderForm('event/list.html.twig', [
 //            compact("form", "events")
 //        ]);
     }
-
 
 
     #[Route('/new', name: 'event_new', methods: ['GET', 'POST'])]
@@ -59,15 +62,15 @@ class EventController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'event_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'event_show', requirements: ["id" => "\d+"], methods: ['GET'])]
     public function show(Event $event): Response
     {
-        return $this->render('event/profile.html.twig', [
+        return $this->render('event/show.html.twig', [
             'event' => $event,
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'event_update', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'event_update', requirements: ["id" => "\d+"], methods: ['GET', 'POST'])]
     public function update(Request $request, Event $event, EventRepository $eventRepository): Response
     {
         $form = $this->createForm(EventType::class, $event);
@@ -84,12 +87,37 @@ class EventController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'event_cancel', methods: ['POST'])]
+    #[Route('/{id}', name: 'event_cancel', requirements: ["id" => "\d+"], methods: ['POST'])]
     public function delete(Request $request, Event $event, EventRepository $eventRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$event->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $event->getId(), $request->request->get('_token'))) {
             $eventRepository->remove($event);
         }
+
+        return $this->redirectToRoute('event_list', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/subscribe', name: 'event_subscribe', requirements: ["id" => "\d+"])]
+    public function registered(
+        ManagerRegistry $doctrine,
+        UserRepository  $pr,
+        EntityManagerInterface $em,
+        int             $id
+    ): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $event = $entityManager->getRepository(Event::class)->find($id);
+        // $us = $this->getUser()->getUserIdentifier();
+        $user = $pr->findOneBy(['email' => $this->getUser()->getUserIdentifier()]);
+                                                                                                                                                                                                 ;
+
+        if ($event->getUsers()->contains($user->getId())) {
+            $event->removeUserParticipation($user);
+        } else {
+            $event->addUserParticipation($user);
+        }
+        $em->persist($event);
+        $em->flush();
 
         return $this->redirectToRoute('event_list', [], Response::HTTP_SEE_OTHER);
     }
