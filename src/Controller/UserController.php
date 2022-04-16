@@ -113,11 +113,11 @@ class UserController extends AbstractController
             $em->persist($user);
             $em->flush();
             $this->addFlash(
-                'Modif ok',
+                'Modifok',
                 'La mise à jour de votre profil est prise en compte.'
             );
             return $this->redirectToRoute(
-                'user_myprofile'
+                'event_list'
             );
         }
 

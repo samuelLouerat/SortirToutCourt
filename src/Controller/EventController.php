@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Event;
 use App\Entity\User;
+use App\Form\EventCancelType;
 use App\Form\FiltrerEventType;
 use App\Entity\Place;
 use App\Entity\Town;
@@ -11,6 +12,7 @@ use App\Form\EventType;
 use App\Repository\CampusRepository;
 use App\Repository\EventRepository;
 
+use App\Repository\StateRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -33,6 +35,7 @@ class EventController extends AbstractController
     public function list(Request $request, EventRepository $eventRepository, EntityManagerInterface $em, CampusRepository $campusRepository): Response
 
     {
+
         $events = $eventRepository->findAll();
         $campusList = $campusRepository->findAll();
 
@@ -44,26 +47,25 @@ class EventController extends AbstractController
 
 
     #[Route('/new', name: 'event_new', methods: ['GET', 'POST'])]
-    public function new(EntityManagerInterface $em, Request $request, EventRepository $eventRepository,CampusRepository $campusRepository, PlaceRepository $placeRepository,TownRepository $townRepository, UserRepository $userRepository): Response
+    public function new(EntityManagerInterface $em, Request $request,StateRepository $stateRepository, EventRepository $eventRepository,CampusRepository $campusRepository, PlaceRepository $placeRepository,TownRepository $townRepository, UserRepository $userRepository): Response
     {
         $event = new Event();
 
-        //Reading campus of connected user
+        //Reading connected user
         $us= $this->getUser()->getUserIdentifier();
+
+
         $user = $userRepository->findOneBy(['email' => $us]);
         $event->setOrganizer($user);
+
         $campusConnected = $user->getCampus();
 
-        //All of the campus registered
-        $campusRegister =$campusRepository->findAll();
-        //All of the place registered
-        //$placeRegister =$placeRepository->findAll();
 
         $formEvent = $this->createForm(EventType::class, $event);
         $formEvent->handleRequest($request);
-
+        $event->setCampusSite($user->getCampus());
         if ($formEvent->isSubmitted()) {
-            $event->setCampusSite($user->getCampus());
+            $event->setState($stateRepository->findOneBy(['libeller' => 'Created']));
             $em->persist($event);
             $em->flush();
             return $this->redirectToRoute('event_list', [], Response::HTTP_SEE_OTHER);
@@ -97,21 +99,33 @@ class EventController extends AbstractController
 
         return $this->renderForm('event/update.html.twig', [
             'event' => $event,
-            'form' => $form,
+            'formEvent' => $form,
         ]);
     }
 
 
-    #[Route('/{id}', name: 'event_cancel', requirements: ["id" => "\d+"], methods: ['POST'])]
+    #[Route('/{id}/cancel', name: 'event_cancel', requirements: ["id" => "\d+"], methods: ['GET','POST'])]
 
-    public function delete(EntityManagerInterface $em,Request $request, Event $event, EventRepository $eventRepository): Response
+    public function cancel(EntityManagerInterface $em,Request $request, Event $event,StateRepository $stateRepository,EventRepository $eventRepository): Response
     {
-        $event->setState('cancell');
-        $em->persist($event);
-        $em->flush();
+        $event->setEventInfo("");
+        $form = $this->createForm(EventCancelType::class, $event);
+        $form->handleRequest($request);
 
 
-        return $this->redirectToRoute('event_list', [], Response::HTTP_SEE_OTHER);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $event->setState($stateRepository->findOneBy(['libeller' => 'Canceled']));
+
+            $em->persist($event);
+            $em->flush();
+            return $this->redirectToRoute('event_list', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('event/cancel.html.twig', [
+            'event' => $event,
+            'formEvent' => $form,
+        ]);
     }
 
 
@@ -123,6 +137,7 @@ class EventController extends AbstractController
         int             $id
     ): Response
     {
+
         $entityManager = $doctrine->getManager();
         $event = $entityManager->getRepository(Event::class)->find($id);
         // $us = $this->getUser()->getUserIdentifier();
