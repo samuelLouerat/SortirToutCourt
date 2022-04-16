@@ -25,7 +25,7 @@ class RegistrationController extends AbstractController
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
         #Todo supprimer les val par defaut admin et actif
-        $user->setAdmin(true);
+        //$user->setAdmin(true);
         $user->setActive(true);
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password

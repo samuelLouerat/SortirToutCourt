@@ -7,6 +7,10 @@
         <p>Date du jour</p>
         <p>Utilisateur connecté</p>
     </div>
+    <p>{% for notice in app.flashes('Modifok') %}
+        {{ notice }}
+    {% endfor %}
+    </p>
     <h1 class="title is-3">Filtrer les sorties</h1>
     <form class="container" action="{{ '/event/search' }}" method="POST">
         <div class="columns">
@@ -80,6 +84,9 @@
                 <td>{{ event.organizer.pseudo }}</td>
                 <td>
                     <a href="{{ path('event_show', {'id': event.id}) }}">show</a>
+                    {% if event.organizer == app.user %}
+                    <a href="{{ path('event_cancel', {'id': event.id}) }}">Cancel</a>
+                    {% endif %}
                     <a href="{{ path('event_update', {'id': event.id}) }}">edit</a>
                 </td>
             </tr>

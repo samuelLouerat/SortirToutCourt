@@ -1,5 +1,5 @@
 {{ form_start(formEvent) }}
-    <input>
+
         {{ form_row(formEvent.name) }}
         {{ form_row(formEvent.startTime) }}
         {{ form_row(formEvent.registrationTimeLimit) }}
@@ -7,10 +7,10 @@
         {{ form_row(formEvent.duration) }}
         {{ form_row(formEvent.eventInfo) }}
         {{ form_row(formEvent.campusSite) }}
-        <input type="text" id="campusActive" value="{{campusConnected.name }}" />
+{#        <input type="text" id="campusActive" value="{{campusConnected.name }}" />#}
         <input type="button" name="Submit" value="Modifier Campus" onclick="activer()" />
         {{ form_row(formEvent.place) }}
-        <a class="button"  href="/place/new">Ajout</a>
+        <button><a href="/place/new">Ajout</a></button>
         <button class="btn">{{ button_label|default('Save') }}</button>
     </div>
 {{ form_end(formEvent, {render_rest: false}) }}
