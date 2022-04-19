@@ -40,9 +40,19 @@ class EventController extends AbstractController
         $campusList = $campusRepository->findAll();
 
 
+        $campusSite=null;
+        $keywords=null;
+        $beginningDate=null;
+        $endingDate=null;
+        $organizer=null;
+        $registered=null;
+        $notRegistered=null;
+        $pastEvents=null;
+
+
         return $this->render('event/list.html.twig',
 
-        ['events'=>$events, 'campusList'=>$campusList]);
+        ['events'=>$events, 'campusList'=>$campusList, 'campusSite'=>$campusSite, 'keywords'=>$keywords, 'beginningDate'=>$beginningDate, 'endingDate'=>$endingDate, 'organizer'=>$organizer, 'registered'=>$registered, 'notRegistered'=>$notRegistered, 'pastEvents'=>$pastEvents]);
 
     }
 
@@ -171,7 +181,7 @@ class EventController extends AbstractController
     ): Response {
         if ($request->isMethod('post')){
 
-            $campusSite = $request->request->get("campus");
+            $campusSite = $request->request->get("campusSite");
             $keywords = $request->request->get("keywords");
             $beginningDate = $request->request->get("beginningDate");
             $endingDate = $request->request->get("endingDate");
@@ -187,7 +197,7 @@ class EventController extends AbstractController
 
         $events = $eventRepository->search($campusSite, $keywords, $beginningDate, $endingDate, $organizer,$user, $registered, $notRegistered, $pastEvents);
         $campusList = $campusRepository->findAll();
-        return $this->render('event/list.html.twig', compact("events", "campusList"));
+        return $this->render('event/list.html.twig', compact("events", "campusList", "campusSite", "keywords", "beginningDate", "endingDate", "organizer", "registered", "notRegistered","pastEvents"));
 
     }
 }

@@ -16,36 +16,36 @@
         <div class="columns">
             <div class="column is-one-third">
                 <div class="field">
-                    <label class="label" for="campusList">Campus : </label>
-                    <select class="select" name="campusList" id="campusList">
-                        <option value="campus">Tous</option>
+                    <label class="label" for="campusSite">Campus : </label>
+                    <select class="select" name="campusSite" id="campusSite">
+                        <option value="">Tous</option>
                         {% for campus in campusList %}
-                            <option value="{{ campus.id }}">{{ campus.name }}</option>
+                            <option value="{{ campus.id }}" {% if campusSite == campus.id %}selected{% endif %}>{{ campus.name }}</option>
                         {% endfor %}
                     </select>
-                  </div>
+                </div>
                 <div>
                     <label class="label" for="keywords">Le nom de la sortie contient : </label>
-                    <input class="input" name="keywords" id="keywords" type="search">
+                    <input class="input" name="keywords" id="keywords" type="search" value= {{ keywords }}>
                 </div>
                 <div>
                     <label class="label" for="beginningDate">Entre le : </label>
-                    <input class="input" name="beginningDate" id="beginningDate" type="datetime-local" onclick="activate()">
+                    <input class="input" name="beginningDate" id="beginningDate" type="datetime-local" onclick="activate()" value={{ beginningDate }}>
 
                     <label class="label" for="endingDate">et le</label>
-                    <input class="input" name="endingDate" id="endingDate" type="datetime-local">
+                    <input class="input" name="endingDate" id="endingDate" type="datetime-local" value={{ endingDate }}>
                 </div>
             </div>
             <div class="column is-one-third">
                 <div class="field">
                     <div>
-                        <input class="checkbox" name="organizer" id="organizer" type="checkbox">
+                        <input class="checkbox" name="organizer" id="organizer" type="checkbox" {% if organizer %} checked {% endif %}>
                         <label class="label" for="organizer">Sortie dont je suis l'organisateur/trice</label><br>
                     </div>
 
-                <input name="registered" id="registered" type="checkbox"><label class="label" for="registered">Sortie auxquelles je suis inscrit/e</label><br>
-                <input name="notRegistered" id="notRegistered" type="checkbox"><label class="label" for="notRegistered">Sortie auxquelles je ne suis pas inscrit/e</label><br>
-                <input name="pastEvents" id="pastEvents" type="checkbox"><label class="label" for="pastEvents">Sortie passées</label>
+                <input name="registered" id="registered" type="checkbox" onclick="desactivate()" {% if registered %} checked {% endif %}><label class="label" for="registered">Sortie auxquelles je suis inscrit/e</label><br>
+                <input name="notRegistered" id="notRegistered" type="checkbox" onclick="desactivate()" {% if notRegistered %} checked {% endif %}><label class="label" for="notRegistered">Sortie auxquelles je ne suis pas inscrit/e</label><br>
+                <input name="pastEvents" id="pastEvents" type="checkbox" {% if pastEvents %} checked {% endif %}><label class="label" for="pastEvents">Sortie passées</label>
             </div>
             </div>
             <div class="column">
@@ -54,7 +54,7 @@
         </div>
     </form>
 
-
+    <div class="box">
     <table class="table">
         <thead>
             <tr>
@@ -97,47 +97,8 @@
         {% endfor %}
         </tbody>
     </table>
-    <div class="box">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Nom de la sortie</th>
-                    <th>Date de la sortie</th>
-                    <th>Clôture des inscriptions</th>
-                    <th>Inscrits/places</th>
-                    <th>Etat</th>
-                    <th>Inscrit</th>
-                    <th>Organisateur</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for event in events %}
-                <tr>
-                    <td>{{ event.name }}</td>
-                    <td>{{ event.startTime ? event.startTime|date('Y/m/d H:i') : '' }}</td>
-                    <td>{{ event.registrationTimeLimit ? event.registrationTimeLimit|date('Y/m/d') : '' }}</td>
-                    <td>{{ event.Users|length }}/{{ event.registrationMax }}</td>
-                    <td>{{ event.state.libeller }}</td>
-                    <td>{% for user in event.Users %}
-                        {% if user == app.user %}
-                            X
-                        {% endif %}
-                    {% endfor %}</td>
-                    <td>{{ event.organizer.pseudo }}</td>
-                    <td>
-                        <a href="{{ path('event_show', {'id': event.id}) }}">show</a>
-                        <a href="{{ path('event_update', {'id': event.id}) }}">edit</a>
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="8">no records found</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
     </div>
+
 
     <a href="{{ path('event_new') }}">Create new</a>
 
@@ -151,14 +112,20 @@
         }
 
         //TODO pour désactiver les checkbox contradictoires
-        // function desactivate() {
-        //     document.getElementById('endingDate').disabled = false;
-        // }
-        // window.onload = function ()
-        // {
-        //     document.getElementById('endingDate').disabled = true;
-        // }
+        function desactivate() {
+            if (document.getElementById('notRegistered').checked === true) {
+                document.getElementById('registered').disabled = true
+                document.getElementById('notRegistered').disabled = false
+            }
+            else
+            {
+                document.getElementById('registered').disabled = false
+                document.getElementById('notRegistered').disabled = false
+            }
+        }
+        window.onload = function () {
+            document.getElementById('registered').disabled = true
+            document.getElementById('notRegistered').disabled = true
+        }
     </script>
-
 {% endblock %}
-
