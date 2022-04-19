@@ -55,9 +55,13 @@
     {% endif %}
 
 
-    <a href="{{ path('event_subscribe', {'id' : event.id}) }}">
-        <button>Me désinscrire</button>
-    </a>
+    {% for user in event.Users %}
+        {% if user == app.user %}
+            <a href="{{ path('event_subscribe', {'id' : event.id}) }}">
+                <button>Me désinscrire</button>
+            </a>
+        {% endif %}
+    {% endfor %}
 
 
 
