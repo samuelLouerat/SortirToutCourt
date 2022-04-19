@@ -3,10 +3,16 @@
 namespace App\Controller;
 
 use App\Controller\Admin\DashboardController;
+use App\Entity\Event;
 use App\Entity\User;
+use App\Form\EventType;
+use App\Repository\EventRepository;
 use App\Service\UserSecurityService;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Event\AbstractLifecycleEvent;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class AdminController extends DashboardController
 {
@@ -47,4 +53,6 @@ class AdminController extends DashboardController
 
         parent::dispatch($eventName, $arguments);
     }
+
+
 }
