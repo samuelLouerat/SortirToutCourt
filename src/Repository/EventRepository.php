@@ -88,19 +88,19 @@ class EventRepository extends ServiceEntityRepository
                 ->setParameter('user', $user);
         }
 
-        if ($registered != null) {
-            $qb->innerJoin('App\Entity\User', 'u')
-                ->andWhere(':userMe MEMBER OF search.Users')
-                ->andWhere(' :userMe MEMBER OF u.isRegistered')
-                ->setParameter('userMe', $user);
-        }
+//        if ($registered != null) {
+//            $qb->innerJoin('App\Entity\User', 'u')
+//                ->andWhere(':userMe MEMBER OF search.Users')
+//                ->andWhere(' :userMe MEMBER OF u.isRegistered')
+//                ->setParameter('userMe', $user);
+//        }
 
 //        OU
-//        if ($registered != null) {
-//            $qb->leftJoin('search.Users','u')
-//                ->andWhere('u = :userMe')
-//                ->setParameter('userMe', $user->getId());
-//        }
+        if ($registered != null) {
+            $qb->leftJoin('search.Users','u')
+                ->andWhere('u = :userMe')
+                ->setParameter('userMe', $user->getId());
+        }
 
         if ($notRegistered != null) {
             $qb->leftJoin('search.Users', 'u')
