@@ -57,7 +57,8 @@ class EventController extends AbstractController
 
         $user = $userRepository->findOneBy(['email' => $us]);
         $event->setOrganizer($user);
-
+        $event->setStartTime(new \DateTime('now'));
+        $event->setRegistrationTimeLimit(new \DateTime('now'));
         $campusConnected = $user->getCampus();
 
 
@@ -80,7 +81,7 @@ class EventController extends AbstractController
 
     public function show(Event $event): Response
     {
-        return $this->render('event/show.html.twig', [
+        return $this->render('event/board.html.twig', [
             'event' => $event,
         ]);
     }
@@ -106,26 +107,32 @@ class EventController extends AbstractController
 
     #[Route('/{id}/cancel', name: 'event_cancel', requirements: ["id" => "\d+"], methods: ['GET','POST'])]
 
-    public function cancel(EntityManagerInterface $em,Request $request, Event $event,StateRepository $stateRepository,EventRepository $eventRepository): Response
+    public function cancel(EntityManagerInterface $em,Request $request, Event $event,UserRepository $userRepository,StateRepository $stateRepository,EventRepository $eventRepository): Response
     {
-        $event->setEventInfo("");
-        $form = $this->createForm(EventCancelType::class, $event);
-        $form->handleRequest($request);
+        $us= $this->getUser()->getUserIdentifier();
+        $user = $userRepository->findOneBy(['email' => $us]);
+
+        if ($event->getOrganizer()==$user) {
+            $event->setEventInfo("");
+            $form = $this->createForm(EventCancelType::class, $event);
+            $form->handleRequest($request);
 
 
+            if ($form->isSubmitted() && $form->isValid()) {
+                $event->setState($stateRepository->findOneBy(['libeller' => 'Canceled']));
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $event->setState($stateRepository->findOneBy(['libeller' => 'Canceled']));
+                $em->persist($event);
+                $em->flush();
+                return $this->redirectToRoute('event_list', [], Response::HTTP_SEE_OTHER);
+            }
 
-            $em->persist($event);
-            $em->flush();
+            return $this->renderForm('event/cancel.html.twig', [
+                'event' => $event,
+                'formEvent' => $form,
+            ]);
+        }else{
             return $this->redirectToRoute('event_list', [], Response::HTTP_SEE_OTHER);
         }
-
-        return $this->renderForm('event/cancel.html.twig', [
-            'event' => $event,
-            'formEvent' => $form,
-        ]);
     }
 
 

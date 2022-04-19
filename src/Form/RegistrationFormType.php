@@ -25,14 +25,8 @@ class RegistrationFormType extends AbstractType
             ->add('phone')
             ->add('pseudo')
             ->add('campus',EntityType::class, ['class'=>Campus::class, 'choice_label'=>'name'])
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
-                ],
-            ])
+            ->add('admin')
+            ->add('active')
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller

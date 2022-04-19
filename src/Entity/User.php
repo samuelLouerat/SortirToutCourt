@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\File\File;
  */
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['pseudo'], message: 'There is already an account with this pseduo')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -48,10 +49,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Regex(pattern: "#^0[0-9]{9}+$#")]
     private $phone;
 
-    #[ORM\Column(type: 'boolean')]
+    #[ORM\Column(type: 'boolean',nullable: true)]
     private $admin;
 
-    #[ORM\Column(type: 'boolean')]
+    #[ORM\Column(type: 'boolean',nullable: true)]
     private $active;
 
     #[ORM\Column(type: 'string', length: 50, unique: true)]

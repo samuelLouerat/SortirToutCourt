@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sortie{% endblock %}
+
+{% block body %}
+    <h1>Sortie</h1>
+
+    <div>
+        <h4>Nom de la sortie</h4>
+        <p>{{ event.name }}</p>
+
+        <h4>Date et heure de la sortie</h4>
+        <p>{{ event.startTime ? event.startTime|date('Y-m-d H:i:s') : '' }}</p>
+
+        <h4>Date limite d'inscription</h4>
+        <p>{{ event.registrationTimeLimit ? event.registrationTimeLimit|date('Y-m-d H:i:s') : '' }}</p>
+
+        <h4>Nombre de places</h4>
+        <p>{{ event.registrationMax }}</p>
+
+        <h4>Durée</h4>
+        <p>{{ event.duration ? event.duration.format('%y year(s), %m month(s), %d day(s)') : '' }}</p>
+
+        <h4>Description et infos</h4>
+        <p>{{ event.eventInfo }}</p>
+    </div>
+    <div>
+        <h4>Campus</h4>
+        <p></p>
+
+        <h4>Lieu</h4>
+        <p></p>
+
+        <h4>Rue</h4>
+        <p></p>
+
+        <h4>Code postal</h4>
+        <p></p>
+
+        <h4>Latitude</h4>
+        <p></p>
+        <h4>Longitude</h4>
+        <p></p>
+
+    </div>
+
+    <a href="{{ path('event_list') }}">Retour à la liste</a>
+
+    {% if event.state.libeller == 'open'
+        and event.registrationTimeLimit >= date('now')
+        and event.Users|length < event.registrationMax %}
+        <a href="{{ path('event_subscribe', {'id' : event.id}) }}">
+            <button>M'inscrire</button>
+        </a>
+    {% endif %}
+
+
+    {% for user in event.Users %}
+        {% if user == app.user %}
+            <a href="{{ path('event_subscribe', {'id' : event.id}) }}">
+                <button>Me désinscrire</button>
+            </a>
+        {% endif %}
+    {% endfor %}
+
+
+
+    {{ include('event/_delete_form.html.twig') }}
+{% endblock %}

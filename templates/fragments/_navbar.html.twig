@@ -10,6 +10,8 @@
                 <a class="navbar-item" href="{{ path('event_list') }}">Accueil</a>
                 <a class="navbar-item" href="{{ path('logout') }}">Se deconnecter</a>
     {% endif %}
-        </div>
+                {% if is_granted("ROLE_ADMIN") %}
+                  <a class="navbar-item" href="{{ path('event_list') }}">Administration</a>
+                {% endif %}
         </div>
 </nav>

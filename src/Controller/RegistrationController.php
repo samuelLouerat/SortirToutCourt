@@ -21,12 +21,13 @@ class RegistrationController extends AbstractController
         EntityManagerInterface $entityManager
     ): Response
     {
+        if($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
+
+
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-        #Todo supprimer les val par defaut admin et actif
-        //$user->setAdmin(true);
-        $user->setActive(true);
+
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
@@ -35,6 +36,9 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            if ($user->getAdmin()==true){
+                $user->setRoles(['ROLE_ADMIN']);
+            }
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -46,5 +50,12 @@ class RegistrationController extends AbstractController
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
+        }else{
+            $this->addFlash(
+                'Modifok',
+                'Vos droits ne sont pas suffisant pour accéder à la création de profil.'
+            );
+            return $this->redirectToRoute('event_list', [], Response::HTTP_SEE_OTHER);
+        }
     }
 }
