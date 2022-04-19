@@ -12,7 +12,7 @@
     {% endfor %}
     </p>
     <h1 class="title is-3">Filtrer les sorties</h1>
-    <form class="container" action="{{ '/event/search' }}" method="POST">
+    <form class="container box" action="{{ '/event/search' }}" method="POST">
         <div class="columns">
             <div class="column is-one-third">
                 <div class="field">
@@ -97,6 +97,47 @@
         {% endfor %}
         </tbody>
     </table>
+    <div class="box">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nom de la sortie</th>
+                    <th>Date de la sortie</th>
+                    <th>Clôture des inscriptions</th>
+                    <th>Inscrits/places</th>
+                    <th>Etat</th>
+                    <th>Inscrit</th>
+                    <th>Organisateur</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for event in events %}
+                <tr>
+                    <td>{{ event.name }}</td>
+                    <td>{{ event.startTime ? event.startTime|date('Y/m/d H:i') : '' }}</td>
+                    <td>{{ event.registrationTimeLimit ? event.registrationTimeLimit|date('Y/m/d') : '' }}</td>
+                    <td>{{ event.Users|length }}/{{ event.registrationMax }}</td>
+                    <td>{{ event.state.libeller }}</td>
+                    <td>{% for user in event.Users %}
+                        {% if user == app.user %}
+                            X
+                        {% endif %}
+                    {% endfor %}</td>
+                    <td>{{ event.organizer.pseudo }}</td>
+                    <td>
+                        <a href="{{ path('event_show', {'id': event.id}) }}">show</a>
+                        <a href="{{ path('event_update', {'id': event.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
     <a href="{{ path('event_new') }}">Create new</a>
 
@@ -108,6 +149,15 @@
         {
             document.getElementById('endingDate').disabled = true;
         }
+
+        //TODO pour désactiver les checkbox contradictoires
+        // function desactivate() {
+        //     document.getElementById('endingDate').disabled = false;
+        // }
+        // window.onload = function ()
+        // {
+        //     document.getElementById('endingDate').disabled = true;
+        // }
     </script>
 
 {% endblock %}
