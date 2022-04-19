@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des sorties{% endblock %}
+
+{% block body %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ville</th>
+                <th>Code Postal</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for t in town %}
+            <tr>
+                <td>{{ tow.name }}</td>
+                <td>{{ tow.postCode }}</td>
+             </tbody>
+        {% Endfor %}
+    <a href="{{ path('town_new') }}">Create new</a>
+{% endblock %}

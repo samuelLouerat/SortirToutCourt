@@ -6,6 +6,8 @@ use App\Entity\Place;
 use App\Entity\Town;
 use App\Form\PlaceType;
 use App\Form\TownType;
+use App\Repository\CampusRepository;
+use App\Repository\EventRepository;
 use App\Repository\PlaceRepository;
 use App\Repository\TownRepository;
 use App\Repository\UserRepository;
@@ -14,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-#[Route('/town', name: 'app_town')]
+#[Route('/town')]
 class TownController extends AbstractController
 {
 
@@ -42,5 +44,19 @@ class TownController extends AbstractController
 
         return $this->renderForm('town/new.html.twig',
             compact("formTown"));
+    }
+    #[Route('/list', name: 'Town_list', methods: ['GET', 'POST'])]
+
+    public function list(Request $request, EventRepository $eventRepository, EntityManagerInterface $em, TownRepository $townRepository): Response
+
+    {
+
+        $town = $townRepository->findAll();
+
+
+        return $this->render('town/list.html.twig',
+
+            ['town'=>$town]);
+
     }
 }

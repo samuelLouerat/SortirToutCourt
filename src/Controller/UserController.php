@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Event;
 use App\Entity\User;
+use App\Form\AdminUserFormType;
+use App\Form\RegistrationFormType;
 use App\Form\UserType;
+use App\Repository\EventRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -54,6 +58,26 @@ class UserController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}/admin/edit', name: 'admin_user_edit', requirements: ["id" => "\d+"], methods: ['GET', 'POST'])]
+    public function adminedit(Request $request, User $user, UserRepository $userRepository,   EntityManagerInterface $em): Response
+    {
+
+        $form = $this->createForm(AdminUserFormType::class, $user);
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em->persist($user);
+            $em->flush();
+            return $this->redirectToRoute('user_list', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('user/admin_update.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
+    }
 
     #[Route('/{id}/edit', name: 'user_edit', requirements: ["id" => "\d+"], methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, UserRepository $userRepository): Response
@@ -126,4 +150,5 @@ class UserController extends AbstractController
         );
 
     }
+
 }

@@ -11,7 +11,7 @@
                 <a class="navbar-item" href="{{ path('logout') }}">Se deconnecter</a>
     {% endif %}
                 {% if is_granted("ROLE_ADMIN") %}
-                  <a class="navbar-item" href="{{ path('event_list') }}">Administration</a>
+                  <a class="navbar-item" href="{{ path('administration') }}">Administration</a>
                 {% endif %}
         </div>
 </nav>
