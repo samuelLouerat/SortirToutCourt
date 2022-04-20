@@ -7,50 +7,11 @@
         {{ form_row(formEvent.duration) }}
         {{ form_row(formEvent.eventInfo) }}
         {{ form_row(formEvent.campusSite) }}
-{#        <input type="text" id="campusActive" value="{{campusConnected.name }}" />#}
         <input type="button" name="Submit" value="Modifier Campus" onclick="activer()" />
         {{ form_row(formEvent.place) }}
-        <button><a href="/place/new">Ajout</a></button>
+
         <button class="btn">{{ button_label|default('Save') }}</button>
-    </div>
+
 {{ form_end(formEvent, {render_rest: false}) }}
-<!--
-    <div>
-        <input type="button" name="Submit" value="Modifier Campus" onclick="activer()" />
-        <label for="campus">Ville</label>
-        <select class="" id="campus" name="campus">
-{#                {% for campus in campusRegister %}#}
-{#                {% if campusConnected == campus.name %}#}
-{#                       <option value="{{campus.id}} selected"> {{campus.name}} </option>#}
-{#                {% else %}#}
-{#                        <option value="{{campus.id}}" > {{campus.name}} </option>#}
-{#                {% endif %}#}
-{#                {% endfor %}#}
-{#        </select>#}
 
-{#        <label for="place"></label><select class="" id="place">#}
-{#            {% for place in placeRegister %}#}
-{#                <option id="{{place.id}}" value="{{place.id}}" > {{place.name}} </option>#}
-{#            {% endfor %}#}
-        </select>
-
-        <label for="Search"></label>
-        <input type="text" id="Search" value="" onkeydown="callApi() "/>
-        <label for="Town"></label>
-
-        <select class="" id="Town" onclick="callShowAddress();"  >
-        </select>
-
-    </div>
-
-    <div id="address">
-    </div>
-
-    <button class="btn">{{ button_label|default('Save') }}</button>
--->
-
-
-<script type="text/javascript">
-
-
-</script>
+<script src="{{ asset("event/script.js") }}"></script>

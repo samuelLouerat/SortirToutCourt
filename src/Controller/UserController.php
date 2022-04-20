@@ -30,25 +30,7 @@ class UserController extends AbstractController
     }
 
 
-    #[Route('/new', name: 'user_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, UserRepository $userRepository): Response
-    {
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $userRepository->add($user);
-
-            return $this->redirectToRoute('user_list', [], Response::HTTP_SEE_OTHER);
-
-        }
-
-        return $this->renderForm('user/new.html.twig', [
-            'user' => $user,
-            'form' => $form,
-        ]);
-    }
 
     #[Route('/{id}', name: 'user_profile', requirements: ["id" => "\d+"], methods: ['GET'])]
     public function profile(User $user): Response
@@ -78,6 +60,7 @@ class UserController extends AbstractController
             'form' => $form,
         ]);
     }
+
 
     #[Route('/{id}/edit', name: 'user_edit', requirements: ["id" => "\d+"], methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, UserRepository $userRepository): Response
