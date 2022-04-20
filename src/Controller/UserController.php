@@ -29,6 +29,7 @@ class UserController extends AbstractController
         ]);
     }
 
+
     #[Route('/show/{id}', name: 'user_profile_show', requirements: ["id" => "\d+"], methods: ['GET'])]
     public function profileShow(User $user): Response
     {
@@ -36,6 +37,8 @@ class UserController extends AbstractController
             'user' => $user,
         ]);
     }
+
+
 
 
     #[Route('/{id}', name: 'user_profile', requirements: ["id" => "\d+"], methods: ['GET'])]
@@ -47,7 +50,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/admin/edit', name: 'admin_user_edit', requirements: ["id" => "\d+"], methods: ['GET', 'POST'])]
-    public function adminedit(Request $request, User $user, UserRepository $userRepository,   EntityManagerInterface $em): Response
+    public function adminedit(Request $request, User $user, UserRepository $userRepository, EntityManagerInterface $em): Response
     {
 
         $form = $this->createForm(AdminUserFormType::class, $user);
@@ -66,7 +69,6 @@ class UserController extends AbstractController
             'form' => $form,
         ]);
     }
-
 
     #[Route('/{id}/edit', name: 'user_edit', requirements: ["id" => "\d+"], methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, UserRepository $userRepository): Response
@@ -108,36 +110,39 @@ class UserController extends AbstractController
 
         $us = $this->getUser()->getUserIdentifier();
         $user = $pr->findOneBy(['email' => $us]);
+        $oldPassword = $user->getPassword();
 
         $userForm = $this->createForm(UserType::class, $user);
-
         $userForm->handleRequest($request);
 
-//        if ('password' == $user->getPassword())
-//        {
-            if (
-                $userForm->isSubmitted()
-                && $userForm->isValid()
-            ) {
-                $user->setPassword(
-                    $userPasswordHasher->hashPassword(
-                        $user,
-                        $userForm->get('password')->getData()
-                    ));
+        if (
+            $userForm->isSubmitted()
+            && $userForm->isValid()
+        ) {
+            $newPassword = $userForm->get('password')->getData();
 
+            if ($userPasswordHasher->isPasswordValid($user, $newPassword)) {
                 $em->persist($user);
                 $em->flush();
                 $this->addFlash(
                     'Modifok',
                     'La mise à jour de votre profil est prise en compte.'
                 );
-                return $this->redirectToRoute(
-                    'event_list'
+            } else {
+                $this->addFlash(
+                    'ModifNok',
+                    'Le mot de passe est incorrect .'
+                );
+                return $this->render(
+                    'user/myProfile.html.twig', ['userForm' => $userForm->createView()]
                 );
             }
-//        } else {
-//
-//        }
+            return $this->redirectToRoute(
+                'event_list'
+            );
+        }else {
+            $user->setImageFile(null);
+        }
 
         return $this->render(
             'user/myProfile.html.twig', ['userForm' => $userForm->createView()]
