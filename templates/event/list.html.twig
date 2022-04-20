@@ -8,8 +8,8 @@
         <p>Participant : {{ app.user.lastName }} {{ app.user.firstName }}</p>
     </div>
     <p>{% for notice in app.flashes('Modifok') %}
-        {{ notice }}
-    {% endfor %}
+            {{ notice }}
+        {% endfor %}
     </p>
     <h1 class="title is-3">Filtrer les sorties</h1>
     <form class="container box" action="{{ '/event/search' }}" method="POST">
@@ -20,7 +20,8 @@
                     <select class="select" name="campusSite" id="campusSite">
                         <option value="">Tous</option>
                         {% for campus in campusList %}
-                            <option value="{{ campus.id }}" {% if campusSite == campus.id %}selected{% endif %}>{{ campus.name }}</option>
+                            <option value="{{ campus.id }}"
+                                    {% if campusSite == campus.id %}selected{% endif %}>{{ campus.name }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -30,7 +31,8 @@
                 </div>
                 <div>
                     <label class="label" for="beginningDate">Entre le : </label>
-                    <input class="input" name="beginningDate" id="beginningDate" type="datetime-local" onclick="activate()" value={{ beginningDate }}>
+                    <input class="input" name="beginningDate" id="beginningDate" type="datetime-local"
+                           onclick="activate()" value={{ beginningDate }}>
 
                     <label class="label" for="endingDate">et le</label>
                     <input class="input" name="endingDate" id="endingDate" type="datetime-local" value={{ endingDate }}>
@@ -39,14 +41,24 @@
             <div class="column is-one-third">
                 <div class="field">
                     <div>
-                        <input class="checkbox" name="organizer" id="organizer" type="checkbox" {% if organizer %} checked {% endif %}>
+                        <input class="checkbox" name="organizer" id="organizer"
+                               type="checkbox" {% if organizer %} checked {% endif %}>
                         <label class="label" for="organizer">Sortie dont je suis l'organisateur/trice</label><br>
                     </div>
 
-                <input name="registered" id="registered" type="checkbox" onclick="desactivate()" {% if registered %} checked {% endif %}><label class="label" for="registered">Sortie auxquelles je suis inscrit/e</label><br>
-                <input name="notRegistered" id="notRegistered" type="checkbox" onclick="desactivate()" {% if notRegistered %} checked {% endif %}><label class="label" for="notRegistered">Sortie auxquelles je ne suis pas inscrit/e</label><br>
-                <input name="pastEvents" id="pastEvents" type="checkbox" {% if pastEvents %} checked {% endif %}><label class="label" for="pastEvents">Sortie passées</label>
-            </div>
+                    <input name="registered" id="registered" type="checkbox"
+                           onclick="desactivate()" {% if registered %} checked {% endif %}><label class="label"
+                                                                                                  for="registered">Sortie
+                        auxquelles je suis inscrit/e</label><br>
+                    <input name="notRegistered" id="notRegistered" type="checkbox"
+                           onclick="desactivate()" {% if notRegistered %} checked {% endif %}><label class="label"
+                                                                                                     for="notRegistered">Sortie
+                        auxquelles je ne suis pas inscrit/e</label><br>
+                    <input name="pastEvents" id="pastEvents"
+                           type="checkbox" {% if pastEvents %} checked {% endif %}><label class="label"
+                                                                                          for="pastEvents">Sortie
+                        passées</label>
+                </div>
             </div>
             <div class="column">
                 <button class="button is-primary" value="submit">Rechercher</button>
@@ -55,8 +67,8 @@
     </form>
 
     <div class="box">
-    <table class="table">
-        <thead>
+        <table class="table">
+            <thead>
             <tr>
                 <th>Nom de la sortie</th>
                 <th>Date de la sortie</th>
@@ -67,6 +79,7 @@
                 <th>Organisateur</th>
                 <th>Actions</th>
             </tr>
+
         </thead>
         <tbody>
         {% for event in events %}
@@ -99,6 +112,7 @@
         {% endfor %}
         </tbody>
     </table>
+
     </div>
 
 

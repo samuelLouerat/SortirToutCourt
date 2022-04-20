@@ -26,27 +26,42 @@
     </div>
     <div>
         <h4>Campus</h4>
-        <p></p>
+        <p>{{ event.campusSite.name }}</p>
 
         <h4>Lieu</h4>
-        <p></p>
+        <p>{{ event.place.name }}</p>
 
         <h4>Rue</h4>
-        <p></p>
+        <p>{{ event.place.street }}</p>
 
         <h4>Code postal</h4>
-        <p></p>
+        <p>{{ event.place.town.postCode }}</p>
 
         <h4>Latitude</h4>
-        <p></p>
+        <p>{{ event.place.latitude }}</p>
         <h4>Longitude</h4>
-        <p></p>
+        <p>{{ event.place.longitude }}</p>
 
     </div>
 
     <a href="{{ path('event_list') }}">Retour à la liste</a>
 
-    {% if event.state.libeller == 'open'
+    {% set inscrit = '0' %}
+
+    {% for user in event.Users %}
+        {% if user == app.user %}
+            {% set inscrit = '1' %}
+        {% endif %}
+    {% endfor %}
+
+    {% if inscrit == '1'
+        and event.startTime >= date('now')%}
+        <a href="{{ path('event_unsubscribe', {'id' : event.id}) }}">
+            <button>Me désinscrire</button>
+        </a>
+    {% endif %}
+    {% if inscrit == '0'
+        and event.state.libeller == 'open'
         and event.registrationTimeLimit >= date('now')
         and event.Users|length < event.registrationMax %}
         <a href="{{ path('event_subscribe', {'id' : event.id}) }}">
@@ -54,16 +69,27 @@
         </a>
     {% endif %}
 
+    <p>Liste des participants inscrits : </p>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Pseudo</th>
+            <th>Nom</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for participant in event.Users %}
+            <tr>
+                <td>{{ participant.pseudo }}</td>
+                <td>{{ participant.lastname }} {{ participant.firstname }}</td>
 
-    {% for user in event.Users %}
-        {% if user == app.user %}
-            <a href="{{ path('event_subscribe', {'id' : event.id}) }}">
-                <button>Me désinscrire</button>
-            </a>
-        {% endif %}
-    {% endfor %}
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-
-
-    {{ include('event/_delete_form.html.twig') }}
 {% endblock %}
