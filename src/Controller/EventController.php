@@ -143,7 +143,7 @@ class EventController extends AbstractController
         $us= $this->getUser()->getUserIdentifier();
         $user = $userRepository->findOneBy(['email' => $us]);
 
-        if ($event->getOrganizer()==$user) {
+        if ($event->getOrganizer() == $user) {
             $event->setEventInfo("");
             $form = $this->createForm(EventCancelType::class, $event);
             $form->handleRequest($request);
@@ -178,14 +178,19 @@ class EventController extends AbstractController
 
         $entityManager = $doctrine->getManager();
         $event = $entityManager->getRepository(Event::class)->find($id);
+        // $us = $this->getUser()->getUserIdentifier();
         $user = $pr->findOneBy(['email' => $this->getUser()->getUserIdentifier()]);;
 
+        if ($event->getUsers()->contains($user->getId())) {
+            $event->removeUserParticipation($user);
+        } else {
             $event->addUserParticipation($user);
 
-        $em->persist($event);
-        $em->flush();
+            $em->persist($event);
+            $em->flush();
 
-        return $this->redirectToRoute('event_list', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('event_list', [], Response::HTTP_SEE_OTHER);
+        }
     }
 
     #[Route('/{id}/unsubscribe', name: 'event_unsubscribe', requirements: ["id" => "\d+"])]
