@@ -65,7 +65,7 @@
             </div>
         </div>
     </form>
-    
+
     <div class="box">
         <table class="table">
             <thead>
@@ -80,42 +80,59 @@
                 <th>Actions</th>
             </tr>
 
-        </thead>
-        <tbody>
-        {% for event in events %}
-            <tr>
-                <td>{{ event.name }}</td>
-                <td>{{ event.startTime ? event.startTime|date('Y/m/d H:i') : '' }}</td>
-                <td>{{ event.registrationTimeLimit ? event.registrationTimeLimit|date('Y/m/d') : '' }}</td>
-                <td>{{ event.Users|length }}/{{ event.registrationMax }}</td>
-                <td>{{ event.state.libeller }}</td>
-                <td>{% for user in event.Users %}
-                    {% if user == app.user %}
-                        X
-                    {% endif %}
-                {% endfor %}</td>
-                <td>{{ event.organizer.pseudo }}</td>
-                <td>
-                    <a href="{{ path('event_show', {'id': event.id}) }}">Afficher</a>
-                    <!--if organier is me and event not finish it s possible to modify -->
-                    {% if event.organizer == app.user and event.state.id!=5 and event.state.id!=6%}
-                        <a href="{{ path('event_update', {'id': event.id}) }}">Modifier</a>
-                    {% endif %}
-                    {% if event.organizer == app.user  %}
-                    {% if event.state.libeller != 'Canceled'%}
-                    <a href="{{ path('event_cancel', {'id': event.id}) }}">Annuler</a>
-                    {% endif %}
-                    {% endif %}
+            </thead>
+            <tbody>
+            {% for event in events %}
+                <tr>
+                    <td>{{ event.name }}</td>
+                    <td>{{ event.startTime ? event.startTime|date('Y/m/d H:i') : '' }}</td>
+                    <td>{{ event.registrationTimeLimit ? event.registrationTimeLimit|date('Y/m/d') : '' }}</td>
+                    <td>{{ event.Users|length }}/{{ event.registrationMax }}</td>
+                    <td>{{ event.state.libeller }}</td>
+                    <td>{% for user in event.Users %}
+                            {% if user == app.user %}
+                                X
+                            {% endif %}
+                        {% endfor %}</td>
+                    <td>{{ event.organizer.pseudo }}</td>
+                    <td>
+                        <a href="{{ path('event_show', {'id': event.id}) }}">Afficher</a>
+                        <!--if organizer is me and event isn't finish it's possible to modify -->
+                        {% if event.organizer == app.user and event.state.id!=5 and event.state.id!=6 %}
+                            <a href="{{ path('event_update', {'id': event.id}) }}">Modifier</a>
+                        {% endif %}
+                        {% if event.organizer == app.user %}
+                            {% if event.state.libeller != 'Canceled' %}
+                                <a href="{{ path('event_cancel', {'id': event.id}) }}">Annuler</a>
+                            {% endif %}
+                        {% endif %}
 
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                        {% set inscrit = '0' %}
+                        {% for user in event.Users %}
+                            {% if user == app.user %}
+                                {% set inscrit = '1' %}
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if inscrit == '1'
+                            and event.startTime >= date('now')%}
+                            <a href="{{ path('event_unsubscribe', {'id' : event.id}) }}">Me désinscrire</a>
+                        {% endif %}
+                        {% if inscrit == '0'
+                            and event.state.id == 2
+                            and event.registrationTimeLimit >= date('now')
+                            and event.Users|length < event.registrationMax %}
+                            <a href="{{ path('event_subscribe', {'id' : event.id}) }}">M'inscrire</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
     </div>
 
