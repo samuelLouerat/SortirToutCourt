@@ -39,6 +39,7 @@ class EventController extends AbstractController
         $events = $eventRepository->findAll();
         $campusList = $campusRepository->findAll();
 
+
         $campusSite=null;
         $keywords=null;
         $beginningDate=null;
@@ -47,6 +48,7 @@ class EventController extends AbstractController
         $registered=null;
         $notRegistered=null;
         $pastEvents=null;
+
 
         return $this->render('event/list.html.twig',
 
