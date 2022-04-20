@@ -32,13 +32,33 @@ class EventController extends AbstractController
 
     #[Route('/list', name: 'event_list', methods: ['GET', 'POST'])]
 
-    public function list(Request $request, EventRepository $eventRepository, EntityManagerInterface $em, CampusRepository $campusRepository): Response
+    public function list(Request $request,StateRepository $stateRepository, EventRepository $eventRepository, EntityManagerInterface $em, CampusRepository $campusRepository): Response
 
     {
 
         $events = $eventRepository->findAll();
         $campusList = $campusRepository->findAll();
-
+       //state event
+        foreach($events as $e){
+            if ($e->getState()!== $stateRepository->findOneBy(['id' => 6]) ) {
+                if (date_add( $e->getStartTime(),$e->getDuration()) < new \DateTime('now')) {
+                    $e->setState($stateRepository->findOneBy(['id' => 5]));
+                    $em->persist($e);
+                    $em->flush();
+                }else{
+                if ($e->getRegistrationTimeLimit() < new \DateTime('now')) {
+                    $e->setState($stateRepository->findOneBy(['id' => 3]));
+                    $em->persist($e);
+                    $em->flush();
+                }else{
+                    if( $e->getStartTime()>new \DateTime('now')){
+                        $e->setState($stateRepository->findOneBy(['id' => 4]));
+                        $em->persist($e);
+                        $em->flush();
+                    }
+                }}
+            }
+        }
 
         $campusSite=null;
         $keywords=null;
@@ -77,7 +97,7 @@ class EventController extends AbstractController
         $formEvent->handleRequest($request);
         $event->setCampusSite($user->getCampus());
         if ($formEvent->isSubmitted()) {
-            $event->setState($stateRepository->findOneBy(['libeller' => 'Created']));
+            $event->setState($stateRepository->findOneBy(['id' => '1']));
             $em->persist($event);
             $em->flush();
             return $this->redirectToRoute('event_list', [], Response::HTTP_SEE_OTHER);
@@ -130,7 +150,7 @@ class EventController extends AbstractController
 
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $event->setState($stateRepository->findOneBy(['libeller' => 'Canceled']));
+                $event->setState($stateRepository->findOneBy(['id' => 6]));
 
                 $em->persist($event);
                 $em->flush();
