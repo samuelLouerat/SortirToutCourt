@@ -1,12 +1,6 @@
 {{ form_start(formTown) }}
         {{ form_row(formTown.name) }}
-<datalist id="datalistOptions">
-        <option value="San Francisco">
-</datalist>
         {{ form_row(formTown.postCode) }}
-
-
-{#       {{ form_widget(formTown) }}#}
          <button><a href="/place/new">Annuler</a></button>
         <button class="btn">{{ button_label|default('Save') }}</button>
 

@@ -90,7 +90,7 @@ class EventController extends AbstractController
 
     public function show(Event $event): Response
     {
-        return $this->render('event/board.html.twig', [
+        return $this->render('event/show.html.twig', [
             'event' => $event,
         ]);
     }
