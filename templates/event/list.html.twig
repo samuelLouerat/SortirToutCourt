@@ -4,8 +4,8 @@
 
 {% block body %}
     <div class="column is-offset-9">
-        <p>Date du jour</p>
-        <p>Utilisateur connecté</p>
+        <p>Date du jour : {{ "now"|date('d/m/Y') }}</p>
+        <p>Participant : {{ app.user.lastName }} {{ app.user.firstName }}</p>
     </div>
     <p>{% for notice in app.flashes('Modifok') %}
         {{ notice }}
@@ -100,32 +100,7 @@
     </div>
 
 
+
     <a href="{{ path('event_new') }}">Create new</a>
 
-    <script type="text/javascript">
-        function activate() {
-            document.getElementById('endingDate').disabled = false;
-        }
-        window.onload = function ()
-        {
-            document.getElementById('endingDate').disabled = true;
-        }
-
-        //TODO pour désactiver les checkbox contradictoires
-        function desactivate() {
-            if (document.getElementById('notRegistered').checked === true) {
-                document.getElementById('registered').disabled = true
-                document.getElementById('notRegistered').disabled = false
-            }
-            else
-            {
-                document.getElementById('registered').disabled = false
-                document.getElementById('notRegistered').disabled = false
-            }
-        }
-        window.onload = function () {
-            document.getElementById('registered').disabled = true
-            document.getElementById('notRegistered').disabled = true
-        }
-    </script>
 {% endblock %}
