@@ -43,8 +43,12 @@ class UserType extends AbstractType
             ->add('email', TextType::class,
                 ["label" => 'Email'])
 
+            ->add('campus', EntityType::class,
+                ['class' => Campus::class, 'choice_label' => 'name'])
+
             ->add('password', PasswordType::class,
             [
+                "label" => 'Saisir le mot de passe pour confirmer',
                 'invalid_message' => 'Mot de passe incorrect',
                 'required' => true,
                 'mapped' => false,
@@ -52,7 +56,7 @@ class UserType extends AbstractType
                     new NotBlank([
                         'message' => 'Merci de saisir le mot de passe pour valider la modification du profil',
                     ]),
-            ]])
+            ]]) ;
 //            ->add('password', RepeatedType::class, [
 //                'type' => PasswordType::class,
 //                'invalid_message' => 'Les mots de passe doivent correspondre',
@@ -74,9 +78,7 @@ class UserType extends AbstractType
 //                    ]),
 //                ]
 //            ])
-            ->add('campus', EntityType::class,
-                ['class' => Campus::class, 'choice_label' => 'name'])
-            ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
