@@ -43,27 +43,37 @@ class UserType extends AbstractType
             ->add('email', TextType::class,
                 ["label" => 'Email'])
 
-            ->add('password', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'invalid_message' => 'Les mots de passe doivent correspondre',
-                'options' => ['attr' => ['class' => 'password-field']],
+            ->add('password', PasswordType::class,
+            [
+                'invalid_message' => 'Mot de passe incorrect',
                 'required' => true,
-                'first_options' => ['label' => 'Mot de passe'],
-                'second_options' => ['label' => 'Saisir à nouveau le mot de passe'],
                 'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Merci de saisir le mot de passe pour valider la modification du profil',
                     ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ]
-            ])
+            ]])
+//            ->add('password', RepeatedType::class, [
+//                'type' => PasswordType::class,
+//                'invalid_message' => 'Les mots de passe doivent correspondre',
+//                'options' => ['attr' => ['class' => 'password-field']],
+//                'required' => true,
+//                'first_options' => ['label' => 'Mot de passe'],
+//                'second_options' => ['label' => 'Saisir à nouveau le mot de passe'],
+//                'mapped' => false,
+//                'attr' => ['autocomplete' => 'new-password'],
+//                'constraints' => [
+//                    new NotBlank([
+//                        'message' => 'Please enter a password',
+//                    ]),
+//                    new Length([
+//                        'min' => 6,
+//                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+//                        // max length allowed by Symfony for security reasons
+//                        'max' => 4096,
+//                    ]),
+//                ]
+//            ])
             ->add('campus', EntityType::class,
                 ['class' => Campus::class, 'choice_label' => 'name'])
             ;

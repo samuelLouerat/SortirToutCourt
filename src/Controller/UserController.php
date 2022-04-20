@@ -124,26 +124,31 @@ class UserController extends AbstractController
 
         $userForm->handleRequest($request);
 
-        if (
-            $userForm->isSubmitted()
-            && $userForm->isValid()
-        ) {
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $userForm->get('password')->getData()
-                ));
+//        if ('password' == $user->getPassword())
+//        {
+            if (
+                $userForm->isSubmitted()
+                && $userForm->isValid()
+            ) {
+                $user->setPassword(
+                    $userPasswordHasher->hashPassword(
+                        $user,
+                        $userForm->get('password')->getData()
+                    ));
 
-            $em->persist($user);
-            $em->flush();
-            $this->addFlash(
-                'Modifok',
-                'La mise à jour de votre profil est prise en compte.'
-            );
-            return $this->redirectToRoute(
-                'event_list'
-            );
-        }
+                $em->persist($user);
+                $em->flush();
+                $this->addFlash(
+                    'Modifok',
+                    'La mise à jour de votre profil est prise en compte.'
+                );
+                return $this->redirectToRoute(
+                    'event_list'
+                );
+            }
+//        } else {
+//
+//        }
 
         return $this->render(
             'user/myProfile.html.twig', ['userForm' => $userForm->createView()]

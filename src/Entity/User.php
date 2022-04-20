@@ -89,7 +89,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function unserialize($serialized)
     {
         $this->imageFile = base64_decode($this->imageFile);
-
     }
 
     /**

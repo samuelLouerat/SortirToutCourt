@@ -46,24 +46,27 @@
 
     <a href="{{ path('event_list') }}">Retour à la liste</a>
 
-    {% if event.state.libeller == 'open'
+    {% set inscrit = '0' %}
+
+    {% for user in event.Users %}
+        {% if user == app.user %}
+            {% set inscrit = '1' %}
+        {% endif %}
+    {% endfor %}
+
+    {% if inscrit == '1' %}
+        <a href="{{ path('event_unsubscribe', {'id' : event.id}) }}">
+            <button>Me désinscrire</button>
+        </a>
+    {% endif %}
+    {% if inscrit == '0'
+        and event.state.libeller == 'open'
         and event.registrationTimeLimit >= date('now')
         and event.Users|length < event.registrationMax %}
         <a href="{{ path('event_subscribe', {'id' : event.id}) }}">
             <button>M'inscrire</button>
         </a>
     {% endif %}
-
-
-    {% for user in event.Users %}
-        {% if user == app.user %}
-            <a href="{{ path('event_subscribe', {'id' : event.id}) }}">
-                <button>Me désinscrire</button>
-            </a>
-        {% endif %}
-    {% endfor %}
-
-
 
     {{ include('event/_delete_form.html.twig') }}
 {% endblock %}

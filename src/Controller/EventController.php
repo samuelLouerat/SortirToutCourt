@@ -92,7 +92,7 @@ class EventController extends AbstractController
 
     public function show(Event $event): Response
     {
-        return $this->render('event/board.html.twig', [
+        return $this->render('event/show.html.twig', [
             'event' => $event,
         ]);
     }
@@ -158,14 +158,31 @@ class EventController extends AbstractController
 
         $entityManager = $doctrine->getManager();
         $event = $entityManager->getRepository(Event::class)->find($id);
-        // $us = $this->getUser()->getUserIdentifier();
         $user = $pr->findOneBy(['email' => $this->getUser()->getUserIdentifier()]);;
 
-        if ($event->getUsers()->contains($user->getId())) {
-            $event->removeUserParticipation($user);
-        } else {
             $event->addUserParticipation($user);
-        }
+
+        $em->persist($event);
+        $em->flush();
+
+        return $this->redirectToRoute('event_list', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/unsubscribe', name: 'event_unsubscribe', requirements: ["id" => "\d+"])]
+    public function removeRegistered(
+        ManagerRegistry $doctrine,
+        UserRepository  $pr,
+        EntityManagerInterface $em,
+        int             $id
+    ): Response
+    {
+
+        $entityManager = $doctrine->getManager();
+        $event = $entityManager->getRepository(Event::class)->find($id);
+        $user = $pr->findOneBy(['email' => $this->getUser()->getUserIdentifier()]);;
+
+            $event->removeUserParticipation($user);
+
         $em->persist($event);
         $em->flush();
 
