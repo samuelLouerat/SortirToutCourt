@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateur{% endblock %}
+
+{% block body %}
+    <h1>{{ user.pseudo }}</h1>
+<div>
+ <p>Elle est pas belle ma photo?</p>
+</div>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ user.firstName }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ user.lastName }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ user.phone }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Campus</th>
+                <td>{{ user.campus.name }}</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <button><a href="{{ path('user_list') }}">back to list</a></button>
+
+{% endblock %}

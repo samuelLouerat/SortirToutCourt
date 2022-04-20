@@ -52,7 +52,7 @@ class EventController extends AbstractController
                     $em->flush();
                 }else{
                     if( $e->getStartTime()>new \DateTime('now')){
-                        $e->setState($stateRepository->findOneBy(['id' => 4]));
+                        $e->setState($stateRepository->findOneBy(['id' => 2]));
                         $em->persist($e);
                         $em->flush();
                     }
@@ -110,10 +110,19 @@ class EventController extends AbstractController
 
     #[Route('/{id}', name: 'event_show', requirements: ["id" => "\d+"], methods: ['GET'])]
 
-    public function show(Event $event): Response
+    public function show(Event $event, UserRepository $ur): Response
     {
+        $me = $this->getUser()->getUserIdentifier();
+        $userConnected = $ur->findOneBy(['email' => $me]);
+        $AuthoriseShowUserProfil=false;
+        foreach($event->getUsers() as $u) {
+            if($u==$userConnected){
+                $AuthoriseShowUserProfil=true;
+            }
+        }
+
         return $this->render('event/show.html.twig', [
-            'event' => $event,
+            'event' => $event,'authorize'=>$AuthoriseShowUserProfil
         ]);
     }
 

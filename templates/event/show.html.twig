@@ -61,7 +61,7 @@
         </a>
     {% endif %}
     {% if inscrit == '0'
-        and event.state.libeller == 'open'
+        and event.state.id == 2
         and event.registrationTimeLimit >= date('now')
         and event.Users|length < event.registrationMax %}
         <a href="{{ path('event_subscribe', {'id' : event.id}) }}">
@@ -73,14 +73,23 @@
     <table class="table">
         <thead>
         <tr>
-            <th>Pseudo</th>
+
+                <th>Pseudo</th>
+
             <th>Nom</th>
+
         </tr>
         </thead>
         <tbody>
         {% for participant in event.Users %}
             <tr>
+                {% if authorize %}
+
+                    <td><a href="{{ path('user_profile_show', {'id': participant.id}) }}">{{ participant.pseudo }}</a></td>
+                {% endif  %}
+                {% if not authorize %}
                 <td>{{ participant.pseudo }}</td>
+                {% endif  %}
                 <td>{{ participant.lastname }} {{ participant.firstname }}</td>
 
             </tr>
