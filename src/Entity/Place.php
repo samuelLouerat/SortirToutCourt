@@ -2,12 +2,17 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\PlaceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: PlaceRepository::class)]
+#[ApiResource(
+    normalizationContext: ['groups' => ['getPlace']]
+)]
 class Place
 {
     #[ORM\Id]
@@ -17,20 +22,21 @@ class Place
 
     #[ORM\Column(type: 'string', length: 150)]
     private $name;
-
+    #[Groups(['getPlace'])]
     #[ORM\Column(type: 'string', length: 100)]
     private $street;
-
+    #[Groups(['getPlace'])]
     #[ORM\Column(type: 'float', nullable: true)]
     private $latitude;
-
+    #[Groups(['getPlace'])]
     #[ORM\Column(type: 'float', nullable: true)]
     private $longitude;
 
     #[ORM\OneToMany(mappedBy: 'place', targetEntity: Event::class, cascade: ['persist','remove'])]
     private $events;
 
-    #[ORM\ManyToOne(targetEntity: Town::class, cascade: ['persist','remove'], inversedBy: 'places')]
+    #[ORM\ManyToOne(targetEntity: Town::class, inversedBy: 'places')]
+    #[Groups(['getPlace'])]
     private $town;
 
     public function __construct()

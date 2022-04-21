@@ -10,8 +10,8 @@
         <input type="button" name="Submit" value="Modifier Campus" onclick="activer()" />
         {{ form_row(formEvent.place) }}
 
-        <button class="btn">{{ button_label|default('Save') }}</button>
+
+<button class="btn">{{ button_label|default('Save') }}</button>
 
 {{ form_end(formEvent, {render_rest: false}) }}
 
-<script src="{{ asset("event/script.js") }}"></script>

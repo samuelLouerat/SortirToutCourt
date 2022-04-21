@@ -80,32 +80,35 @@
                 <th>Actions</th>
             </tr>
 
-            </thead>
-            <tbody>
-            {% for event in events %}
-                <tr>
-                    <td>{{ event.name }}</td>
-                    <td>{{ event.startTime ? event.startTime|date('Y/m/d H:i') : '' }}</td>
-                    <td>{{ event.registrationTimeLimit ? event.registrationTimeLimit|date('Y/m/d') : '' }}</td>
-                    <td>{{ event.Users|length }}/{{ event.registrationMax }}</td>
-                    <td>{{ event.state.libeller }}</td>
-                    <td>{% for user in event.Users %}
-                            {% if user == app.user %}
-                                X
-                            {% endif %}
-                        {% endfor %}</td>
-                    <td>{{ event.organizer.pseudo }}</td>
-                    <td>
-                        <a href="{{ path('event_show', {'id': event.id}) }}">Afficher</a>
-                        <!--if organizer is me and event isn't finish it's possible to modify -->
-                        {% if event.organizer == app.user and event.state.id!=5 and event.state.id!=6 %}
-                            <a href="{{ path('event_update', {'id': event.id}) }}">Modifier</a>
-                        {% endif %}
-                        {% if event.organizer == app.user %}
-                            {% if event.state.libeller != 'Canceled' %}
-                                <a href="{{ path('event_cancel', {'id': event.id}) }}">Annuler</a>
-                            {% endif %}
-                        {% endif %}
+
+        </thead>
+            <button><a href="{{ path('event_new') }}">Creer Evenement</a></button>
+        <tbody>
+        {% for event in events %}
+            <tr>
+                <td>{{ event.name }}</td>
+                <td>{{ event.startTime ? event.startTime|date('Y/m/d H:i') : '' }}</td>
+                <td>{{ event.registrationTimeLimit ? event.registrationTimeLimit|date('Y/m/d') : '' }}</td>
+                <td>{{ event.Users|length }}/{{ event.registrationMax }}</td>
+                <td>{{ event.state.libeller }}</td>
+                <td>{% for user in event.Users %}
+                    {% if user == app.user %}
+                        X
+                    {% endif %}
+                {% endfor %}</td>
+                <td>{{ event.organizer.pseudo }}</td>
+                <td>
+                    <a href="{{ path('event_show', {'id': event.id}) }}">Afficher</a>
+                    <!--if organier is me and event not finish it s possible to modify -->
+                    {% if event.organizer == app.user and event.state.id!=5 and event.state.id!=6%}
+                        <a href="{{ path('event_update', {'id': event.id}) }}">Modifier</a>
+                    {% endif %}
+                    {% if event.organizer == app.user  %}
+                    {% if event.state.libeller != 'Canceled'%}
+                    <a href="{{ path('event_cancel', {'id': event.id}) }}">Annuler</a>
+                    {% endif %}
+                    {% endif %}
+
 
                         {% set inscrit = '0' %}
                         {% for user in event.Users %}
@@ -135,9 +138,4 @@
         </table>
 
     </div>
-
-
-
-    <a href="{{ path('event_new') }}">Create new</a>
-
 {% endblock %}

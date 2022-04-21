@@ -34,25 +34,17 @@ class EventType extends AbstractType
             ->add('registrationMax')
             ->add('duration',DateIntervalType::class,[
             'widget'      => 'choice',
-    'with_years'  => true,
-    'with_months' => true,
-    'with_days'   => true,
-    'with_hours'  => true,
+                'with_years'  => true,
+                'with_months' => true,
+                'with_days'   => true,
+                'with_hours'  => true,
                 'with_minutes'  => true,
 ])
             ->add('eventInfo',TextareaType::class)
             ->add('campusSite',EntityType::class,
                 ['class'=>Campus::class,  'choice_label'=>'name'])
-            ->add('place',EntityType::class, ['class'=>Place::class, 'choice_label'=>'name'])
-     ;
-            //->add('place',EntityType::class, ['class'=>Place::class, 'choice_label'=>'name','by_reference' => false,'multiple'=>false])
-
-
-
-
-
-
-
+            ->add('place',EntityType::class, ['class'=>Place::class, 'choice_label'=>'name','choice_value'=>'id']);
+            //->add('place',PlaceType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
