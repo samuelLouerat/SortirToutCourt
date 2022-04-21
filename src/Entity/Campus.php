@@ -18,10 +18,10 @@ class Campus
     #[ORM\Column(type: 'string', length: 30)]
     private $name;
 
-    #[ORM\OneToMany(mappedBy: 'campusSite', targetEntity: Event::class)]
+    #[ORM\OneToMany(mappedBy: 'campusSite', targetEntity: Event::class, cascade: ['persist','remove'])]
     private $events;
 
-    #[ORM\OneToMany(mappedBy: 'campus', targetEntity: User::class)]
+    #[ORM\OneToMany(mappedBy: 'campus', targetEntity: User::class, cascade: ['persist','remove'])]
     private $users;
 
     public function __construct()

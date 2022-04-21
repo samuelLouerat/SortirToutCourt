@@ -1,0 +1,11 @@
+{# templates/bundles/TwigBundle/Exception/error404.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Page introuvable</h1>
+
+    <p>
+      L'insertion de doublon est interdit en base de données
+        <a href="{{ path('login') }}">retour à la page d'accueil</a>.
+    </p>
+{% endblock %}

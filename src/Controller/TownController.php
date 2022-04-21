@@ -39,7 +39,7 @@ class TownController extends AbstractController
         if ($formTown->isSubmitted()) {
             $em->persist($town);
             $em->flush();
-            return $this->redirectToRoute('place_new', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('administration', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('town/new.html.twig',

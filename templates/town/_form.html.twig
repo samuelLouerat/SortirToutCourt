@@ -1,7 +1,7 @@
 {{ form_start(formTown) }}
         {{ form_row(formTown.name) }}
         {{ form_row(formTown.postCode) }}
-         <button><a href="/place/new">Annuler</a></button>
+         <button><a href="{{ path('administration')}}">Annuler</a></button>
         <button class="btn">{{ button_label|default('Save') }}</button>
 
 {{ form_end(formTown, {render_rest: false}) }}

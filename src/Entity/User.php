@@ -57,16 +57,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Regex(pattern: "#^\w+$#")]
     private $pseudo;
 
-    #[ORM\OneToMany(mappedBy: 'organizer', targetEntity: Event::class)]
+    #[ORM\OneToMany(mappedBy: 'organizer', targetEntity: Event::class, cascade: ['persist','remove'])]
     private $OrganizedEvent;
 
-    #[ORM\ManyToMany(targetEntity: Event::class, inversedBy: 'users')]
+    #[ORM\ManyToMany(targetEntity: Event::class, inversedBy: 'users', cascade: ['persist','remove'])]
     private $isRegistered;
 
-    #[ORM\ManyToOne(targetEntity: Campus::class, inversedBy: 'users')]
+    #[ORM\ManyToOne(targetEntity: Campus::class, cascade: ['persist','remove'], inversedBy: 'users')]
     #[ORM\JoinColumn(nullable: false)]
     private $campus;
-
 
     #[ORM\OneToOne(inversedBy: 'user', targetEntity: AvatarFile::class, cascade: ['persist', 'remove'])]
     private $avatarfiles;

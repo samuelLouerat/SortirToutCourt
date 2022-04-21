@@ -37,7 +37,6 @@ let id= document.getElementById("event_place").value;
                 $('#monadresse').append(nouvelElement);
                 console.log(donnees)
                 console.log(donnees.latitude)
-
                 console.log(donnees.street)
             }
         )

@@ -22,76 +22,89 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Constraints\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
+
 #[Route('/event')]
 class EventController extends AbstractController
 {
+    public const CREATED=1;
+    public const OPEN=2;
+    public const CLOSED=3;
+    public const INPROGRESS=4;
+    public const PAST=5;
+    public const CANCELED=6;
 
     #[Route('/list', name: 'event_list', methods: ['GET', 'POST'])]
-
-    public function list(Request $request,StateRepository $stateRepository, EventRepository $eventRepository, EntityManagerInterface $em, CampusRepository $campusRepository): Response
+    public function list(UserRepository $ur,Request $request, StateRepository $stateRepository, EventRepository $eventRepository, EntityManagerInterface $em, CampusRepository $campusRepository): Response
 
     {
+        $us = $this->getUser()->getUserIdentifier();
+        $user = $ur->findOneBy(['email' => $us]);
 
-        $events = $eventRepository->findAll();
-        $campusList = $campusRepository->findAll();
-       //state event
-        foreach($events as $e){
-            if ($e->getState()!== $stateRepository->findOneBy(['id' => 6]) ) {
-                if (date_add( $e->getStartTime(),$e->getDuration()) < new \DateTime('now')) {
-                    $e->setState($stateRepository->findOneBy(['id' => 5]));
-                    $em->persist($e);
-                    $em->flush();
-                }else{
-                if ($e->getRegistrationTimeLimit() < new \DateTime('now')) {
-                    $e->setState($stateRepository->findOneBy(['id' => 3]));
-                    $em->persist($e);
-                    $em->flush();
-                }else{
-                    if( $e->getStartTime()>new \DateTime('now')){
-                        $e->setState($stateRepository->findOneBy(['id' => 2]));
-                        $em->persist($e);
-                        $em->flush();
+
+        if (!$user->getActive()) {
+            $this->addFlash(
+                'Modifok',
+                'La mise à jour de votre profil est prise en compte.'
+            );
+            return $this->redirectToRoute('logout', [], Response::HTTP_SEE_OTHER);
+    }else {
+            $events = $eventRepository->findAll();
+            $campusList = $campusRepository->findAll();
+            $enew = $events;
+            foreach ($enew as $e) {
+                $debut = $e->getStartTime();
+                $duree = $e->getDuration();
+                $dateEndEvent = date_add($debut, $duree);
+                if ($e->getState() !== $stateRepository->findOneBy(['id' => self::CANCELED])) {
+                    if ($dateEndEvent < new \DateTime('now')) {
+                        $e->setState($stateRepository->findOneBy(['id' => self::PAST]));
+                    } else {
+                        if ($e->getRegistrationTimeLimit() < new \DateTime('now')) {
+                            $e->setState($stateRepository->findOneBy(['id' => self::CLOSED]));
+                        } else {
+                            if ($e->getStartTime() > new \DateTime('now')) {
+                                $e->setState($stateRepository->findOneBy(['id' => self::OPEN]));
+                            }
+                        }
                     }
-                }}
+                    $em->persist($e);
+                    $em->flush();
+                }
             }
+            $campusSite = null;
+            $keywords = null;
+            $beginningDate = null;
+            $endingDate = null;
+            $organizer = null;
+            $registered = null;
+            $notRegistered = null;
+            $pastEvents = null;
+            return $this->render('event/list.html.twig',
+                ['events' => $events, 'campusList' => $campusList, 'campusSite' => $campusSite, 'keywords' => $keywords, 'beginningDate' => $beginningDate, 'endingDate' => $endingDate, 'organizer' => $organizer, 'registered' => $registered, 'notRegistered' => $notRegistered, 'pastEvents' => $pastEvents]);
         }
-
-        $campusSite=null;
-        $keywords=null;
-        $beginningDate=null;
-        $endingDate=null;
-        $organizer=null;
-        $registered=null;
-        $notRegistered=null;
-        $pastEvents=null;
-
-
-        return $this->render('event/list.html.twig',
-
-        ['events'=>$events, 'campusList'=>$campusList, 'campusSite'=>$campusSite, 'keywords'=>$keywords, 'beginningDate'=>$beginningDate, 'endingDate'=>$endingDate, 'organizer'=>$organizer, 'registered'=>$registered, 'notRegistered'=>$notRegistered, 'pastEvents'=>$pastEvents]);
-
     }
-    #[Route('/place/{id}', name: 'event_place', requirements: ["id" => "\d+"], methods: ['GET', 'POST'])]
-    public function place(Place $place,SerializerInterface $serializer){
 
-        return new Response($serializer->serialize($place,'json',['groups'=>['getPlace']]));
+    #[Route('/place/{id}', name: 'event_place', requirements: ["id" => "\d+"], methods: ['GET', 'POST'])]
+    public function place(Place $place, SerializerInterface $serializer)
+    {
+
+        return new Response($serializer->serialize($place, 'json', ['groups' => ['getPlace']]));
 
     }
 
     #[Route('/new', name: 'event_new', methods: ['GET', 'POST'])]
-    public function new(EntityManagerInterface $em, Request $request,StateRepository $stateRepository, EventRepository $eventRepository,CampusRepository $campusRepository, PlaceRepository $placeRepository,TownRepository $townRepository, UserRepository $userRepository): Response
+    public function new(EntityManagerInterface $em, Request $request, StateRepository $stateRepository, EventRepository $eventRepository, CampusRepository $campusRepository, PlaceRepository $placeRepository, TownRepository $townRepository, UserRepository $userRepository): Response
     {
         $event = new Event();
 
         //Reading connected user
-        $us= $this->getUser()->getUserIdentifier();
-
-
+        $us = $this->getUser()->getUserIdentifier();
         $user = $userRepository->findOneBy(['email' => $us]);
         $event->setOrganizer($user);
         $event->setStartTime(new \DateTime('now'));
@@ -103,32 +116,31 @@ class EventController extends AbstractController
         $formEvent->handleRequest($request);
         $event->setCampusSite($user->getCampus());
         if ($formEvent->isSubmitted()) {
-            $event->setState($stateRepository->findOneBy(['id' => '1']));
+            $event->setState($stateRepository->findOneBy(['id' =>self::CREATED]));
             $em->persist($event);
             $em->flush();
             return $this->redirectToRoute('event_list', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('event/new.html.twig',
-            compact("formEvent","campusConnected","event"));
+            compact("formEvent", "campusConnected", "event"));
     }
 
 
     #[Route('/{id}', name: 'event_show', requirements: ["id" => "\d+"], methods: ['GET'])]
-
     public function show(Event $event, UserRepository $ur): Response
     {
         $me = $this->getUser()->getUserIdentifier();
         $userConnected = $ur->findOneBy(['email' => $me]);
-        $AuthoriseShowUserProfil=false;
-        foreach($event->getUsers() as $u) {
-            if($u==$userConnected){
-                $AuthoriseShowUserProfil=true;
+        $AuthoriseShowUserProfil = false;
+        foreach ($event->getUsers() as $u) {
+            if ($u == $userConnected) {
+                $AuthoriseShowUserProfil = true;
             }
         }
 
         return $this->render('event/show.html.twig', [
-            'event' => $event,'authorize'=>$AuthoriseShowUserProfil
+            'event' => $event, 'authorize' => $AuthoriseShowUserProfil
         ]);
     }
 
@@ -151,11 +163,10 @@ class EventController extends AbstractController
     }
 
 
-    #[Route('/{id}/cancel', name: 'event_cancel', requirements: ["id" => "\d+"], methods: ['GET','POST'])]
-
-    public function cancel(EntityManagerInterface $em,Request $request, Event $event,UserRepository $userRepository,StateRepository $stateRepository,EventRepository $eventRepository): Response
+    #[Route('/{id}/cancel', name: 'event_cancel', requirements: ["id" => "\d+"], methods: ['GET', 'POST'])]
+    public function cancel(EntityManagerInterface $em, Request $request, Event $event, UserRepository $userRepository, StateRepository $stateRepository, EventRepository $eventRepository): Response
     {
-        $us= $this->getUser()->getUserIdentifier();
+        $us = $this->getUser()->getUserIdentifier();
         $user = $userRepository->findOneBy(['email' => $us]);
 
         if ($event->getOrganizer() == $user) {
@@ -165,7 +176,7 @@ class EventController extends AbstractController
 
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $event->setState($stateRepository->findOneBy(['id' => 6]));
+                $event->setState($stateRepository->findOneBy(['id' =>self::CANCELED]));
 
                 $em->persist($event);
                 $em->flush();
@@ -176,7 +187,7 @@ class EventController extends AbstractController
                 'event' => $event,
                 'formEvent' => $form,
             ]);
-        }else{
+        } else {
             return $this->redirectToRoute('event_list', [], Response::HTTP_SEE_OTHER);
         }
     }
@@ -184,10 +195,10 @@ class EventController extends AbstractController
 
     #[Route('/{id}/subscribe', name: 'event_subscribe', requirements: ["id" => "\d+"])]
     public function registered(
-        ManagerRegistry $doctrine,
-        UserRepository  $pr,
+        ManagerRegistry        $doctrine,
+        UserRepository         $pr,
         EntityManagerInterface $em,
-        int             $id
+        int                    $id
     ): Response
     {
 
@@ -210,10 +221,10 @@ class EventController extends AbstractController
 
     #[Route('/{id}/unsubscribe', name: 'event_unsubscribe', requirements: ["id" => "\d+"])]
     public function removeRegistered(
-        ManagerRegistry $doctrine,
-        UserRepository  $pr,
+        ManagerRegistry        $doctrine,
+        UserRepository         $pr,
         EntityManagerInterface $em,
-        int             $id
+        int                    $id
     ): Response
     {
 
@@ -221,7 +232,7 @@ class EventController extends AbstractController
         $event = $entityManager->getRepository(Event::class)->find($id);
         $user = $pr->findOneBy(['email' => $this->getUser()->getUserIdentifier()]);;
 
-            $event->removeUserParticipation($user);
+        $event->removeUserParticipation($user);
 
         $em->persist($event);
         $em->flush();
@@ -231,12 +242,13 @@ class EventController extends AbstractController
 
     #[Route('/search', name: 'event_search', methods: ['POST'])]
     public function searchlist(
-        EventRepository $eventRepository,
-        UserRepository $userRepository,
+        EventRepository  $eventRepository,
+        UserRepository   $userRepository,
         CampusRepository $campusRepository,
-        Request $request
-    ): Response {
-        if ($request->isMethod('post')){
+        Request          $request
+    ): Response
+    {
+        if ($request->isMethod('post')) {
 
             $campusSite = $request->request->get("campusSite");
             $keywords = $request->request->get("keywords");
@@ -252,9 +264,9 @@ class EventController extends AbstractController
         $userMail = $this->getUser()->getUserIdentifier();
         $user = $userRepository->findOneBy(['email' => $userMail]);
 
-        $events = $eventRepository->search($campusSite, $keywords, $beginningDate, $endingDate, $organizer,$user, $registered, $notRegistered, $pastEvents);
+        $events = $eventRepository->search($campusSite, $keywords, $beginningDate, $endingDate, $organizer, $user, $registered, $notRegistered, $pastEvents);
         $campusList = $campusRepository->findAll();
-        return $this->render('event/list.html.twig', compact("events", "campusList", "campusSite", "keywords", "beginningDate", "endingDate", "organizer", "registered", "notRegistered","pastEvents"));
+        return $this->render('event/list.html.twig', compact("events", "campusList", "campusSite", "keywords", "beginningDate", "endingDate", "organizer", "registered", "notRegistered", "pastEvents"));
 
     }
 }

@@ -3,6 +3,10 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
+    <p>{% for notice in app.flashes('Modifok') %}
+            {{ notice }}
+        {% endfor %}
+    </p>
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -20,12 +24,7 @@
                 <div class="column">
                     <div class="field">
                         <label class="label" for="inputLogin">Identifiant</label>
-{#                        <div class="control has-icons-left>#}
                             <input class="form-control input" type="text" value="{{ last_username }}" name="email" id="inputLogin"  autocomplete="email" required autofocus>
-{#                            <span class="icon is-small is-left">#}
-{#                              <i class="fas fa-user"></i>#}
-{#                            </span>#}
-{#                        </div>#}
                     </div>
                 </div>
                 <div class="column">

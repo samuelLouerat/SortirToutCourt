@@ -19,7 +19,7 @@ class Town
     #[ORM\Column(type: 'string', length: 100)]
     private $name;
 
-    #[ORM\Column(type: 'string', length: 6)]
+    #[ORM\Column(type: 'string', length: 6, unique: true)]
     #[Groups(['getPlace'])]
     private $postCode;
 

@@ -34,14 +34,13 @@ function lat(val) {
             let availableTags = [];
             for (const adresse of donnees.features) {
                 availableTags.push(adresse.properties.name);
-
             }
             $SelectedAddress=donnees.features;
+            console.log($SelectedAddress);
             $( "#place_street" ).autocomplete({
                     source: availableTags
                 }
             )
-
         })
 
 
