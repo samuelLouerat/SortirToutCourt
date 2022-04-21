@@ -6,15 +6,11 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Serializable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Serializer\Annotation\Ignore;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\HttpFoundation\File\File;
-
 
 /**
  * @Vich\Uploadable
@@ -71,47 +67,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private $campus;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $image;
 
-    /**
-     * @Vich\UploadableField(mapping="product_images", fileNameProperty="image")
-     */
-    private $imageFile = null;
-
-    #[ORM\Column(type: 'datetime', nullable: true)]
-    private $updatedAt;
-
-
-    public function serialize()
-    {
-        $this->imageFile = base64_encode($this->imageFile);
-    }
-
-    public function unserialize($serialized)
-    {
-        $this->imageFile = base64_decode($this->imageFile);
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getImageFile()
-    {
-        return $this->imageFile;
-    }
-
-    /**
-     * @param mixed $imageFile
-     */
-    public function setImageFile($imageFile): void
-    {
-        $this->imageFile = $imageFile;
-
-        if ($imageFile) {
-            $this->updatedAt = new \DateTime('now');
-        }
-    }
+    #[ORM\OneToOne(inversedBy: 'user', targetEntity: AvatarFile::class, cascade: ['persist', 'remove'])]
+    private $avatarfiles;
 
     public function __construct()
     {
@@ -327,26 +285,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getAvatarfiles(): ?AvatarFile
     {
-        return $this->image;
+        return $this->avatarfiles;
     }
 
-    public function setImage(?string $image): self
+    public function setAvatarfiles(?AvatarFile $avatarfiles): self
     {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
+        $this->avatarfiles = $avatarfiles;
 
         return $this;
     }

@@ -24,13 +24,8 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('imageFile',
-                VichImageType::class, [
-                    'required' => false,
-                    'download_uri' => false,
-                    'allow_delete' => false,
-                    'image_uri' => true
-                ])
+            ->add('avatarfiles',
+                AvatarFileType::class)
             ->add('pseudo', TextType::class,
                 ["label" => 'Pseudo'])
             ->add('firstName', TextType::class,
@@ -53,7 +48,9 @@ class UserType extends AbstractType
                     new NotBlank([
                         'message' => 'Merci de saisir le mot de passe pour valider la modification du profil',
                     ]),
-            ]]) ;
+            ]])
+           ;
+
 //            ->add('password', RepeatedType::class, [
 //                'type' => PasswordType::class,
 //                'invalid_message' => 'Les mots de passe doivent correspondre',
