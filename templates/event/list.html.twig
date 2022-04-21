@@ -65,7 +65,7 @@
             </div>
         </div>
     </form>
-    
+
     <div class="box">
         <table class="table">
             <thead>
@@ -79,6 +79,7 @@
                 <th>Organisateur</th>
                 <th>Actions</th>
             </tr>
+
 
         </thead>
             <button><a href="{{ path('event_new') }}">Creer Evenement</a></button>
@@ -108,15 +109,33 @@
                     {% endif %}
                     {% endif %}
 
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+
+                        {% set inscrit = '0' %}
+                        {% for user in event.Users %}
+                            {% if user == app.user %}
+                                {% set inscrit = '1' %}
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if inscrit == '1'
+                            and event.startTime >= date('now')%}
+                            <a href="{{ path('event_unsubscribe', {'id' : event.id}) }}">Me désinscrire</a>
+                        {% endif %}
+                        {% if inscrit == '0'
+                            and event.state.id == 2
+                            and event.registrationTimeLimit >= date('now')
+                            and event.Users|length < event.registrationMax %}
+                            <a href="{{ path('event_subscribe', {'id' : event.id}) }}">M'inscrire</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
     </div>
 {% endblock %}
