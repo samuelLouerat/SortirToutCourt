@@ -3,18 +3,21 @@
 {% block title %}Liste des sorties{% endblock %}
 
 {% block body %}
+
     <div class="column is-offset-9">
         <p>Date du jour : {{ "now"|date('d/m/Y') }}</p>
         <p>Participant : {{ app.user.lastName }} {{ app.user.firstName }}</p>
     </div>
+
     <p>{% for notice in app.flashes('Modifok') %}
             {{ notice }}
         {% endfor %}
     </p>
-    <h1 class="title is-3">Filtrer les sorties</h1>
-    <form class="container box" action="{{ '/event/search' }}" method="POST">
-        <div class="columns">
-            <div class="column is-one-third">
+
+    <form class="container box" action="{{ '/event/search' }}" style="width: 600px;" method="POST">
+        <h1 class="title is-3">Filtrer les sorties</h1>
+        <div>
+            <div>
                 <div class="field">
                     <label class="label" for="campusSite">Campus : </label>
                     <select class="select" name="campusSite" id="campusSite">
@@ -38,30 +41,29 @@
                     <input class="input" name="endingDate" id="endingDate" type="datetime-local" value={{ endingDate }}>
                 </div>
             </div>
-            <div class="column is-one-third">
+            <div class="filter1">
                 <div class="field">
                     <div>
                         <input class="checkbox" name="organizer" id="organizer"
                                type="checkbox" {% if organizer %} checked {% endif %}>
-                        <label class="label" for="organizer">Sortie dont je suis l'organisateur/trice</label><br>
+                        <label class="checkbox" for="organizer">Sortie dont je suis l'organisateur/trice</label><br>
                     </div>
 
-                    <input name="registered" id="registered" type="checkbox"
-                           onclick="desactivate()" {% if registered %} checked {% endif %}><label class="label"
-                                                                                                  for="registered">Sortie
-                        auxquelles je suis inscrit/e</label><br>
-                    <input name="notRegistered" id="notRegistered" type="checkbox"
-                           onclick="desactivate()" {% if notRegistered %} checked {% endif %}><label class="label"
-                                                                                                     for="notRegistered">Sortie
-                        auxquelles je ne suis pas inscrit/e</label><br>
-                    <input name="pastEvents" id="pastEvents"
-                           type="checkbox" {% if pastEvents %} checked {% endif %}><label class="label"
-                                                                                          for="pastEvents">Sortie
-                        passées</label>
+                    <input class="checkbox" name="registered" id="registered" type="checkbox"
+                           onclick="desactivate()" {% if registered %} checked {% endif %}>
+                    <label class="checkbox" for="registered">Sortie auxquelles je suis inscrit/e</label><br>
+                    <input class="checkbox" name="notRegistered" id="notRegistered" type="checkbox"
+                           onclick="desactivate()" {% if notRegistered %} checked {% endif %}>
+                    <label class="checkbox" for="notRegistered">Sortie auxquelles je ne suis pas inscrit/e</label><br>
+                    <input class="checkbox" name="pastEvents" id="pastEvents"
+                           type="checkbox" {% if pastEvents %} checked {% endif %}>
+                    <label class="checkbox" for="pastEvents">Sortie passées</label>
+
+
                 </div>
             </div>
-            <div class="column">
-                <button class="button is-primary" value="submit">Rechercher</button>
+            <div class="filter1">
+                <button class="button is-rounded" value="submit">Rechercher</button>
             </div>
         </div>
     </form>
@@ -81,33 +83,38 @@
             </tr>
 
 
-        </thead>
-            <button><a href="{{ path('event_new') }}">Creer Evenement</a></button>
-        <tbody>
-        {% for event in events %}
-            <tr>
-                <td>{{ event.name }}</td>
-                <td>{{ event.startTime ? event.startTime|date('Y/m/d H:i') : '' }}</td>
-                <td>{{ event.registrationTimeLimit ? event.registrationTimeLimit|date('Y/m/d') : '' }}</td>
-                <td>{{ event.Users|length }}/{{ event.registrationMax }}</td>
-                <td>{{ event.state.libeller }}</td>
-                <td>{% for user in event.Users %}
-                    {% if user == app.user %}
-                        X
-                    {% endif %}
-                {% endfor %}</td>
-                <td>{{ event.organizer.pseudo }}</td>
-                <td>
-                    <a href="{{ path('event_show', {'id': event.id}) }}">Afficher</a>
-                    <!--if organier is me and event not finish it s possible to modify -->
-                    {% if event.organizer == app.user and event.state.id!=5 and event.state.id!=6%}
-                        <a href="{{ path('event_update', {'id': event.id}) }}">Modifier</a>
-                    {% endif %}
-                    {% if event.organizer == app.user  %}
-                    {% if event.state.libeller != 'Canceled'%}
-                    <a href="{{ path('event_cancel', {'id': event.id}) }}">Annuler</a>
-                    {% endif %}
-                    {% endif %}
+            </thead>
+            <div class="filter2">
+                <button class="button is-rounded">
+                    <a href="{{ path('event_new') }}">Créer un évènement</a>
+                </button>
+            </div>
+
+            <tbody>
+            {% for event in events %}
+                <tr>
+                    <td>{{ event.name }}</td>
+                    <td>{{ event.startTime ? event.startTime|date('Y/m/d H:i') : '' }}</td>
+                    <td>{{ event.registrationTimeLimit ? event.registrationTimeLimit|date('Y/m/d') : '' }}</td>
+                    <td>{{ event.Users|length }}/{{ event.registrationMax }}</td>
+                    <td>{{ event.state.libeller }}</td>
+                    <td>{% for user in event.Users %}
+                            {% if user == app.user %}
+                                X
+                            {% endif %}
+                        {% endfor %}</td>
+                    <td>{{ event.organizer.pseudo }}</td>
+                    <td>
+                        <a href="{{ path('event_show', {'id': event.id}) }}">Afficher</a>
+                        <!--if organier is me and event not finish it s possible to modify -->
+                        {% if event.organizer == app.user and event.state.id!=5 and event.state.id!=6 %}
+                            <a href="{{ path('event_update', {'id': event.id}) }}">Modifier</a>
+                        {% endif %}
+                        {% if event.organizer == app.user %}
+                            {% if event.state.libeller != 'Canceled' %}
+                                <a href="{{ path('event_cancel', {'id': event.id}) }}">Annuler</a>
+                            {% endif %}
+                        {% endif %}
 
 
                         {% set inscrit = '0' %}
@@ -118,7 +125,7 @@
                         {% endfor %}
 
                         {% if inscrit == '1'
-                            and event.startTime >= date('now')%}
+                            and event.startTime >= date('now') %}
                             <a href="{{ path('event_unsubscribe', {'id' : event.id}) }}">Me désinscrire</a>
                         {% endif %}
                         {% if inscrit == '0'

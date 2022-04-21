@@ -3,8 +3,13 @@
 {% block title %}Utilisateur{% endblock %}
 
 {% block body %}
-    <h1>{{ user.pseudo }}</h1>
-
+    <div class="column is-offset-9">
+        <p>Date du jour : {{ "now"|date('d/m/Y') }}</p>
+        <p>Participant : {{ app.user.lastName }} {{ app.user.firstName }}</p>
+    </div>
+<div class="container box" style="width: 600px;">
+    <h1 class="title is-3">{{ user.pseudo }}</h1>
+    <div class="registeredList">
     <table class="table">
         <tbody>
             <tr>
@@ -30,7 +35,9 @@
 
         </tbody>
     </table>
-
-    <button><a href="{{ path('login') }}">back to list</a></button>
-
+    </div>
+    <div class="filter1">
+    <button class="button is-rounded"><a href="{{ path('login') }}">back to list</a></button>
+    </div>
+    </div>
 {% endblock %}
