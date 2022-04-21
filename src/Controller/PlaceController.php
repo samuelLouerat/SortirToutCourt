@@ -39,7 +39,7 @@ class PlaceController extends AbstractController
         if ($formPlace->isSubmitted()) {
             $em->persist($place);
             $em->flush();
-            return $this->redirectToRoute('event_new', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('administration', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('place/new.html.twig',

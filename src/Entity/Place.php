@@ -35,7 +35,7 @@ class Place
     #[ORM\OneToMany(mappedBy: 'place', targetEntity: Event::class, cascade: ['persist','remove'])]
     private $events;
 
-    #[ORM\ManyToOne(targetEntity: Town::class, inversedBy: 'places')]
+    #[ORM\ManyToOne(targetEntity: Town::class, cascade: ['persist','remove'], inversedBy: 'places')]
     #[Groups(['getPlace'])]
     private $town;
 

@@ -33,11 +33,11 @@ class Event
     #[ORM\Column(type: 'string', length: 1500)]
     private $eventInfo;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'OrganizedEvent')]
+    #[ORM\ManyToOne(targetEntity: User::class, cascade: ['persist','remove'],inversedBy: 'OrganizedEvent')]
     #[ORM\JoinColumn(nullable: false)]
     private $organizer;
 
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'isRegistered')]
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'isRegistered',cascade: ['persist','remove'])]
     private $Users;
 
     #[ORM\ManyToOne(targetEntity: Campus::class, cascade: ['persist','remove'], inversedBy: 'events')]
@@ -45,7 +45,7 @@ class Event
     private $campusSite;
 
 
-    #[ORM\ManyToOne(targetEntity: Place::class, inversedBy: 'events')]
+    #[ORM\ManyToOne(targetEntity: Place::class,cascade: ['persist','remove'], inversedBy: 'events')]
 
     private $place;
 

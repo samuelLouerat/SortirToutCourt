@@ -18,7 +18,7 @@ class State
     #[ORM\Column(type: 'string', length: 100)]
     private $libeller;
 
-    #[ORM\OneToMany(mappedBy: 'state', targetEntity: Event::class)]
+    #[ORM\OneToMany(mappedBy: 'state', targetEntity: Event::class,cascade: ['persist','remove'])]
     private $events;
 
     public function __construct()

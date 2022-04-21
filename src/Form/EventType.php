@@ -34,8 +34,8 @@ class EventType extends AbstractType
             ->add('registrationMax')
             ->add('duration',DateIntervalType::class,[
             'widget'      => 'choice',
-                'with_years'  => true,
-                'with_months' => true,
+                'with_years'  => false,
+                'with_months' => false,
                 'with_days'   => true,
                 'with_hours'  => true,
                 'with_minutes'  => true,
