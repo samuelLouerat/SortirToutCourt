@@ -6,7 +6,6 @@ document.getElementById("place_street").addEventListener("change", coordonnees);
 
 function coordonnees() {
     let val = document.getElementById("place_street").value;
-    console.log(val);
     for(const element of $SelectedAddress){
         if(element.properties.name=== val){
             document.getElementById("place_latitude").value=element.properties.x;
@@ -20,8 +19,7 @@ function coordonnees() {
 
 
 function lat(val) {
-    //let val = document.getElementById("town_name").value;
-    console.log(val);
+
     $.ajax(
         {
 
@@ -32,14 +30,13 @@ function lat(val) {
         }
     ).done(
         (donnees) => {
-            console.log(donnees.features);
+
             let availableTags = [];
             for (const adresse of donnees.features) {
                 availableTags.push(adresse.properties.name);
 
             }
             $SelectedAddress=donnees.features;
-            console.log(availableTags);
             $( "#place_street" ).autocomplete({
                     source: availableTags
                 }

@@ -81,6 +81,7 @@
             </tr>
 
         </thead>
+            <button><a href="{{ path('event_new') }}">Creer Evenement</a></button>
         <tbody>
         {% for event in events %}
             <tr>
@@ -118,9 +119,4 @@
     </table>
 
     </div>
-
-
-
-    <a href="{{ path('event_new') }}">Create new</a>
-
 {% endblock %}

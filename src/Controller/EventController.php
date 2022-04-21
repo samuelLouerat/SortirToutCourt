@@ -23,6 +23,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Constraints\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -75,7 +76,12 @@ class EventController extends AbstractController
         ['events'=>$events, 'campusList'=>$campusList, 'campusSite'=>$campusSite, 'keywords'=>$keywords, 'beginningDate'=>$beginningDate, 'endingDate'=>$endingDate, 'organizer'=>$organizer, 'registered'=>$registered, 'notRegistered'=>$notRegistered, 'pastEvents'=>$pastEvents]);
 
     }
+    #[Route('/place/{id}', name: 'event_place', requirements: ["id" => "\d+"], methods: ['GET', 'POST'])]
+    public function place(Place $place,SerializerInterface $serializer){
 
+        return new Response($serializer->serialize($place,'json',['groups'=>['getPlace']]));
+
+    }
 
     #[Route('/new', name: 'event_new', methods: ['GET', 'POST'])]
     public function new(EntityManagerInterface $em, Request $request,StateRepository $stateRepository, EventRepository $eventRepository,CampusRepository $campusRepository, PlaceRepository $placeRepository,TownRepository $townRepository, UserRepository $userRepository): Response
@@ -104,7 +110,7 @@ class EventController extends AbstractController
         }
 
         return $this->renderForm('event/new.html.twig',
-            compact("formEvent","campusConnected"));
+            compact("formEvent","campusConnected","event"));
     }
 
 

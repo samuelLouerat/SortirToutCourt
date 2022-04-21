@@ -6,6 +6,15 @@
     <h1>Créer une nouvelle sortie</h1>
 
     {{ include('event/_form.html.twig') }}
+    <div>
+        <ul id="monadresse">
+
+        </ul>
+
+    </div>
+
 
     <a href="{{ path('event_list') }}">Retour à la liste</a>
+    <script src="{{ asset("event/script.js") }}"></script>
+
 {% endblock %}
