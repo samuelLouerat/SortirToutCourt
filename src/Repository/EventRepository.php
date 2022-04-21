@@ -88,14 +88,7 @@ class EventRepository extends ServiceEntityRepository
                 ->setParameter('user', $user);
         }
 
-//        if ($registered != null) {
-//            $qb->innerJoin('App\Entity\User', 'u')
-//                ->andWhere(':userMe MEMBER OF search.Users')
-//                ->andWhere(' :userMe MEMBER OF u.isRegistered')
-//                ->setParameter('userMe', $user);
-//        }
 
-//        OU
         if ($registered != null) {
             $qb->leftJoin('search.Users','u')
                 ->andWhere('u = :userMe')
@@ -117,32 +110,5 @@ class EventRepository extends ServiceEntityRepository
         $result = $req->getResult();
         return $result;
     }
-    // /**
-    //  * @return Event[] Returns an array of Event objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Event
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

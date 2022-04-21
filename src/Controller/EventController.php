@@ -63,13 +63,14 @@ class EventController extends AbstractController
                 $dateEndEvent = date_add($debut, $duree);
                 if ($e->getState() !== $stateRepository->findOneBy(['id' => self::CANCELED])) {
                     if ($dateEndEvent < new \DateTime('now')) {
-                        $e->setState($stateRepository->findOneBy(['id' => self::PAST]));
+                        $this->getSetState($e, $stateRepository,self::PAST);
                     } else {
                         if ($e->getRegistrationTimeLimit() < new \DateTime('now')) {
-                            $e->setState($stateRepository->findOneBy(['id' => self::CLOSED]));
+                            $this->getSetState($e, $stateRepository,self::CLOSED);
                         } else {
                             if ($e->getStartTime() > new \DateTime('now')) {
-                                $e->setState($stateRepository->findOneBy(['id' => self::OPEN]));
+                                $this->getSetState($e, $stateRepository,self::OPEN);
+
                             }
                         }
                     }
@@ -268,6 +269,14 @@ class EventController extends AbstractController
         $campusList = $campusRepository->findAll();
         return $this->render('event/list.html.twig', compact("events", "campusList", "campusSite", "keywords", "beginningDate", "endingDate", "organizer", "registered", "notRegistered", "pastEvents"));
 
+    }
+
+    /**
+     * @return void
+     */
+    public function getSetState(Event $e, StateRepository $stateRepository, int $id): void
+    {
+        $e->setState($stateRepository->findOneBy(['id' => $id]));
     }
 }
 
