@@ -20,8 +20,16 @@ class AdminUserFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('lastName',TextType::class,['disabled'=>'true'])
-            ->add('firstName',TextType::class,['disabled'=>'true'])
+            ->add('lastName',
+                TextType::class,[
+                    'disabled'=>'true',
+                    "label"=>'Nom'
+                ])
+            ->add('firstName',
+                TextType::class,[
+                    'disabled'=>'true',
+                    "label"=>'Prénom'
+                    ])
             ->add('admin')
             ->add('active')
         ;
