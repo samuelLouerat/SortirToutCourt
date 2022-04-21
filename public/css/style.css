@@ -5,10 +5,9 @@ html {
     height: 100%;
 }
 
-body{
-    color : white;
+body {
+    color: white;
 }
-
 
 .navbar {
     background: rgba(255, 255, 255, 0.25);
@@ -52,10 +51,8 @@ body{
     width: 1090px;
 }
 
-
 .title {
     color: white;
-
 }
 
 .filter1 {
@@ -73,22 +70,23 @@ body{
 .table {
     border-radius: 10px;
 }
-.mb-3{
+
+.mb-3 {
     color: white;
 }
 
-.pShowEvent{
-    color:white;
+.pShowEvent {
+    color: white;
     adding: 10px;
     font-size: 20px;
 }
 
-.card-content{
-    padding : 0.5rem;
+.card-content {
+    padding: 0.5rem;
     margin: 0.5rem;
 }
 
-.registeredList{
+.registeredList {
     display: flex;
     justify-content: center;
 }

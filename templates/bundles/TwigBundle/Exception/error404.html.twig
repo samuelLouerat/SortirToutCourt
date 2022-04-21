@@ -2,13 +2,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
     <div class="container box" style="width: 600px;">
-        <h1>Page introuvable</h1>
-
-        <p>
-            La page demandée est introuvable!
-            <a href="{{ path('login') }}">retour à la page d'accueil</a>.
-        </p>
+        <img src="{{ asset('/images/404.gif') }}" alt="Erreur 404">
+        <div class="filter1">
+            <button class="button is-rounded" type="submit">
+                <a href="{{ path('login') }}">Retour à la page d'accueil</a>
+            </button>
+        </div>
     </div>
 {% endblock %}
