@@ -3,79 +3,153 @@
 {% block title %}Sortie{% endblock %}
 
 {% block body %}
-    <h1>Sortie</h1>
-
-    <div>
-        <h4>Nom de la sortie</h4>
-        <p>{{ event.name }}</p>
-
-        <h4>Date et heure de la sortie</h4>
-        <p>{{ event.startTime ? event.startTime|date('Y-m-d H:i:s') : '' }}</p>
-
-        <h4>Date limite d'inscription</h4>
-        <p>{{ event.registrationTimeLimit ? event.registrationTimeLimit|date('Y-m-d H:i:s') : '' }}</p>
-
-        <h4>Nombre de places</h4>
-        <p>{{ event.registrationMax }}</p>
-
-        <h4>Durée</h4>
-        <p>{{ event.duration ? event.duration.format('%y year(s), %m month(s), %d day(s)') : '' }}</p>
-
-        <h4>Description et infos</h4>
-        <p>{{ event.eventInfo }}</p>
-    </div>
-    <div>
-        <h4>Campus</h4>
-        <p>{{ event.campusSite.name }}</p>
-
-        <h4>Lieu</h4>
-        <p>{{ event.place.name }}</p>
-
-        <h4>Rue</h4>
-        <p>{{ event.place.street }}</p>
-
-        <h4>Code postal</h4>
-        <p>{{ event.place.town.postCode }}</p>
-
-        <h4>Latitude</h4>
-        <p>{{ event.place.latitude }}</p>
-        <h4>Longitude</h4>
-        <p>{{ event.place.longitude }}</p>
-
+    <div class="column is-offset-9">
+        <p>Date du jour : {{ "now"|date('d/m/Y') }}</p>
+        <p>Participant : {{ app.user.lastName }} {{ app.user.firstName }}</p>
     </div>
 
-    <a href="{{ path('event_list') }}">Retour à la liste</a>
+    <div class="container box" style="width: 600px;">
 
-    <p>Liste des participants inscrits : </p>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Pseudo</th>
 
-            <th>Nom</th>
+        <h1 class="title is-3">Sortie</h1>
+        <div>
 
-        </tr>
-        </thead>
-        <tbody>
-        {% for participant in event.Users %}
+
+            <div>
+
+                <div class="card">
+                    <div class="card-content">
+                        <div class="content">
+                            <strong>Nom de la sortie : </strong>
+                            {{ event.name }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-content">
+                        <div class="content">
+                            <strong>Date et heure de la sortie : </strong>
+                            {{ event.startTime ? event.startTime|date('Y-m-d H:i:s') : '' }}
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="content">
+                            <strong>Date limite d'inscription : </strong>
+                            {{ event.registrationTimeLimit ? event.registrationTimeLimit|date('Y-m-d H:i:s') : '' }}
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="content">
+                            <strong>Nombre de places : </strong>
+                            {{ event.registrationMax }}
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="content">
+                            <strong>Durée : </strong>
+                            {{ event.duration ? event.duration.format('%y year(s), %m month(s), %d day(s)') : '' }}
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="content">
+                            <strong>Description et infos : </strong>
+                            {{ event.eventInfo }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+
+                <div class="card">
+                    <div class="card-content">
+                        <div class="content">
+                            <strong>Campus : </strong>
+                            {{ event.campusSite.name }}
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="content">
+                            <strong>Lieu : </strong>
+                            {{ event.place.name }}
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="content">
+                            <strong>Rue : </strong>
+                            {{ event.place.street }}
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="content">
+                            <strong>Code postal : </strong>
+                            {{ event.place.town.postCode }}
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="content">
+                            <strong>Latitude : </strong>
+                            {{ event.place.latitude }}
+                            <strong>Longitude : </strong>
+                            {{ event.place.longitude }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="filter1">
+            <button class="button is-rounded">
+                <a href="{{ path('event_list') }}">Retour à la liste</a>
+            </button>
+        </div>
+    </div>
+    <div class="container box" style="width: 600px;">
+        <h1 class="title is-4">Liste des participants inscrits</h1>
+        <div class="registeredList">
+        <table class="table">
+            <thead>
             <tr>
-                {% if authorize %}
-
-                    <td><a href="{{ path('user_profile_show', {'id': participant.id}) }}">{{ participant.pseudo }}</a>
-                    </td>
-                {% endif %}
-                {% if not authorize %}
-                    <td>{{ participant.pseudo }}</td>
-                {% endif %}
-                <td>{{ participant.lastname }} {{ participant.firstname }}</td>
-
+                <th>Pseudo</th>
+                <th>Nom</th>
             </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for participant in event.Users %}
+                <tr>
+                    {% if authorize %}
+                        <td>
+                            <a href="{{ path('user_profile_show', {'id': participant.id}) }}">{{ participant.pseudo }}</a>
+                        </td>
+                    {% endif %}
+                    {% if not authorize %}
+                        <td>{{ participant.pseudo }}</td>
+                    {% endif %}
+                    <td>{{ participant.lastname }} {{ participant.firstname }}</td>
 
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
 {% endblock %}

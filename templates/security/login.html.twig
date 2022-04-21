@@ -5,57 +5,63 @@
 {% block body %}
 
     {% for label, messages in app.flashes %}
-    {% for message in messages %}
-        <div class="flash-{{ label }}">
-            {{ message }}
-        </div>
+        {% for message in messages %}
+            <article class="message is-dark">
+                <div class="message-body">
+                    <div class="flash-{{ label }}">
+                        {{ message }}
+                    </div>
+                </div>
+            </article>
+        {% endfor %}
     {% endfor %}
-{% endfor %}
 
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+    <form method="post">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.pseudo }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.pseudo }}, <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
 
-    <div class="column is-half is-offset-one-quarter">
-        <div class="box">
-            <div class="columns">
-                <div class="column">
-                    <div class="field">
-                        <label class="label" for="inputLogin">Identifiant</label>
-                            <input class="form-control input" type="text" value="{{ last_username }}" name="email" id="inputLogin"  autocomplete="email" required autofocus>
+        <div class="column is-half is-offset-one-quarter">
+            <div class="container box" style="width: 600px;">
+                <div class="columns">
+                    <div class="column">
+                        <div class="field">
+                            <label class="label" for="inputLogin">Identifiant</label>
+                            <input class="form-control input" type="text" value="{{ last_username }}" name="email"
+                                   id="inputLogin" autocomplete="email" required autofocus>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label" for="inputPassword">Mot de passe</label>
+                            <input class="form-control input" type="password" name="password" id="inputPassword"
+                                   autocomplete="current-password" required>
+
+                            <input type="hidden" name="_csrf_token"
+                                   value="{{ csrf_token('authenticate') }}"
+                            >
+                        </div>
                     </div>
                 </div>
-                <div class="column">
-                    <div class="field">
-                    <label class="label" for="inputPassword">Mot de passe</label>
-                    <input class="form-control input" type="password" name="password" id="inputPassword" autocomplete="current-password" required>
-
-                    <input type="hidden" name="_csrf_token"
-                           value="{{ csrf_token('authenticate') }}"
-                    >
+                <div class="field">
+                    <div class="checkbox mb-3">
+                        <label>
+                            <input type="checkbox" name="_remember_me"> Se rappeler de moi
+                        </label>
                     </div>
                 </div>
-            </div>
-
-            <div class="field">
-                <div class="checkbox mb-3">
-                    <label>
-                        <input type="checkbox" name="_remember_me"> Remember me
-                    </label>
+                <div class="filter1">
+                    <button class="button is-rounded" type="submit">
+                        Se connecter
+                    </button>
                 </div>
             </div>
-
-            <button class="button is-primary" type="submit">
-                Sign in
-            </button>
         </div>
-    </div>
-</form>
+    </form>
 {% endblock %}
