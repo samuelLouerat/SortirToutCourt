@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\AvatarFile;
 use App\Entity\Event;
 use App\Entity\User;
 use App\Form\AdminUserFormType;
+use App\Form\AvatarFileType;
 use App\Form\RegistrationFormType;
 use App\Form\UserType;
 use App\Repository\EventRepository;
@@ -37,8 +39,6 @@ class UserController extends AbstractController
             'user' => $user,
         ]);
     }
-
-
 
 
     #[Route('/{id}', name: 'user_profile', requirements: ["id" => "\d+"], methods: ['GET'])]
@@ -110,7 +110,6 @@ class UserController extends AbstractController
 
         $us = $this->getUser()->getUserIdentifier();
         $user = $pr->findOneBy(['email' => $us]);
-        $oldPassword = $user->getPassword();
 
         $userForm = $this->createForm(UserType::class, $user);
         $userForm->handleRequest($request);
@@ -118,6 +117,7 @@ class UserController extends AbstractController
         if (
             $userForm->isSubmitted()
             && $userForm->isValid()
+
         ) {
             $newPassword = $userForm->get('password')->getData();
 
@@ -134,18 +134,20 @@ class UserController extends AbstractController
                     'Le mot de passe est incorrect .'
                 );
                 return $this->render(
-                    'user/myProfile.html.twig', ['userForm' => $userForm->createView()]
+                    'user/myProfile.html.twig', [
+                        'userForm' => $userForm->createView()
+                    ]
                 );
             }
             return $this->redirectToRoute(
                 'event_list'
             );
-        }else {
-            $user->setImageFile(null);
         }
 
         return $this->render(
-            'user/myProfile.html.twig', ['userForm' => $userForm->createView()]
+            'user/myProfile.html.twig', [
+                'userForm' => $userForm->createView()
+            ]
         );
 
     }
