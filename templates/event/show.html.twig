@@ -46,35 +46,11 @@
 
     <a href="{{ path('event_list') }}">Retour à la liste</a>
 
-    {% set inscrit = '0' %}
-
-    {% for user in event.Users %}
-        {% if user == app.user %}
-            {% set inscrit = '1' %}
-        {% endif %}
-    {% endfor %}
-
-    {% if inscrit == '1'
-        and event.startTime >= date('now')%}
-        <a href="{{ path('event_unsubscribe', {'id' : event.id}) }}">
-            <button>Me désinscrire</button>
-        </a>
-    {% endif %}
-    {% if inscrit == '0'
-        and event.state.id == 2
-        and event.registrationTimeLimit >= date('now')
-        and event.Users|length < event.registrationMax %}
-        <a href="{{ path('event_subscribe', {'id' : event.id}) }}">
-            <button>M'inscrire</button>
-        </a>
-    {% endif %}
-
     <p>Liste des participants inscrits : </p>
     <table class="table">
         <thead>
         <tr>
-
-                <th>Pseudo</th>
+            <th>Pseudo</th>
 
             <th>Nom</th>
 
@@ -85,11 +61,12 @@
             <tr>
                 {% if authorize %}
 
-                    <td><a href="{{ path('user_profile_show', {'id': participant.id}) }}">{{ participant.pseudo }}</a></td>
-                {% endif  %}
+                    <td><a href="{{ path('user_profile_show', {'id': participant.id}) }}">{{ participant.pseudo }}</a>
+                    </td>
+                {% endif %}
                 {% if not authorize %}
-                <td>{{ participant.pseudo }}</td>
-                {% endif  %}
+                    <td>{{ participant.pseudo }}</td>
+                {% endif %}
                 <td>{{ participant.lastname }} {{ participant.firstname }}</td>
 
             </tr>
