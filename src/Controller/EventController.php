@@ -49,8 +49,8 @@ class EventController extends AbstractController
 
         if (!$user->getActive()) {
             $this->addFlash(
-                'Modifok',
-                'La mise à jour de votre profil est prise en compte.'
+                'notice',
+                'Your changes were saved!'
             );
             return $this->redirectToRoute('logout', [], Response::HTTP_SEE_OTHER);
     }else {
