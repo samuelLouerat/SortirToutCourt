@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for D:\projetPHP\SortirToutCourt\src</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="_css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="_css/nv.d3.min.css" rel="stylesheet" type="text/css">
+  <link href="_css/style.css" rel="stylesheet" type="text/css">
+  <link href="_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="index.html">D:\projetPHP\SortirToutCourt\src</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Controller/AdminController.php.html#17">App\Controller\AdminController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Admin/DashboardController.php.html#13">App\Controller\Admin\DashboardController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Admin/UserCrudController.php.html#8">App\Controller\Admin\UserCrudController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/AdministrationController.php.html#9">App\Controller\AdministrationController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/EventController.php.html#29">App\Controller\EventController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/PlaceController.php.html#19">App\Controller\PlaceController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/RegistrationController.php.html#15">App\Controller\RegistrationController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/SecurityController.php.html#12">App\Controller\SecurityController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/TownController.php.html#19">App\Controller\TownController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/UserController.php.html#20">App\Controller\UserController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Place.php.html#10">App\Entity\Place</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/State.php.html#10">App\Entity\State</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Town.php.html#10">App\Entity\Town</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/AdminUserFormType.php.html#18">App\Form\AdminUserFormType</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/EventCancelType.php.html#24">App\Form\EventCancelType</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/EventType.php.html#23">App\Form\EventType</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/PlaceCancelType.php.html#13">App\Form\PlaceCancelType</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/PlaceType.php.html#12">App\Form\PlaceType</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/RegistrationFormType.php.html#17">App\Form\RegistrationFormType</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/TownType.php.html#11">App\Form\TownType</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/UserType.php.html#22">App\Form\UserType</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/CampusRepository.php.html#17">App\Repository\CampusRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/EventRepository.php.html#20">App\Repository\EventRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/LieuRepository.php.html#17">App\Repository\LieuRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/PlaceRepository.php.html#17">App\Repository\PlaceRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/SortieRepository.php.html#17">App\Repository\SortieRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/StateRepository.php.html#17">App\Repository\StateRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/TownRepository.php.html#17">App\Repository\TownRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#22">App\Repository\UserRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/VilleRepository.php.html#17">App\Repository\VilleRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/AppAuthenticator.php.html#19">App\Security\AppAuthenticator</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Service/UserSecurityService.php.html#9">App\Service\UserSecurityService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Campus.php.html#10">App\Entity\Campus</a></td><td class="text-right">20%</td></tr>
+       <tr><td><a href="Entity/Event.php.html#10">App\Entity\Event</a></td><td class="text-right">42%</td></tr>
+       <tr><td><a href="Entity/User.php.html#22">App\Entity\User</a></td><td class="text-right">49%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Controller/EventController.php.html#29">App\Controller\EventController</a></td><td class="text-right">552</td></tr>
+       <tr><td><a href="Entity/Place.php.html#10">App\Entity\Place</a></td><td class="text-right">342</td></tr>
+       <tr><td><a href="Entity/Town.php.html#10">App\Entity\Town</a></td><td class="text-right">342</td></tr>
+       <tr><td><a href="Entity/User.php.html#22">App\Entity\User</a></td><td class="text-right">285</td></tr>
+       <tr><td><a href="Repository/EventRepository.php.html#20">App\Repository\EventRepository</a></td><td class="text-right">272</td></tr>
+       <tr><td><a href="Controller/UserController.php.html#20">App\Controller\UserController</a></td><td class="text-right">240</td></tr>
+       <tr><td><a href="Entity/Event.php.html#10">App\Entity\Event</a></td><td class="text-right">165</td></tr>
+       <tr><td><a href="Entity/Campus.php.html#10">App\Entity\Campus</a></td><td class="text-right">143</td></tr>
+       <tr><td><a href="Entity/State.php.html#10">App\Entity\State</a></td><td class="text-right">110</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#22">App\Repository\UserRepository</a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="Controller/AdminController.php.html#17">App\Controller\AdminController</a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Controller/RegistrationController.php.html#15">App\Controller\RegistrationController</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Repository/CampusRepository.php.html#17">App\Repository\CampusRepository</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Repository/LieuRepository.php.html#17">App\Repository\LieuRepository</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Repository/PlaceRepository.php.html#17">App\Repository\PlaceRepository</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Repository/SortieRepository.php.html#17">App\Repository\SortieRepository</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Repository/StateRepository.php.html#17">App\Repository\StateRepository</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Repository/TownRepository.php.html#17">App\Repository\TownRepository</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Repository/VilleRepository.php.html#17">App\Repository\VilleRepository</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Security/AppAuthenticator.php.html#19">App\Security\AppAuthenticator</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Controller/TownController.php.html#19">App\Controller\TownController</a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Controller/PlaceController.php.html#19">App\Controller\PlaceController</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Controller/SecurityController.php.html#12">App\Controller\SecurityController</a></td><td class="text-right">12</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Controller/AdminController.php.html#28"><abbr title="App\Controller\AdminController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/AdminController.php.html#39"><abbr title="App\Controller\AdminController::dispatch">dispatch</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Admin/DashboardController.php.html#15"><abbr title="App\Controller\Admin\DashboardController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Admin/DashboardController.php.html#37"><abbr title="App\Controller\Admin\DashboardController::configureDashboard">configureDashboard</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Admin/DashboardController.php.html#43"><abbr title="App\Controller\Admin\DashboardController::configureMenuItems">configureMenuItems</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Admin/UserCrudController.php.html#10"><abbr title="App\Controller\Admin\UserCrudController::getEntityFqcn">getEntityFqcn</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/AdministrationController.php.html#11"><abbr title="App\Controller\AdministrationController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/EventController.php.html#33"><abbr title="App\Controller\EventController::list">list</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/EventController.php.html#80"><abbr title="App\Controller\EventController::new">new</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/EventController.php.html#111"><abbr title="App\Controller\EventController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/EventController.php.html#129"><abbr title="App\Controller\EventController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/EventController.php.html#148"><abbr title="App\Controller\EventController::cancel">cancel</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/EventController.php.html#179"><abbr title="App\Controller\EventController::registered">registered</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/EventController.php.html#205"><abbr title="App\Controller\EventController::removeRegistered">removeRegistered</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/EventController.php.html#226"><abbr title="App\Controller\EventController::searchlist">searchlist</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/PlaceController.php.html#23"><abbr title="App\Controller\PlaceController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/PlaceController.php.html#30"><abbr title="App\Controller\PlaceController::new">new</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/RegistrationController.php.html#17"><abbr title="App\Controller\RegistrationController::register">register</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/SecurityController.php.html#14"><abbr title="App\Controller\SecurityController::login">login</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/SecurityController.php.html#30"><abbr title="App\Controller\SecurityController::logout">logout</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/TownController.php.html#23"><abbr title="App\Controller\TownController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/TownController.php.html#30"><abbr title="App\Controller\TownController::new">new</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/TownController.php.html#48"><abbr title="App\Controller\TownController::list">list</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/UserController.php.html#24"><abbr title="App\Controller\UserController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/UserController.php.html#33"><abbr title="App\Controller\UserController::profileShow">profileShow</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/UserController.php.html#44"><abbr title="App\Controller\UserController::profile">profile</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/UserController.php.html#52"><abbr title="App\Controller\UserController::adminedit">adminedit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/UserController.php.html#73"><abbr title="App\Controller\UserController::edit">edit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/UserController.php.html#91"><abbr title="App\Controller\UserController::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/UserController.php.html#102"><abbr title="App\Controller\UserController::myProfile">myProfile</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Campus.php.html#33"><abbr title="App\Entity\Campus::getId">getId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Campus.php.html#53"><abbr title="App\Entity\Campus::getEvents">getEvents</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Campus.php.html#58"><abbr title="App\Entity\Campus::addEvents">addEvents</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Campus.php.html#68"><abbr title="App\Entity\Campus::removeEvents">removeEvents</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Campus.php.html#83"><abbr title="App\Entity\Campus::getUsers">getUsers</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Campus.php.html#88"><abbr title="App\Entity\Campus::addUser">addUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Campus.php.html#98"><abbr title="App\Entity\Campus::removeUser">removeUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Event.php.html#60"><abbr title="App\Entity\Event::getId">getId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Event.php.html#89"><abbr title="App\Entity\Event::getDuration">getDuration</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Event.php.html#101"><abbr title="App\Entity\Event::getRegistrationTimeLimit">getRegistrationTimeLimit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Event.php.html#113"><abbr title="App\Entity\Event::getRegistrationMax">getRegistrationMax</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Event.php.html#125"><abbr title="App\Entity\Event::getEventInfo">getEventInfo</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Event.php.html#137"><abbr title="App\Entity\Event::getOrganizer">getOrganizer</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Event.php.html#152"><abbr title="App\Entity\Event::getUsers">getUsers</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Event.php.html#157"><abbr title="App\Entity\Event::addUserParticipation">addUserParticipation</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Event.php.html#167"><abbr title="App\Entity\Event::removeUserParticipation">removeUserParticipation</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Event.php.html#176"><abbr title="App\Entity\Event::getCampusSite">getCampusSite</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Event.php.html#181"><abbr title="App\Entity\Event::setCampusSite">setCampusSite</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Event.php.html#188"><abbr title="App\Entity\Event::getPlace">getPlace</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Event.php.html#193"><abbr title="App\Entity\Event::setPlace">setPlace</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Event.php.html#202"><abbr title="App\Entity\Event::getState">getState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Event.php.html#207"><abbr title="App\Entity\Event::setState">setState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Place.php.html#36"><abbr title="App\Entity\Place::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Place.php.html#41"><abbr title="App\Entity\Place::getId">getId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Place.php.html#46"><abbr title="App\Entity\Place::getName">getName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Place.php.html#51"><abbr title="App\Entity\Place::setName">setName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Place.php.html#58"><abbr title="App\Entity\Place::getStreet">getStreet</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Place.php.html#63"><abbr title="App\Entity\Place::setStreet">setStreet</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Place.php.html#70"><abbr title="App\Entity\Place::getLatitude">getLatitude</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Place.php.html#75"><abbr title="App\Entity\Place::setLatitude">setLatitude</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Place.php.html#82"><abbr title="App\Entity\Place::getLongitude">getLongitude</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Place.php.html#87"><abbr title="App\Entity\Place::setLongitude">setLongitude</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Place.php.html#97"><abbr title="App\Entity\Place::getEvents">getEvents</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Place.php.html#102"><abbr title="App\Entity\Place::addEvent">addEvent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Place.php.html#112"><abbr title="App\Entity\Place::removeEvent">removeEvent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Place.php.html#124"><abbr title="App\Entity\Place::getTown">getTown</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Place.php.html#129"><abbr title="App\Entity\Place::setTown">setTown</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/State.php.html#24"><abbr title="App\Entity\State::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/State.php.html#29"><abbr title="App\Entity\State::getId">getId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/State.php.html#34"><abbr title="App\Entity\State::getLibeller">getLibeller</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/State.php.html#39"><abbr title="App\Entity\State::setLibeller">setLibeller</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/State.php.html#49"><abbr title="App\Entity\State::getEvents">getEvents</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/State.php.html#54"><abbr title="App\Entity\State::addEvent">addEvent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/State.php.html#64"><abbr title="App\Entity\State::removeEvent">removeEvent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Town.php.html#30"><abbr title="App\Entity\Town::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Town.php.html#36"><abbr title="App\Entity\Town::getId">getId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Town.php.html#41"><abbr title="App\Entity\Town::getName">getName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Town.php.html#46"><abbr title="App\Entity\Town::setName">setName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Town.php.html#53"><abbr title="App\Entity\Town::getPostCode">getPostCode</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Town.php.html#58"><abbr title="App\Entity\Town::setPostCode">setPostCode</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Town.php.html#68"><abbr title="App\Entity\Town::getEvents">getEvents</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Town.php.html#73"><abbr title="App\Entity\Town::addEvent">addEvent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Town.php.html#83"><abbr title="App\Entity\Town::removeEvent">removeEvent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Town.php.html#98"><abbr title="App\Entity\Town::getPlaces">getPlaces</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Town.php.html#103"><abbr title="App\Entity\Town::addPlace">addPlace</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Town.php.html#113"><abbr title="App\Entity\Town::removePlace">removePlace</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#86"><abbr title="App\Entity\User::serialize">serialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#91"><abbr title="App\Entity\User::unserialize">unserialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#99"><abbr title="App\Entity\User::getImageFile">getImageFile</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#107"><abbr title="App\Entity\User::setImageFile">setImageFile</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#122"><abbr title="App\Entity\User::getId">getId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#161"><abbr title="App\Entity\User::setRoles">setRoles</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#171"><abbr title="App\Entity\User::getPassword">getPassword</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#252"><abbr title="App\Entity\User::getPseudo">getPseudo</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#267"><abbr title="App\Entity\User::getOrganizedEvent">getOrganizedEvent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#272"><abbr title="App\Entity\User::addOrganizedEvent">addOrganizedEvent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#282"><abbr title="App\Entity\User::removeOrganizedEvent">removeOrganizedEvent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#297"><abbr title="App\Entity\User::getIsRegistered">getIsRegistered</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#302"><abbr title="App\Entity\User::addIsRegistered">addIsRegistered</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#311"><abbr title="App\Entity\User::removeIsRegistered">removeIsRegistered</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#330"><abbr title="App\Entity\User::getImage">getImage</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#335"><abbr title="App\Entity\User::setImage">setImage</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#342"><abbr title="App\Entity\User::getUpdatedAt">getUpdatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#347"><abbr title="App\Entity\User::setUpdatedAt">setUpdatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/AdminUserFormType.php.html#20"><abbr title="App\Form\AdminUserFormType::buildForm">buildForm</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/AdminUserFormType.php.html#30"><abbr title="App\Form\AdminUserFormType::configureOptions">configureOptions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/EventCancelType.php.html#26"><abbr title="App\Form\EventCancelType::buildForm">buildForm</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/EventCancelType.php.html#47"><abbr title="App\Form\EventCancelType::configureOptions">configureOptions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/EventType.php.html#25"><abbr title="App\Form\EventType::buildForm">buildForm</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/EventType.php.html#58"><abbr title="App\Form\EventType::configureOptions">configureOptions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/PlaceCancelType.php.html#15"><abbr title="App\Form\PlaceCancelType::buildForm">buildForm</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/PlaceCancelType.php.html#24"><abbr title="App\Form\PlaceCancelType::configureOptions">configureOptions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/PlaceType.php.html#14"><abbr title="App\Form\PlaceType::buildForm">buildForm</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/PlaceType.php.html#26"><abbr title="App\Form\PlaceType::configureOptions">configureOptions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/RegistrationFormType.php.html#19"><abbr title="App\Form\RegistrationFormType::buildForm">buildForm</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/RegistrationFormType.php.html#50"><abbr title="App\Form\RegistrationFormType::configureOptions">configureOptions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/TownType.php.html#13"><abbr title="App\Form\TownType::buildForm">buildForm</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/TownType.php.html#21"><abbr title="App\Form\TownType::configureOptions">configureOptions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/UserType.php.html#24"><abbr title="App\Form\UserType::buildForm">buildForm</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/UserType.php.html#84"><abbr title="App\Form\UserType::configureOptions">configureOptions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/CampusRepository.php.html#19"><abbr title="App\Repository\CampusRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/CampusRepository.php.html#28"><abbr title="App\Repository\CampusRepository::add">add</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/CampusRepository.php.html#40"><abbr title="App\Repository\CampusRepository::remove">remove</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/EventRepository.php.html#22"><abbr title="App\Repository\EventRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/EventRepository.php.html#31"><abbr title="App\Repository\EventRepository::add">add</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/EventRepository.php.html#43"><abbr title="App\Repository\EventRepository::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/EventRepository.php.html#55"><abbr title="App\Repository\EventRepository::remove">remove</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/EventRepository.php.html#64"><abbr title="App\Repository\EventRepository::search">search</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/LieuRepository.php.html#19"><abbr title="App\Repository\LieuRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/LieuRepository.php.html#28"><abbr title="App\Repository\LieuRepository::add">add</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/LieuRepository.php.html#40"><abbr title="App\Repository\LieuRepository::remove">remove</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/PlaceRepository.php.html#19"><abbr title="App\Repository\PlaceRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/PlaceRepository.php.html#28"><abbr title="App\Repository\PlaceRepository::add">add</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/PlaceRepository.php.html#40"><abbr title="App\Repository\PlaceRepository::remove">remove</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/SortieRepository.php.html#19"><abbr title="App\Repository\SortieRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/SortieRepository.php.html#28"><abbr title="App\Repository\SortieRepository::add">add</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/SortieRepository.php.html#40"><abbr title="App\Repository\SortieRepository::remove">remove</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/StateRepository.php.html#19"><abbr title="App\Repository\StateRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/StateRepository.php.html#28"><abbr title="App\Repository\StateRepository::add">add</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/StateRepository.php.html#40"><abbr title="App\Repository\StateRepository::remove">remove</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/TownRepository.php.html#19"><abbr title="App\Repository\TownRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/TownRepository.php.html#28"><abbr title="App\Repository\TownRepository::add">add</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/TownRepository.php.html#40"><abbr title="App\Repository\TownRepository::remove">remove</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#24"><abbr title="App\Repository\UserRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#33"><abbr title="App\Repository\UserRepository::add">add</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#45"><abbr title="App\Repository\UserRepository::remove">remove</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#56"><abbr title="App\Repository\UserRepository::upgradePassword">upgradePassword</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#67"><abbr title="App\Repository\UserRepository::loadUserByIdentifier">loadUserByIdentifier</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/VilleRepository.php.html#19"><abbr title="App\Repository\VilleRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/VilleRepository.php.html#28"><abbr title="App\Repository\VilleRepository::add">add</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/VilleRepository.php.html#40"><abbr title="App\Repository\VilleRepository::remove">remove</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/AppAuthenticator.php.html#27"><abbr title="App\Security\AppAuthenticator::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/AppAuthenticator.php.html#32"><abbr title="App\Security\AppAuthenticator::authenticate">authenticate</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/AppAuthenticator.php.html#48"><abbr title="App\Security\AppAuthenticator::onAuthenticationSuccess">onAuthenticationSuccess</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/AppAuthenticator.php.html#60"><abbr title="App\Security\AppAuthenticator::getLoginUrl">getLoginUrl</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Service/UserSecurityService.php.html#16"><abbr title="App\Service\UserSecurityService::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Service/UserSecurityService.php.html#21"><abbr title="App\Service\UserSecurityService::setupUser">setupUser</abbr></a></td><td class="text-right">0%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Repository/EventRepository.php.html#64"><abbr title="App\Repository\EventRepository::search">search</abbr></a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="Controller/EventController.php.html#33"><abbr title="App\Controller\EventController::list">list</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Controller/AdminController.php.html#39"><abbr title="App\Controller\AdminController::dispatch">dispatch</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Controller/RegistrationController.php.html#17"><abbr title="App\Controller\RegistrationController::register">register</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Controller/EventController.php.html#148"><abbr title="App\Controller\EventController::cancel">cancel</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Controller/UserController.php.html#102"><abbr title="App\Controller\UserController::myProfile">myProfile</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Controller/EventController.php.html#111"><abbr title="App\Controller\EventController::show">show</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Controller/EventController.php.html#129"><abbr title="App\Controller\EventController::update">update</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Controller/UserController.php.html#52"><abbr title="App\Controller\UserController::adminedit">adminedit</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Controller/UserController.php.html#73"><abbr title="App\Controller\UserController::edit">edit</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Entity/Campus.php.html#68"><abbr title="App\Entity\Campus::removeEvents">removeEvents</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Entity/Campus.php.html#98"><abbr title="App\Entity\Campus::removeUser">removeUser</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Entity/Place.php.html#112"><abbr title="App\Entity\Place::removeEvent">removeEvent</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Entity/State.php.html#64"><abbr title="App\Entity\State::removeEvent">removeEvent</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Entity/Town.php.html#83"><abbr title="App\Entity\Town::removeEvent">removeEvent</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Entity/Town.php.html#113"><abbr title="App\Entity\Town::removePlace">removePlace</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Entity/User.php.html#282"><abbr title="App\Entity\User::removeOrganizedEvent">removeOrganizedEvent</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Controller/EventController.php.html#80"><abbr title="App\Controller\EventController::new">new</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Controller/EventController.php.html#179"><abbr title="App\Controller\EventController::registered">registered</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Controller/EventController.php.html#226"><abbr title="App\Controller\EventController::searchlist">searchlist</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Controller/PlaceController.php.html#30"><abbr title="App\Controller\PlaceController::new">new</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Controller/SecurityController.php.html#14"><abbr title="App\Controller\SecurityController::login">login</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Controller/TownController.php.html#30"><abbr title="App\Controller\TownController::new">new</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Controller/UserController.php.html#91"><abbr title="App\Controller\UserController::delete">delete</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Entity/Campus.php.html#58"><abbr title="App\Entity\Campus::addEvents">addEvents</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Entity/Campus.php.html#88"><abbr title="App\Entity\Campus::addUser">addUser</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Entity/Event.php.html#157"><abbr title="App\Entity\Event::addUserParticipation">addUserParticipation</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Entity/Event.php.html#167"><abbr title="App\Entity\Event::removeUserParticipation">removeUserParticipation</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Entity/Place.php.html#102"><abbr title="App\Entity\Place::addEvent">addEvent</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Entity/State.php.html#54"><abbr title="App\Entity\State::addEvent">addEvent</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Entity/Town.php.html#73"><abbr title="App\Entity\Town::addEvent">addEvent</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Entity/Town.php.html#103"><abbr title="App\Entity\Town::addPlace">addPlace</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Entity/User.php.html#107"><abbr title="App\Entity\User::setImageFile">setImageFile</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Entity/User.php.html#272"><abbr title="App\Entity\User::addOrganizedEvent">addOrganizedEvent</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Entity/User.php.html#302"><abbr title="App\Entity\User::addIsRegistered">addIsRegistered</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Repository/CampusRepository.php.html#28"><abbr title="App\Repository\CampusRepository::add">add</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Repository/CampusRepository.php.html#40"><abbr title="App\Repository\CampusRepository::remove">remove</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Repository/EventRepository.php.html#31"><abbr title="App\Repository\EventRepository::add">add</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Repository/EventRepository.php.html#43"><abbr title="App\Repository\EventRepository::update">update</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Repository/EventRepository.php.html#55"><abbr title="App\Repository\EventRepository::remove">remove</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Repository/LieuRepository.php.html#28"><abbr title="App\Repository\LieuRepository::add">add</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Repository/LieuRepository.php.html#40"><abbr title="App\Repository\LieuRepository::remove">remove</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Repository/PlaceRepository.php.html#28"><abbr title="App\Repository\PlaceRepository::add">add</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Repository/PlaceRepository.php.html#40"><abbr title="App\Repository\PlaceRepository::remove">remove</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Repository/SortieRepository.php.html#28"><abbr title="App\Repository\SortieRepository::add">add</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Repository/SortieRepository.php.html#40"><abbr title="App\Repository\SortieRepository::remove">remove</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Repository/StateRepository.php.html#28"><abbr title="App\Repository\StateRepository::add">add</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Repository/StateRepository.php.html#40"><abbr title="App\Repository\StateRepository::remove">remove</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Repository/TownRepository.php.html#28"><abbr title="App\Repository\TownRepository::add">add</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Repository/TownRepository.php.html#40"><abbr title="App\Repository\TownRepository::remove">remove</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#33"><abbr title="App\Repository\UserRepository::add">add</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#45"><abbr title="App\Repository\UserRepository::remove">remove</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#56"><abbr title="App\Repository\UserRepository::upgradePassword">upgradePassword</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Repository/VilleRepository.php.html#28"><abbr title="App\Repository\VilleRepository::add">add</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Repository/VilleRepository.php.html#40"><abbr title="App\Repository\VilleRepository::remove">remove</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Security/AppAuthenticator.php.html#48"><abbr title="App\Security\AppAuthenticator::onAuthenticationSuccess">onAuthenticationSuccess</abbr></a></td><td class="text-right">6</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 9.2.15</a> using <a href="https://secure.php.net/" target="_top">PHP 8.1.4</a> and <a href="https://phpunit.de/">PHPUnit 9.5.20</a> at Thu Apr 21 12:42:01 UTC 2022.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="_js/jquery.min.js" type="text/javascript"></script>
+  <script src="_js/d3.min.js" type="text/javascript"></script>
+  <script src="_js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([32,0,0,1,0,2,0,0,0,0,0,1], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([157,0,0,0,0,0,0,0,0,0,0,33], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[0,6,"<a href=\"Controller\/AdminController.php.html#17\">App\\Controller\\AdminController<\/a>"],[0,3,"<a href=\"Controller\/Admin\/DashboardController.php.html#13\">App\\Controller\\Admin\\DashboardController<\/a>"],[0,1,"<a href=\"Controller\/Admin\/UserCrudController.php.html#8\">App\\Controller\\Admin\\UserCrudController<\/a>"],[0,1,"<a href=\"Controller\/AdministrationController.php.html#9\">App\\Controller\\AdministrationController<\/a>"],[0,23,"<a href=\"Controller\/EventController.php.html#29\">App\\Controller\\EventController<\/a>"],[0,3,"<a href=\"Controller\/PlaceController.php.html#19\">App\\Controller\\PlaceController<\/a>"],[0,5,"<a href=\"Controller\/RegistrationController.php.html#15\">App\\Controller\\RegistrationController<\/a>"],[0,3,"<a href=\"Controller\/SecurityController.php.html#12\">App\\Controller\\SecurityController<\/a>"],[0,4,"<a href=\"Controller\/TownController.php.html#19\">App\\Controller\\TownController<\/a>"],[0,15,"<a href=\"Controller\/UserController.php.html#20\">App\\Controller\\UserController<\/a>"],[20.833333333333336,16,"<a href=\"Entity\/Campus.php.html#10\">App\\Entity\\Campus<\/a>"],[42.5,27,"<a href=\"Entity\/Event.php.html#10\">App\\Entity\\Event<\/a>"],[0,18,"<a href=\"Entity\/Place.php.html#10\">App\\Entity\\Place<\/a>"],[0,10,"<a href=\"Entity\/State.php.html#10\">App\\Entity\\State<\/a>"],[0,18,"<a href=\"Entity\/Town.php.html#10\">App\\Entity\\Town<\/a>"],[49.2063492063492,43,"<a href=\"Entity\/User.php.html#22\">App\\Entity\\User<\/a>"],[0,2,"<a href=\"Form\/AdminUserFormType.php.html#18\">App\\Form\\AdminUserFormType<\/a>"],[0,2,"<a href=\"Form\/EventCancelType.php.html#24\">App\\Form\\EventCancelType<\/a>"],[0,2,"<a href=\"Form\/EventType.php.html#23\">App\\Form\\EventType<\/a>"],[0,2,"<a href=\"Form\/PlaceCancelType.php.html#13\">App\\Form\\PlaceCancelType<\/a>"],[0,2,"<a href=\"Form\/PlaceType.php.html#12\">App\\Form\\PlaceType<\/a>"],[0,2,"<a href=\"Form\/RegistrationFormType.php.html#17\">App\\Form\\RegistrationFormType<\/a>"],[0,2,"<a href=\"Form\/TownType.php.html#11\">App\\Form\\TownType<\/a>"],[0,2,"<a href=\"Form\/UserType.php.html#22\">App\\Form\\UserType<\/a>"],[100,0,"<a href=\"Kernel.php.html#8\">App\\Kernel<\/a>"],[0,5,"<a href=\"Repository\/CampusRepository.php.html#17\">App\\Repository\\CampusRepository<\/a>"],[0,16,"<a href=\"Repository\/EventRepository.php.html#20\">App\\Repository\\EventRepository<\/a>"],[0,5,"<a href=\"Repository\/LieuRepository.php.html#17\">App\\Repository\\LieuRepository<\/a>"],[0,5,"<a href=\"Repository\/PlaceRepository.php.html#17\">App\\Repository\\PlaceRepository<\/a>"],[0,5,"<a href=\"Repository\/SortieRepository.php.html#17\">App\\Repository\\SortieRepository<\/a>"],[0,5,"<a href=\"Repository\/StateRepository.php.html#17\">App\\Repository\\StateRepository<\/a>"],[0,5,"<a href=\"Repository\/TownRepository.php.html#17\">App\\Repository\\TownRepository<\/a>"],[0,8,"<a href=\"Repository\/UserRepository.php.html#22\">App\\Repository\\UserRepository<\/a>"],[0,5,"<a href=\"Repository\/VilleRepository.php.html#17\">App\\Repository\\VilleRepository<\/a>"],[0,5,"<a href=\"Security\/AppAuthenticator.php.html#19\">App\\Security\\AppAuthenticator<\/a>"],[0,2,"<a href=\"Service\/UserSecurityService.php.html#9\">App\\Service\\UserSecurityService<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[0,1,"<a href=\"Controller\/AdminController.php.html#28\">App\\Controller\\AdminController::__construct<\/a>"],[0,5,"<a href=\"Controller\/AdminController.php.html#39\">App\\Controller\\AdminController::dispatch<\/a>"],[0,1,"<a href=\"Controller\/Admin\/DashboardController.php.html#15\">App\\Controller\\Admin\\DashboardController::index<\/a>"],[0,1,"<a href=\"Controller\/Admin\/DashboardController.php.html#37\">App\\Controller\\Admin\\DashboardController::configureDashboard<\/a>"],[0,1,"<a href=\"Controller\/Admin\/DashboardController.php.html#43\">App\\Controller\\Admin\\DashboardController::configureMenuItems<\/a>"],[0,1,"<a href=\"Controller\/Admin\/UserCrudController.php.html#10\">App\\Controller\\Admin\\UserCrudController::getEntityFqcn<\/a>"],[0,1,"<a href=\"Controller\/AdministrationController.php.html#11\">App\\Controller\\AdministrationController::index<\/a>"],[0,6,"<a href=\"Controller\/EventController.php.html#33\">App\\Controller\\EventController::list<\/a>"],[0,2,"<a href=\"Controller\/EventController.php.html#80\">App\\Controller\\EventController::new<\/a>"],[0,3,"<a href=\"Controller\/EventController.php.html#111\">App\\Controller\\EventController::show<\/a>"],[0,3,"<a href=\"Controller\/EventController.php.html#129\">App\\Controller\\EventController::update<\/a>"],[0,4,"<a href=\"Controller\/EventController.php.html#148\">App\\Controller\\EventController::cancel<\/a>"],[0,2,"<a href=\"Controller\/EventController.php.html#179\">App\\Controller\\EventController::registered<\/a>"],[0,1,"<a href=\"Controller\/EventController.php.html#205\">App\\Controller\\EventController::removeRegistered<\/a>"],[0,2,"<a href=\"Controller\/EventController.php.html#226\">App\\Controller\\EventController::searchlist<\/a>"],[0,1,"<a href=\"Controller\/PlaceController.php.html#23\">App\\Controller\\PlaceController::index<\/a>"],[0,2,"<a href=\"Controller\/PlaceController.php.html#30\">App\\Controller\\PlaceController::new<\/a>"],[0,5,"<a href=\"Controller\/RegistrationController.php.html#17\">App\\Controller\\RegistrationController::register<\/a>"],[0,2,"<a href=\"Controller\/SecurityController.php.html#14\">App\\Controller\\SecurityController::login<\/a>"],[0,1,"<a href=\"Controller\/SecurityController.php.html#30\">App\\Controller\\SecurityController::logout<\/a>"],[0,1,"<a href=\"Controller\/TownController.php.html#23\">App\\Controller\\TownController::index<\/a>"],[0,2,"<a href=\"Controller\/TownController.php.html#30\">App\\Controller\\TownController::new<\/a>"],[0,1,"<a href=\"Controller\/TownController.php.html#48\">App\\Controller\\TownController::list<\/a>"],[0,1,"<a href=\"Controller\/UserController.php.html#24\">App\\Controller\\UserController::index<\/a>"],[0,1,"<a href=\"Controller\/UserController.php.html#33\">App\\Controller\\UserController::profileShow<\/a>"],[0,1,"<a href=\"Controller\/UserController.php.html#44\">App\\Controller\\UserController::profile<\/a>"],[0,3,"<a href=\"Controller\/UserController.php.html#52\">App\\Controller\\UserController::adminedit<\/a>"],[0,3,"<a href=\"Controller\/UserController.php.html#73\">App\\Controller\\UserController::edit<\/a>"],[0,2,"<a href=\"Controller\/UserController.php.html#91\">App\\Controller\\UserController::delete<\/a>"],[0,4,"<a href=\"Controller\/UserController.php.html#102\">App\\Controller\\UserController::myProfile<\/a>"],[100,1,"<a href=\"Entity\/Campus.php.html#27\">App\\Entity\\Campus::__construct<\/a>"],[0,1,"<a href=\"Entity\/Campus.php.html#33\">App\\Entity\\Campus::getId<\/a>"],[100,1,"<a href=\"Entity\/Campus.php.html#38\">App\\Entity\\Campus::getName<\/a>"],[100,1,"<a href=\"Entity\/Campus.php.html#43\">App\\Entity\\Campus::setName<\/a>"],[0,1,"<a href=\"Entity\/Campus.php.html#53\">App\\Entity\\Campus::getEvents<\/a>"],[0,2,"<a href=\"Entity\/Campus.php.html#58\">App\\Entity\\Campus::addEvents<\/a>"],[0,3,"<a href=\"Entity\/Campus.php.html#68\">App\\Entity\\Campus::removeEvents<\/a>"],[0,1,"<a href=\"Entity\/Campus.php.html#83\">App\\Entity\\Campus::getUsers<\/a>"],[0,2,"<a href=\"Entity\/Campus.php.html#88\">App\\Entity\\Campus::addUser<\/a>"],[0,3,"<a href=\"Entity\/Campus.php.html#98\">App\\Entity\\Campus::removeUser<\/a>"],[100,1,"<a href=\"Entity\/Event.php.html#55\">App\\Entity\\Event::__construct<\/a>"],[0,1,"<a href=\"Entity\/Event.php.html#60\">App\\Entity\\Event::getId<\/a>"],[100,1,"<a href=\"Entity\/Event.php.html#65\">App\\Entity\\Event::getName<\/a>"],[100,1,"<a href=\"Entity\/Event.php.html#70\">App\\Entity\\Event::setName<\/a>"],[100,1,"<a href=\"Entity\/Event.php.html#77\">App\\Entity\\Event::getStartTime<\/a>"],[100,1,"<a href=\"Entity\/Event.php.html#82\">App\\Entity\\Event::setStartTime<\/a>"],[0,1,"<a href=\"Entity\/Event.php.html#89\">App\\Entity\\Event::getDuration<\/a>"],[100,1,"<a href=\"Entity\/Event.php.html#94\">App\\Entity\\Event::setDuration<\/a>"],[0,1,"<a href=\"Entity\/Event.php.html#101\">App\\Entity\\Event::getRegistrationTimeLimit<\/a>"],[100,1,"<a href=\"Entity\/Event.php.html#106\">App\\Entity\\Event::setRegistrationTimeLimit<\/a>"],[0,1,"<a href=\"Entity\/Event.php.html#113\">App\\Entity\\Event::getRegistrationMax<\/a>"],[100,1,"<a href=\"Entity\/Event.php.html#118\">App\\Entity\\Event::setRegistrationMax<\/a>"],[0,1,"<a href=\"Entity\/Event.php.html#125\">App\\Entity\\Event::getEventInfo<\/a>"],[100,1,"<a href=\"Entity\/Event.php.html#130\">App\\Entity\\Event::setEventInfo<\/a>"],[0,1,"<a href=\"Entity\/Event.php.html#137\">App\\Entity\\Event::getOrganizer<\/a>"],[100,1,"<a href=\"Entity\/Event.php.html#142\">App\\Entity\\Event::setOrganizer<\/a>"],[0,1,"<a href=\"Entity\/Event.php.html#152\">App\\Entity\\Event::getUsers<\/a>"],[0,2,"<a href=\"Entity\/Event.php.html#157\">App\\Entity\\Event::addUserParticipation<\/a>"],[0,2,"<a href=\"Entity\/Event.php.html#167\">App\\Entity\\Event::removeUserParticipation<\/a>"],[0,1,"<a href=\"Entity\/Event.php.html#176\">App\\Entity\\Event::getCampusSite<\/a>"],[0,1,"<a href=\"Entity\/Event.php.html#181\">App\\Entity\\Event::setCampusSite<\/a>"],[0,1,"<a href=\"Entity\/Event.php.html#188\">App\\Entity\\Event::getPlace<\/a>"],[0,1,"<a href=\"Entity\/Event.php.html#193\">App\\Entity\\Event::setPlace<\/a>"],[0,1,"<a href=\"Entity\/Event.php.html#202\">App\\Entity\\Event::getState<\/a>"],[0,1,"<a href=\"Entity\/Event.php.html#207\">App\\Entity\\Event::setState<\/a>"],[0,1,"<a href=\"Entity\/Place.php.html#36\">App\\Entity\\Place::__construct<\/a>"],[0,1,"<a href=\"Entity\/Place.php.html#41\">App\\Entity\\Place::getId<\/a>"],[0,1,"<a href=\"Entity\/Place.php.html#46\">App\\Entity\\Place::getName<\/a>"],[0,1,"<a href=\"Entity\/Place.php.html#51\">App\\Entity\\Place::setName<\/a>"],[0,1,"<a href=\"Entity\/Place.php.html#58\">App\\Entity\\Place::getStreet<\/a>"],[0,1,"<a href=\"Entity\/Place.php.html#63\">App\\Entity\\Place::setStreet<\/a>"],[0,1,"<a href=\"Entity\/Place.php.html#70\">App\\Entity\\Place::getLatitude<\/a>"],[0,1,"<a href=\"Entity\/Place.php.html#75\">App\\Entity\\Place::setLatitude<\/a>"],[0,1,"<a href=\"Entity\/Place.php.html#82\">App\\Entity\\Place::getLongitude<\/a>"],[0,1,"<a href=\"Entity\/Place.php.html#87\">App\\Entity\\Place::setLongitude<\/a>"],[0,1,"<a href=\"Entity\/Place.php.html#97\">App\\Entity\\Place::getEvents<\/a>"],[0,2,"<a href=\"Entity\/Place.php.html#102\">App\\Entity\\Place::addEvent<\/a>"],[0,3,"<a href=\"Entity\/Place.php.html#112\">App\\Entity\\Place::removeEvent<\/a>"],[0,1,"<a href=\"Entity\/Place.php.html#124\">App\\Entity\\Place::getTown<\/a>"],[0,1,"<a href=\"Entity\/Place.php.html#129\">App\\Entity\\Place::setTown<\/a>"],[0,1,"<a href=\"Entity\/State.php.html#24\">App\\Entity\\State::__construct<\/a>"],[0,1,"<a href=\"Entity\/State.php.html#29\">App\\Entity\\State::getId<\/a>"],[0,1,"<a href=\"Entity\/State.php.html#34\">App\\Entity\\State::getLibeller<\/a>"],[0,1,"<a href=\"Entity\/State.php.html#39\">App\\Entity\\State::setLibeller<\/a>"],[0,1,"<a href=\"Entity\/State.php.html#49\">App\\Entity\\State::getEvents<\/a>"],[0,2,"<a href=\"Entity\/State.php.html#54\">App\\Entity\\State::addEvent<\/a>"],[0,3,"<a href=\"Entity\/State.php.html#64\">App\\Entity\\State::removeEvent<\/a>"],[0,1,"<a href=\"Entity\/Town.php.html#30\">App\\Entity\\Town::__construct<\/a>"],[0,1,"<a href=\"Entity\/Town.php.html#36\">App\\Entity\\Town::getId<\/a>"],[0,1,"<a href=\"Entity\/Town.php.html#41\">App\\Entity\\Town::getName<\/a>"],[0,1,"<a href=\"Entity\/Town.php.html#46\">App\\Entity\\Town::setName<\/a>"],[0,1,"<a href=\"Entity\/Town.php.html#53\">App\\Entity\\Town::getPostCode<\/a>"],[0,1,"<a href=\"Entity\/Town.php.html#58\">App\\Entity\\Town::setPostCode<\/a>"],[0,1,"<a href=\"Entity\/Town.php.html#68\">App\\Entity\\Town::getEvents<\/a>"],[0,2,"<a href=\"Entity\/Town.php.html#73\">App\\Entity\\Town::addEvent<\/a>"],[0,3,"<a href=\"Entity\/Town.php.html#83\">App\\Entity\\Town::removeEvent<\/a>"],[0,1,"<a href=\"Entity\/Town.php.html#98\">App\\Entity\\Town::getPlaces<\/a>"],[0,2,"<a href=\"Entity\/Town.php.html#103\">App\\Entity\\Town::addPlace<\/a>"],[0,3,"<a href=\"Entity\/Town.php.html#113\">App\\Entity\\Town::removePlace<\/a>"],[0,1,"<a href=\"Entity\/User.php.html#86\">App\\Entity\\User::serialize<\/a>"],[0,1,"<a href=\"Entity\/User.php.html#91\">App\\Entity\\User::unserialize<\/a>"],[0,1,"<a href=\"Entity\/User.php.html#99\">App\\Entity\\User::getImageFile<\/a>"],[0,2,"<a href=\"Entity\/User.php.html#107\">App\\Entity\\User::setImageFile<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#116\">App\\Entity\\User::__construct<\/a>"],[0,1,"<a href=\"Entity\/User.php.html#122\">App\\Entity\\User::getId<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#127\">App\\Entity\\User::getEmail<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#132\">App\\Entity\\User::setEmail<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#144\">App\\Entity\\User::getUserIdentifier<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#152\">App\\Entity\\User::getRoles<\/a>"],[0,1,"<a href=\"Entity\/User.php.html#161\">App\\Entity\\User::setRoles<\/a>"],[0,1,"<a href=\"Entity\/User.php.html#171\">App\\Entity\\User::getPassword<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#176\">App\\Entity\\User::setPassword<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#186\">App\\Entity\\User::eraseCredentials<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#192\">App\\Entity\\User::getLastName<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#197\">App\\Entity\\User::setLastName<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#204\">App\\Entity\\User::getFirstName<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#209\">App\\Entity\\User::setFirstName<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#216\">App\\Entity\\User::getPhone<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#221\">App\\Entity\\User::setPhone<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#228\">App\\Entity\\User::getAdmin<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#233\">App\\Entity\\User::setAdmin<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#240\">App\\Entity\\User::getActive<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#245\">App\\Entity\\User::setActive<\/a>"],[0,1,"<a href=\"Entity\/User.php.html#252\">App\\Entity\\User::getPseudo<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#257\">App\\Entity\\User::setPseudo<\/a>"],[0,1,"<a href=\"Entity\/User.php.html#267\">App\\Entity\\User::getOrganizedEvent<\/a>"],[0,2,"<a href=\"Entity\/User.php.html#272\">App\\Entity\\User::addOrganizedEvent<\/a>"],[0,3,"<a href=\"Entity\/User.php.html#282\">App\\Entity\\User::removeOrganizedEvent<\/a>"],[0,1,"<a href=\"Entity\/User.php.html#297\">App\\Entity\\User::getIsRegistered<\/a>"],[0,2,"<a href=\"Entity\/User.php.html#302\">App\\Entity\\User::addIsRegistered<\/a>"],[0,1,"<a href=\"Entity\/User.php.html#311\">App\\Entity\\User::removeIsRegistered<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#318\">App\\Entity\\User::getCampus<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#323\">App\\Entity\\User::setCampus<\/a>"],[0,1,"<a href=\"Entity\/User.php.html#330\">App\\Entity\\User::getImage<\/a>"],[0,1,"<a href=\"Entity\/User.php.html#335\">App\\Entity\\User::setImage<\/a>"],[0,1,"<a href=\"Entity\/User.php.html#342\">App\\Entity\\User::getUpdatedAt<\/a>"],[0,1,"<a href=\"Entity\/User.php.html#347\">App\\Entity\\User::setUpdatedAt<\/a>"],[0,1,"<a href=\"Form\/AdminUserFormType.php.html#20\">App\\Form\\AdminUserFormType::buildForm<\/a>"],[0,1,"<a href=\"Form\/AdminUserFormType.php.html#30\">App\\Form\\AdminUserFormType::configureOptions<\/a>"],[0,1,"<a href=\"Form\/EventCancelType.php.html#26\">App\\Form\\EventCancelType::buildForm<\/a>"],[0,1,"<a href=\"Form\/EventCancelType.php.html#47\">App\\Form\\EventCancelType::configureOptions<\/a>"],[0,1,"<a href=\"Form\/EventType.php.html#25\">App\\Form\\EventType::buildForm<\/a>"],[0,1,"<a href=\"Form\/EventType.php.html#58\">App\\Form\\EventType::configureOptions<\/a>"],[0,1,"<a href=\"Form\/PlaceCancelType.php.html#15\">App\\Form\\PlaceCancelType::buildForm<\/a>"],[0,1,"<a href=\"Form\/PlaceCancelType.php.html#24\">App\\Form\\PlaceCancelType::configureOptions<\/a>"],[0,1,"<a href=\"Form\/PlaceType.php.html#14\">App\\Form\\PlaceType::buildForm<\/a>"],[0,1,"<a href=\"Form\/PlaceType.php.html#26\">App\\Form\\PlaceType::configureOptions<\/a>"],[0,1,"<a href=\"Form\/RegistrationFormType.php.html#19\">App\\Form\\RegistrationFormType::buildForm<\/a>"],[0,1,"<a href=\"Form\/RegistrationFormType.php.html#50\">App\\Form\\RegistrationFormType::configureOptions<\/a>"],[0,1,"<a href=\"Form\/TownType.php.html#13\">App\\Form\\TownType::buildForm<\/a>"],[0,1,"<a href=\"Form\/TownType.php.html#21\">App\\Form\\TownType::configureOptions<\/a>"],[0,1,"<a href=\"Form\/UserType.php.html#24\">App\\Form\\UserType::buildForm<\/a>"],[0,1,"<a href=\"Form\/UserType.php.html#84\">App\\Form\\UserType::configureOptions<\/a>"],[0,1,"<a href=\"Repository\/CampusRepository.php.html#19\">App\\Repository\\CampusRepository::__construct<\/a>"],[0,2,"<a href=\"Repository\/CampusRepository.php.html#28\">App\\Repository\\CampusRepository::add<\/a>"],[0,2,"<a href=\"Repository\/CampusRepository.php.html#40\">App\\Repository\\CampusRepository::remove<\/a>"],[0,1,"<a href=\"Repository\/EventRepository.php.html#22\">App\\Repository\\EventRepository::__construct<\/a>"],[0,2,"<a href=\"Repository\/EventRepository.php.html#31\">App\\Repository\\EventRepository::add<\/a>"],[0,2,"<a href=\"Repository\/EventRepository.php.html#43\">App\\Repository\\EventRepository::update<\/a>"],[0,2,"<a href=\"Repository\/EventRepository.php.html#55\">App\\Repository\\EventRepository::remove<\/a>"],[0,9,"<a href=\"Repository\/EventRepository.php.html#64\">App\\Repository\\EventRepository::search<\/a>"],[0,1,"<a href=\"Repository\/LieuRepository.php.html#19\">App\\Repository\\LieuRepository::__construct<\/a>"],[0,2,"<a href=\"Repository\/LieuRepository.php.html#28\">App\\Repository\\LieuRepository::add<\/a>"],[0,2,"<a href=\"Repository\/LieuRepository.php.html#40\">App\\Repository\\LieuRepository::remove<\/a>"],[0,1,"<a href=\"Repository\/PlaceRepository.php.html#19\">App\\Repository\\PlaceRepository::__construct<\/a>"],[0,2,"<a href=\"Repository\/PlaceRepository.php.html#28\">App\\Repository\\PlaceRepository::add<\/a>"],[0,2,"<a href=\"Repository\/PlaceRepository.php.html#40\">App\\Repository\\PlaceRepository::remove<\/a>"],[0,1,"<a href=\"Repository\/SortieRepository.php.html#19\">App\\Repository\\SortieRepository::__construct<\/a>"],[0,2,"<a href=\"Repository\/SortieRepository.php.html#28\">App\\Repository\\SortieRepository::add<\/a>"],[0,2,"<a href=\"Repository\/SortieRepository.php.html#40\">App\\Repository\\SortieRepository::remove<\/a>"],[0,1,"<a href=\"Repository\/StateRepository.php.html#19\">App\\Repository\\StateRepository::__construct<\/a>"],[0,2,"<a href=\"Repository\/StateRepository.php.html#28\">App\\Repository\\StateRepository::add<\/a>"],[0,2,"<a href=\"Repository\/StateRepository.php.html#40\">App\\Repository\\StateRepository::remove<\/a>"],[0,1,"<a href=\"Repository\/TownRepository.php.html#19\">App\\Repository\\TownRepository::__construct<\/a>"],[0,2,"<a href=\"Repository\/TownRepository.php.html#28\">App\\Repository\\TownRepository::add<\/a>"],[0,2,"<a href=\"Repository\/TownRepository.php.html#40\">App\\Repository\\TownRepository::remove<\/a>"],[0,1,"<a href=\"Repository\/UserRepository.php.html#24\">App\\Repository\\UserRepository::__construct<\/a>"],[0,2,"<a href=\"Repository\/UserRepository.php.html#33\">App\\Repository\\UserRepository::add<\/a>"],[0,2,"<a href=\"Repository\/UserRepository.php.html#45\">App\\Repository\\UserRepository::remove<\/a>"],[0,2,"<a href=\"Repository\/UserRepository.php.html#56\">App\\Repository\\UserRepository::upgradePassword<\/a>"],[0,1,"<a href=\"Repository\/UserRepository.php.html#67\">App\\Repository\\UserRepository::loadUserByIdentifier<\/a>"],[0,1,"<a href=\"Repository\/VilleRepository.php.html#19\">App\\Repository\\VilleRepository::__construct<\/a>"],[0,2,"<a href=\"Repository\/VilleRepository.php.html#28\">App\\Repository\\VilleRepository::add<\/a>"],[0,2,"<a href=\"Repository\/VilleRepository.php.html#40\">App\\Repository\\VilleRepository::remove<\/a>"],[0,1,"<a href=\"Security\/AppAuthenticator.php.html#27\">App\\Security\\AppAuthenticator::__construct<\/a>"],[0,1,"<a href=\"Security\/AppAuthenticator.php.html#32\">App\\Security\\AppAuthenticator::authenticate<\/a>"],[0,2,"<a href=\"Security\/AppAuthenticator.php.html#48\">App\\Security\\AppAuthenticator::onAuthenticationSuccess<\/a>"],[0,1,"<a href=\"Security\/AppAuthenticator.php.html#60\">App\\Security\\AppAuthenticator::getLoginUrl<\/a>"],[0,1,"<a href=\"Service\/UserSecurityService.php.html#16\">App\\Service\\UserSecurityService::__construct<\/a>"],[0,1,"<a href=\"Service\/UserSecurityService.php.html#21\">App\\Service\\UserSecurityService::setupUser<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>
