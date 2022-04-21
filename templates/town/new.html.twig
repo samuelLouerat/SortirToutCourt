@@ -3,14 +3,16 @@
 {% block title %}Nouvelle ville{% endblock %}
 
 {% block body %}
-    <h1>Créer une nouvelle ville</h1>
+    <div class="column is-offset-9">
+        <p>Date du jour : {{ "now"|date('d/m/Y') }}</p>
+        <p>Participant : {{ app.user.lastName }} {{ app.user.firstName }}</p>
+    </div>
+    <div class="container box" style="width: 600px;">
+        <h1 class="title is-3">Créer une nouvelle ville</h1>
 
-    {{ include('town/_form.html.twig') }}
-
-
+        {{ include('town/_form.html.twig') }}
+    </div>
 
     <script src="{{ asset("town/script.js") }}"></script>
-
-
 
 {% endblock %}

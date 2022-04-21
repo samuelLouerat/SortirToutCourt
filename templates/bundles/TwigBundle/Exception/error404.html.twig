@@ -2,10 +2,13 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Page introuvable</h1>
 
-    <p>
-      La page demandée est introuvable!
-        <a href="{{ path('login') }}">retour à la page d'accueil</a>.
-    </p>
+    <div class="container box" style="width: 600px;">
+        <h1>Page introuvable</h1>
+
+        <p>
+            La page demandée est introuvable!
+            <a href="{{ path('login') }}">retour à la page d'accueil</a>.
+        </p>
+    </div>
 {% endblock %}
