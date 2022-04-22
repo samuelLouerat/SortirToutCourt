@@ -2,11 +2,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container box">
-        <h1 class="title is-3">Accès refusé</h1>
 
+    <div class="container box" style="width: 600px;">
+        <h1>Accès refusé</h1>
         <p>
-          Vous n'avez pas les droits nécéssaires pour accéder à ce module!
+            Vous n'avez pas les droits nécessaires pour accéder à ce module!
+
             <a href="{{ path('login') }}">retour à la page d'accueil</a>.
         </p>
     </div>

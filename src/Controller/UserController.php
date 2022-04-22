@@ -2,14 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\AvatarFile;
-use App\Entity\Event;
 use App\Entity\User;
 use App\Form\AdminUserFormType;
-use App\Form\AvatarFileType;
-use App\Form\RegistrationFormType;
 use App\Form\UserType;
-use App\Repository\EventRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,11 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 #[Route('/user')]
 class UserController extends AbstractController
 {
-
     #[Route('/list', name: 'user_list', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
@@ -31,7 +24,6 @@ class UserController extends AbstractController
         ]);
     }
 
-
     #[Route('/show/{id}', name: 'user_profile_show', requirements: ["id" => "\d+"], methods: ['GET'])]
     public function profileShow(User $user): Response
     {
@@ -39,7 +31,6 @@ class UserController extends AbstractController
             'user' => $user,
         ]);
     }
-
 
     #[Route('/{id}', name: 'user_profile', requirements: ["id" => "\d+"], methods: ['GET'])]
     public function profile(User $user): Response
@@ -50,20 +41,20 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/admin/edit', name: 'admin_user_edit', requirements: ["id" => "\d+"], methods: ['GET', 'POST'])]
-    public function adminedit(Request $request, User $user, UserRepository $userRepository, EntityManagerInterface $em): Response
+    public function adminedit(
+        Request                $request,
+        User                   $user,
+        EntityManagerInterface $em
+    ): Response
     {
-
         $form = $this->createForm(AdminUserFormType::class, $user);
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em->persist($user);
             $em->flush();
             return $this->redirectToRoute('user_list', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->renderForm('user/admin_update.html.twig', [
             'user' => $user,
             'form' => $form,
@@ -71,7 +62,11 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'user_edit', requirements: ["id" => "\d+"], methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, UserRepository $userRepository): Response
+    public function edit(
+        Request        $request,
+        User           $user,
+        UserRepository $userRepository
+    ): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -80,24 +75,24 @@ class UserController extends AbstractController
             $userRepository->add($user);
             return $this->redirectToRoute('user_list', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->renderForm('user/update.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);
     }
 
-
     #[Route('/delete/{id}', name: 'user_delete', requirements: ["id" => "\d+"], methods: ['POST'])]
-    public function delete(Request $request, User $user, UserRepository $userRepository): Response
+    public function delete(
+        Request        $request,
+        User           $user,
+        UserRepository $userRepository
+    ): Response
     {
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $userRepository->remove($user);
         }
-
         return $this->redirectToRoute('user_list', [], Response::HTTP_SEE_OTHER);
     }
-
 
     #[Route('/myprofile', name: 'user_myprofile')]
     public function myProfile(
@@ -107,20 +102,16 @@ class UserController extends AbstractController
         UserPasswordHasherInterface $userPasswordHasher
     ): Response
     {
-
         $us = $this->getUser()->getUserIdentifier();
         $user = $pr->findOneBy(['email' => $us]);
 
         $userForm = $this->createForm(UserType::class, $user);
         $userForm->handleRequest($request);
-
         if (
             $userForm->isSubmitted()
             && $userForm->isValid()
-
         ) {
             $newPassword = $userForm->get('password')->getData();
-
             if ($userPasswordHasher->isPasswordValid($user, $newPassword)) {
                 $em->persist($user);
                 $em->flush();
@@ -143,13 +134,10 @@ class UserController extends AbstractController
                 'event_list'
             );
         }
-
         return $this->render(
             'user/myProfile.html.twig', [
                 'userForm' => $userForm->createView()
             ]
         );
-
     }
-
 }

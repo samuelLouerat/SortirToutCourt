@@ -13,8 +13,8 @@ class TownType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name',TextType::class,["label"=>'ville'])
-            ->add('postCode', TextType::class,["label"=>'code postal' ])
+            ->add('name',TextType::class,["label"=>'Ville'])
+            ->add('postCode', TextType::class,["label"=>'Code postal' ])
         ;
     }
 

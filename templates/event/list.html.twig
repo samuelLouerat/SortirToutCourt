@@ -58,8 +58,6 @@
                     <input class="checkbox" name="pastEvents" id="pastEvents"
                            type="checkbox" {% if pastEvents %} checked {% endif %}>
                     <label class="checkbox" for="pastEvents">Sortie passées</label>
-
-
                 </div>
             </div>
             <div class="filter1">
@@ -81,7 +79,6 @@
                 <th>Organisateur</th>
                 <th>Actions</th>
             </tr>
-
 
             </thead>
             <div class="filter2">
@@ -115,7 +112,6 @@
                                 <a href="{{ path('event_cancel', {'id': event.id}) }}">Annuler</a>
                             {% endif %}
                         {% endif %}
-
 
                         {% set inscrit = '0' %}
                         {% for user in event.Users %}

@@ -3,8 +3,18 @@
 {% block title %}Annuler Sortie{% endblock %}
 
 {% block body %}
-    <h1>Annuler la Sortie</h1>
-    {{ include('event/_form_cancel.html.twig', {'button_label': 'Annuler la Sortie'}) }}
-    <a href="{{ path('event_list') }}">Retour à la liste</a>
+    <div class="column is-offset-9">
+        <p>Date du jour : {{ "now"|date('d/m/Y') }}</p>
+        <p>Participant : {{ app.user.lastName }} {{ app.user.firstName }}</p>
+    </div>
+    <div class="container box" style="width: 600px;">
+        <h1 class="title is-3">Annuler la Sortie</h1>
+        {{ include('event/_form_cancel.html.twig', {'button_label': 'Annuler la Sortie'}) }}
 
+        <div class="filter1">
+            <button class="button is-rounded">
+                <a href="{{ path('event_list') }}">Retour à la liste</a>
+            </button>
+        </div>
+    </div>
 {% endblock %}

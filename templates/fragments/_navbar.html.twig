@@ -1,17 +1,17 @@
 <nav class="navbar">
-        <div>
-                <img class="navbar-item" src="{{ asset('/images/logosvg1.svg') }}" alt="Logo Trippy">
-        </div>
-        <div class="navbar-end">
-    {% if not app.user %}
-                <a class="navbar-item" href="{{ path('login') }}">Se connecter</a>
-    {% endif %}{% if app.user %}
-                <a class="navbar-item" href="{{ path('user_myprofile') }}">Mon profil</a>
-                <a class="navbar-item" href="{{ path('event_list') }}">Accueil</a>
-                <a class="navbar-item" href="{{ path('logout') }}">Se deconnecter</a>
-    {% endif %}
-                {% if is_granted("ROLE_ADMIN") %}
-                  <a class="navbar-item" href="{{ path('administration') }}">Administration</a>
-                {% endif %}
-        </div>
+    <div>
+        <img class="navbar-item" src="{{ asset('/images/logosvg1.svg') }}" alt="Logo Trippy">
+    </div>
+    <div class="navbar-end">
+        {% if not app.user %}
+            <a class="navbar-item" href="{{ path('login') }}">Se connecter</a>
+        {% endif %}{% if app.user %}
+            <a class="navbar-item" href="{{ path('user_myprofile') }}">Mon profil</a>
+            <a class="navbar-item" href="{{ path('event_list') }}">Accueil</a>
+            <a class="navbar-item" href="{{ path('logout') }}">Se deconnecter</a>
+        {% endif %}
+        {% if is_granted("ROLE_ADMIN") %}
+            <a class="navbar-item" href="{{ path('administration') }}">Administration</a>
+        {% endif %}
+    </div>
 </nav>
