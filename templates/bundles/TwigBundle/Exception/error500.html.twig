@@ -2,10 +2,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Page introuvable</h1>
+    <div class="container box">
+        <h1 class="title is-3">Page introuvable</h1>
 
-    <p>
-      L'insertion de doublon est interdit en base de données
-        <a href="{{ path('login') }}">retour à la page d'accueil</a>.
-    </p>
+        <p>
+          L'insertion de doublon est interdit en base de données
+            <a href="{{ path('login') }}">retour à la page d'accueil</a>.
+        </p>
+    </div>
 {% endblock %}

@@ -2,6 +2,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
     <div class="container box" style="width: 600px;">
         <img src="{{ asset('/images/404.gif') }}" alt="Erreur 404">
         <div class="filter1">
@@ -9,5 +10,6 @@
                 <a href="{{ path('login') }}">Retour à la page d'accueil</a>
             </button>
         </div>
+
     </div>
 {% endblock %}
