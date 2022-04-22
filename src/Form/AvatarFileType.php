@@ -12,18 +12,16 @@ class AvatarFileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-       $builder
-        ->add('imageFile',
-            VichImageType::class, [
-                'label' => " ",
-                'required' => false,
-                'download_uri' => false,
-                'allow_delete' => false,
-                'image_uri' => true
-            ])
-    ;
-
-
+        $builder
+            ->add('imageFile',
+                VichImageType::class, [
+                    'label' => " ",
+                    'required' => false,
+                    'download_uri' => false,
+                    'allow_delete' => false,
+                    'image_uri' => true
+                ])
+        ; 
     }
 
     public function configureOptions(OptionsResolver $resolver): void
