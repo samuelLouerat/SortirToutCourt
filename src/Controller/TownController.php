@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/town')]
+#[Route('administration/town')]
 class TownController extends AbstractController
 {
     public function index(): Response

@@ -145,15 +145,21 @@ class EventController extends AbstractController
     #[Route('/{id}/edit', name: 'event_update', requirements: ["id" => "\d+"], methods: ['GET', 'POST'])]
     public function update(
         Request         $request,
+        EntityManagerInterface $em,
         Event           $event,
         EventRepository $eventRepository
     ): Response
     {
+        $camp=$event->getCampusSite();
         $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
+$event->setCampusSite($camp);
+        if ($form->isSubmitted()) {
+           // $eventRepository->add($event);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $eventRepository->add($event);
+
+            $em->persist($event);
+            $em->flush();
             return $this->redirectToRoute('event_list', [], Response::HTTP_SEE_OTHER);
         }
         return $this->renderForm('event/update.html.twig', [
